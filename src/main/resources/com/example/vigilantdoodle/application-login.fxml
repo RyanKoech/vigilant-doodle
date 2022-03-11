@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -48,6 +49,17 @@
                   <Font name="System Bold" size="36.0" />
                </font>
             </Label>
+            <Label fx:id="messageLabel" alignment="CENTER" contentDisplay="CENTER" text="Invalid login credentials" textAlignment="CENTER" textFill="#f85656" underline="true">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+               <effect>
+                  <Glow />
+               </effect>
+               <VBox.margin>
+                  <Insets top="40.0" />
+               </VBox.margin>
+            </Label>
             <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0" spacing="20.0">
                <children>
                   <Label text="Username" textFill="#003194">
@@ -58,7 +70,7 @@
                   <TextField fx:id="usernameTextfield" />
                </children>
                <VBox.margin>
-                  <Insets top="50.0" />
+                  <Insets top="10.0" />
                </VBox.margin>
             </HBox>
             <HBox alignment="CENTER" layoutX="10.0" layoutY="424.0" prefHeight="45.0" prefWidth="200.0" spacing="25.0">

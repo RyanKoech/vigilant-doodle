@@ -4,14 +4,21 @@ import com.example.vigilantdoodle.utilities.MysqlConnector;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -43,7 +50,7 @@ public class ApplicationLoginController {
 
     @FXML
     void onInvestigatingTextClick(ActionEvent event) {
-
+        loginState = INVESTIGATING_STATE;
     }
 
     @FXML
@@ -53,35 +60,35 @@ public class ApplicationLoginController {
             messageLabel.setText("Please Ensure Password and Id field are filled");
             return;
         }
-        messageLabel.setText("This ran");
-        loginUser(obNumberTextfield.getText(), passwordTextfield.getText());
+        loginUser(obNumberTextfield.getText(), passwordTextfield.getText(), event);
     }
 
     @FXML
     void onToggleAdminClick(ActionEvent event) {
-        if(loginState.equals(ADMIN_STATE)){
-            loginState = POLICE_STATE;
-        }else if(loginState.equals(POLICE_STATE)){
+        if(adminButton.getText().equalsIgnoreCase(ADMIN_STATE)){
             loginState = ADMIN_STATE;
+            adminButton.setText(POLICE_STATE.substring(0, 1).toUpperCase() + POLICE_STATE.substring(1).toLowerCase());
+        }else if(adminButton.getText().equalsIgnoreCase(POLICE_STATE)){
+            loginState = POLICE_STATE;
+            adminButton.setText(ADMIN_STATE.substring(0, 1).toUpperCase() + ADMIN_STATE.substring(1).toLowerCase());
         }
-
-        adminButton.setText(loginState.substring(0, 1).toUpperCase() + loginState.substring(1).toLowerCase());
     }
 
-    void loginUser(String obNumber, String password) {
+    void loginUser(String obNumber, String password, ActionEvent event) {
         Connection connection = MysqlConnector.connectDB();
         if(connection != null){
             try{
                 PreparedStatement statement = (PreparedStatement)
-                        connection.prepareStatement ("SELECT * FROM `loginform` WHERE `username` = '987654321' AND `password` = '123456789' ");
-//                statement.setString(1, obNumber);
-//                statement.setString(2, password);
+                        connection.prepareStatement ("SELECT * FROM "+ getUserTables() + " WHERE `Police_Id` = ? and password = ?");
+                statement.setString(1, obNumber);
+                statement.setString(2, password);
                 ResultSet res = statement.executeQuery();
 
                 if(res.next()){
                     messageLabel.setText("Logged in successfully");
+                    navigate(event);
                 }else{
-                    messageLabel.setText("Invalid Cridentials");
+                    messageLabel.setText("Invalid Credentials for " + loginState);
                 }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -90,6 +97,37 @@ public class ApplicationLoginController {
         }else {
             messageLabel.setText("Error with Connecting with Database");
         }
+    }
+
+    String getUserTables(){
+        return switch (loginState) {
+            case ADMIN_STATE -> "`police admin`";
+            case POLICE_STATE -> "`police`";
+            case INVESTIGATING_STATE -> "`police investigating`";
+            default -> "";
+        };
+    }
+
+    void navigate(ActionEvent event){
+        try{
+            Parent menuParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(getDashboardFXMLs())));
+            Scene menuScene = new Scene(menuParent);
+
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(menuScene);
+            window.show();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    String getDashboardFXMLs(){
+        return switch (loginState) {
+            case ADMIN_STATE -> "police-admin-dashboard.fxml";
+            case POLICE_STATE -> "police-dashboard.fxml";
+            case INVESTIGATING_STATE -> "police-investigating-dashboard.fxml";
+            default -> "";
+        };
     }
 
 }

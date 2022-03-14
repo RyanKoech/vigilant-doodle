@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class MysqlConnector {
-    static final String DB_URL = "jdbc:mysql://localhost:3306/test";
+    static final String DB_URL = "jdbc:mysql://localhost:3306/crimes reporting system";
     static final String USER = "root";
     static final String PASS = "";
     public static Connection connectDB(){

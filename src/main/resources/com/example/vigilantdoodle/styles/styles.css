@@ -1,0 +1,6 @@
+.left-innershadow {
+    -fx-border-color:
+        linear-gradient(to right, rgba(0,0,0,0.4), transparent);
+    -fx-border-style: solid;
+    -fx-border-width: 0 0 0 5px;
+}

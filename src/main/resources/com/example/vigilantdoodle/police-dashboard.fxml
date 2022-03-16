@@ -94,7 +94,7 @@
    <right>
       <VBox prefHeight="701.0" prefWidth="1500.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER_LEFT" minHeight="125.0" prefHeight="138.0" prefWidth="725.0" style="-fx-background-color: #fff10b; -fx-border-color: linear-gradient(to right, rgba(0,0,0,0.4), transparent); -fx-border-style: solid; -fx-border-width: 0 0 0 5px;">
+            <HBox alignment="CENTER_LEFT" minHeight="125.0" prefHeight="138.0" prefWidth="725.0" style="-fx-background-color: #fff10b;" styleClass="left-innershadow" stylesheets="@styles/styles.css">
                <children>
                   <Label minWidth="200.0" text="Inpsector John Doe">
                      <font>
@@ -123,12 +123,12 @@
                <children>
                   <AnchorPane maxHeight="1.7976931348623157E308" prefHeight="1000.0" prefWidth="1500.0">
                      <children>
-                        <Pane prefHeight="576.0" prefWidth="707.0" style="-fx-background-color: #F5F8F7;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Pane prefHeight="576.0" prefWidth="707.0" style="-fx-background-color: #F5F8F7;" styleClass="left-innershadow" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <Label layoutX="375.0" layoutY="261.0" text="Another Screen" />
                            </children>
                         </Pane>
-                        <VBox alignment="CENTER" prefHeight="576.0" prefWidth="707.0" style="-fx-background-color: #F5F8F7;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox alignment="CENTER" prefHeight="576.0" prefWidth="707.0" style="-fx-background-color: #F5F8F7;" styleClass="left-innershadow" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <Label text="My Reports">
                                  <font>

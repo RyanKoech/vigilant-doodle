@@ -4,3 +4,7 @@
     -fx-border-style: solid;
     -fx-border-width: 0 0 0 5px;
 }
+
+.grey-background{
+    -fx-background-color: #F5F8F7;
+}

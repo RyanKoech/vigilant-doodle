@@ -3,10 +3,14 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TreeTableColumn?>
 <?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -119,48 +123,136 @@
                   <Insets left="50.0" right="25.0" />
                </padding>
             </HBox>
-            <VBox alignment="CENTER" prefWidth="1500.0">
+            <AnchorPane maxHeight="1.7976931348623157E308" prefHeight="1000.0" prefWidth="1500.0">
                <children>
-                  <AnchorPane maxHeight="1.7976931348623157E308" prefHeight="1000.0" prefWidth="1500.0">
+                  <VBox alignment="CENTER" prefHeight="576.0" prefWidth="707.0" style="-fx-background-color: #F5F8F7;" styleClass="left-innershadow" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Pane prefHeight="576.0" prefWidth="707.0" style="-fx-background-color: #F5F8F7;" styleClass="left-innershadow" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <children>
-                              <Label layoutX="375.0" layoutY="261.0" text="Another Screen" />
-                           </children>
-                        </Pane>
-                        <VBox alignment="CENTER" prefHeight="576.0" prefWidth="707.0" style="-fx-background-color: #F5F8F7;" styleClass="left-innershadow" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <children>
-                              <Label text="My Reports">
-                                 <font>
-                                    <Font name="System Bold" size="25.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets bottom="20.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <JFXTreeTableView maxWidth="850.0" prefHeight="420.0" prefWidth="628.0">
-                                 <columns>
-                                    <TreeTableColumn minWidth="57.0" prefWidth="57.0" text="OB Id" />
-                                    <TreeTableColumn minWidth="147.0" prefWidth="147.0" text="Reporter Name" />
-                                    <TreeTableColumn minWidth="147.0" prefWidth="147.0" text="Offender Name" />
-                                    <TreeTableColumn minWidth="123.0" prefWidth="123.0" text="Location" />
-                                    <TreeTableColumn minWidth="61.0" prefWidth="61.0" text="Date" />
-                                    <TreeTableColumn minWidth="50.0" prefWidth="50.0" text="Time" />
-                                    <TreeTableColumn minWidth="61.0" prefWidth="61.0" text="Crime" />
-                                 </columns>
-                                 <columnResizePolicy>
-                                    <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                 </columnResizePolicy>
-                              </JFXTreeTableView>
-                           </children>
-                           <padding>
-                              <Insets bottom="30.0" left="30.0" right="30.0" />
-                           </padding>
-                        </VBox>
+                        <Label text="My Reports">
+                           <font>
+                              <Font name="System Bold" size="25.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <JFXTreeTableView maxWidth="850.0" prefHeight="420.0" prefWidth="628.0">
+                           <columns>
+                              <TreeTableColumn minWidth="57.0" prefWidth="57.0" text="OB Id" />
+                              <TreeTableColumn minWidth="147.0" prefWidth="147.0" text="Reporter Name" />
+                              <TreeTableColumn minWidth="147.0" prefWidth="147.0" text="Offender Name" />
+                              <TreeTableColumn minWidth="123.0" prefWidth="123.0" text="Location" />
+                              <TreeTableColumn minWidth="61.0" prefWidth="61.0" text="Date" />
+                              <TreeTableColumn minWidth="50.0" prefWidth="50.0" text="Time" />
+                              <TreeTableColumn minWidth="61.0" prefWidth="61.0" text="Crime" />
+                           </columns>
+                           <columnResizePolicy>
+                              <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </JFXTreeTableView>
                      </children>
-                  </AnchorPane>
+                     <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0" />
+                     </padding>
+                  </VBox>
+                  <Pane prefHeight="576.0" prefWidth="707.0" style="-fx-background-color: #F5F8F7;" styleClass="left-innershadow" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #F5F8F7;" styleClass="left-innershadow" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <HBox layoutX="131.0" layoutY="285.0" maxWidth="-Infinity">
+                           <children>
+                              <TextField prefHeight="30.0" prefWidth="200.0" promptText="Reporter Name">
+                                 <HBox.margin>
+                                    <Insets right="70.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </TextField>
+                              <TextField layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" promptText="Reporter ID">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font></TextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="25.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox layoutX="131.0" layoutY="283.0" maxWidth="-Infinity">
+                           <children>
+                              <TextField prefHeight="30.0" prefWidth="200.0" promptText="Offender Name">
+                                 <HBox.margin>
+                                    <Insets right="70.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </TextField>
+                              <TextField layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" promptText="Location">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font></TextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="25.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox layoutX="131.0" layoutY="318.0" maxWidth="-Infinity">
+                           <children>
+                              <TextField prefHeight="30.0" prefWidth="200.0" promptText="Date">
+                                 <HBox.margin>
+                                    <Insets right="70.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </TextField>
+                              <TextField layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" promptText="Time">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font></TextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="25.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="131.0" layoutY="353.0" maxWidth="470.0" minWidth="470.0" prefWidth="470.0">
+                           <VBox.margin>
+                              <Insets bottom="25.0" />
+                           </VBox.margin>
+                           <children>
+                              <Label text="Crime Type:" textFill="#b2b2b2">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <ChoiceBox prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #ffffff; -fx-border-color: #F7F7F7; -fx-border-style: solid; -fx-border-width: 2px;">
+                                 <effect>
+                                    <InnerShadow choke="1.0" color="#2916ba7c" height="5.0" radius="2.0" width="5.0" />
+                                 </effect>
+                              </ChoiceBox>
+                           </children>
+                        </HBox>
+                        <TextArea maxWidth="470.0" prefHeight="200.0" prefWidth="200.0" promptText="Desciption" wrapText="true">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <font>
+                              <Font name="Consolas" size="14.0" />
+                           </font></TextArea>
+                        <JFXButton prefHeight="35.0" prefWidth="250.0" style="-fx-background-color: yellow;" text="Report" textFill="#003194">
+                           <VBox.margin>
+                              <Insets top="25.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </VBox>
                </children>
-            </VBox>
+            </AnchorPane>
          </children>
       </VBox>
    </right>

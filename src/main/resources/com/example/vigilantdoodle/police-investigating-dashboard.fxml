@@ -1,23 +1,320 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import com.jfoenix.controls.JFXButton?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.vigilantdoodle.PoliceInvestigatingDashboardController"
-            prefHeight="400.0" prefWidth="600.0">
 
-    <children>
-        <Label layoutX="177.0" layoutY="178.0" text="Police Investigating Dashboard">
-            <font>
-                <Font name="System Bold" size="30.0" />
-            </font>
-        </Label>
-    </children>
-
-</AnchorPane>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.vigilantdoodle.PoliceInvestigatingDashboardController">
+    <left>
+        <VBox alignment="TOP_CENTER" prefHeight="700.0" prefWidth="193.0" style="-fx-background-color: #003194;" BorderPane.alignment="CENTER">
+            <children>
+                <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../icon_images/police-hat-icon.png" />
+                    </image>
+                    <VBox.margin>
+                        <Insets bottom="30.0" />
+                    </VBox.margin>
+                </ImageView>
+                <JFXButton alignment="BASELINE_LEFT" graphicTextGap="20.0" prefHeight="40.0" prefWidth="215.0" text="Dashboard" textFill="#b1c5d3">
+                    <font>
+                        <Font name="System Bold" size="17.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../icon_images/dashboard-icon.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <VBox.margin>
+                        <Insets bottom="15.0" />
+                    </VBox.margin>
+                    <padding>
+                        <Insets left="20.0" />
+                    </padding>
+                </JFXButton>
+                <JFXButton alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="10.0" layoutY="170.0" prefHeight="40.0" prefWidth="215.0" text="Evidence" textFill="#b1c5d3">
+                    <font>
+                        <Font name="System Bold" size="17.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../icon_images/evidence-icon.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <VBox.margin>
+                        <Insets bottom="15.0" />
+                    </VBox.margin>
+                    <padding>
+                        <Insets left="20.0" />
+                    </padding>
+                </JFXButton>
+            </children>
+            <padding>
+                <Insets top="30.0" />
+            </padding>
+            <effect>
+                <DropShadow />
+            </effect>
+        </VBox>
+    </left>
+    <right>
+        <VBox prefHeight="701.0" prefWidth="1500.0" BorderPane.alignment="CENTER">
+            <children>
+                <HBox alignment="CENTER_LEFT" minHeight="125.0" prefHeight="138.0" prefWidth="725.0" style="-fx-background-color: #fff10b;" styleClass="left-innershadow" stylesheets="@styles/styles.css">
+                    <children>
+                        <Label minWidth="200.0" text="Inpsector John Doe">
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets />
+                            </HBox.margin>
+                        </Label>
+                        <Pane prefHeight="200.0" prefWidth="1000.0" />
+                        <JFXButton contentDisplay="CENTER" text=" ">
+                            <graphic>
+                                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../icon_images/logout-icon.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </JFXButton>
+                    </children>
+                    <padding>
+                        <Insets left="50.0" right="25.0" />
+                    </padding>
+                </HBox>
+                <AnchorPane maxHeight="1.7976931348623157E308" prefHeight="1000.0" prefWidth="1500.0">
+                    <children>
+                        <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                        <HBox alignment="CENTER_LEFT" maxWidth="562.0">
+                           <children>
+                              <Label text="Crime ID:" textFill="#b2b2b2">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <ChoiceBox prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #ffffff; -fx-border-color: #F7F7F7; -fx-border-style: solid; -fx-border-width: 2px;">
+                                 <effect>
+                                    <InnerShadow choke="1.0" color="#2916ba7c" height="5.0" radius="2.0" width="5.0" />
+                                 </effect>
+                              </ChoiceBox>
+                           </children>
+                        </HBox>
+                                <Pane prefHeight="100.0" prefWidth="200.0" />
+                        <TextArea maxWidth="562.0" promptText="Desciption" wrapText="true">
+                           <font>
+                              <Font name="Consolas" size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="30.0" />
+                           </VBox.margin>
+                        </TextArea>
+                                <HBox alignment="CENTER_LEFT" layoutX="131.0" layoutY="353.0" maxWidth="562.0">
+                                    <VBox.margin>
+                                        <Insets bottom="25.0" />
+                                    </VBox.margin>
+                                    <children>
+                                        <JFXButton layoutX="48.0" layoutY="10.0" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: #A3FF82;" text="Add" textFill="#003194">
+                                            <font>
+                                                <Font name="System Bold" size="18.0" />
+                                            </font>
+                                            <HBox.margin>
+                                                <Insets right="30.0" />
+                                            </HBox.margin>
+                                        </JFXButton>
+                                        <JFXButton prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: yellow;" text="Update" textFill="#003194">
+                                            <font>
+                                                <Font name="System Bold" size="18.0" />
+                                            </font>
+                                            <HBox.margin>
+                                                <Insets right="30.0" />
+                                            </HBox.margin>
+                                        </JFXButton>
+                              <JFXButton layoutX="235.0" layoutY="10.0" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: #FF8282;" text="Delete" textFill="#003194">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </JFXButton>
+                                    </children>
+                                </HBox>
+                            </children>
+                            <styleClass>
+                                <String fx:value="left-innershadow" />
+                                <String fx:value="grey-background" />
+                            </styleClass>
+                            <padding>
+                                <Insets left="70.0" right="70.0" />
+                            </padding>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="576.0" prefWidth="707.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <padding>
+                                <Insets bottom="30.0" left="50.0" right="50.0" top="30.0" />
+                            </padding>
+                            <styleClass>
+                                <String fx:value="left-innershadow" />
+                                <String fx:value="grey-background" />
+                            </styleClass>
+                     <children>
+                        <HBox alignment="BOTTOM_LEFT" prefWidth="642.0">
+                           <children>
+                              <Label text="Crime: ">
+                                 <font>
+                                    <Font name="System Bold" size="28.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label text="Crime_Type" textFill="#003194">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets bottom="4.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="30.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="BOTTOM_LEFT" layoutX="45.0" layoutY="278.0" prefWidth="642.0">
+                           <children>
+                              <Label text="Suspect:">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label text="Suspect Name" textFill="#003194">
+                                 <font>
+                                    <Font name="System Bold" size="17.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets bottom="1.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="BOTTOM_LEFT" layoutX="45.0" layoutY="303.0" prefWidth="642.0">
+                           <children>
+                              <Label text="Date:">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label text="1/1/1111" textFill="#003194">
+                                 <font>
+                                    <Font name="System Bold" size="17.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets bottom="1.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="BOTTOM_LEFT" layoutX="45.0" layoutY="318.0" prefWidth="642.0">
+                           <children>
+                              <Label text="Time">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label text="00:00" textFill="#003194">
+                                 <font>
+                                    <Font name="System Bold" size="17.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets bottom="1.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="BOTTOM_LEFT" layoutX="45.0" layoutY="333.0" prefWidth="642.0">
+                           <children>
+                              <Label text="Location">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label text="Some Location" textFill="#003194">
+                                 <font>
+                                    <Font name="System Bold" size="17.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets bottom="1.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="40.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="BOTTOM_LEFT" layoutX="65.0" layoutY="234.0" prefWidth="642.0">
+                           <children>
+                              <Label text="Case Description;" textFill="#a4a4a4">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <TextArea editable="false" promptText="Desciption" wrapText="true">
+                           <font>
+                              <Font name="Consolas" size="14.0" />
+                           </font>
+                        </TextArea>
+                     </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+            </children>
+        </VBox>
+    </right>
+</BorderPane>

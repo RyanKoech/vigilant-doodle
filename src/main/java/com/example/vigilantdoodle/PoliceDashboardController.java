@@ -4,12 +4,20 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTreeTableView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.util.Objects;
 
 public class PoliceDashboardController {
 
@@ -109,33 +117,47 @@ public class PoliceDashboardController {
     @FXML
     private JFXButton reportButton;
 
+    //Logout Button Function
     @FXML
     void onLogout(ActionEvent event) {
+        try{
+            Parent menuParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("application-login.fxml")));
+            Scene menuScene = new Scene(menuParent);
+
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(menuScene);
+            window.show();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    //Side Menu Navigation Button Actions
+    //No 1
+    @FXML
+    void onShowCustodiesTab(ActionEvent event) {
+        custodiesTabVBox.toFront();
+    }
+
+    //No 2
+    @FXML
+    void onShowDashboardTab(ActionEvent event) {
+        dashboardTabVBox.toFront();
+    }
+
+    //No 3
+    @FXML
+    void onShowReportingTab(ActionEvent event) {
+        reportingTabVBox.toFront();
+    }
+
+    @FXML
+    void onUpdateCustody(ActionEvent event) {
 
     }
 
     @FXML
     void onSearchCase(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onShowCustodiesTab(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onShowDashboardTab(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onShowReportingTab(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onUpdateCustody(ActionEvent event) {
 
     }
 

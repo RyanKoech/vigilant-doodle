@@ -126,44 +126,6 @@
             </HBox>
             <AnchorPane maxHeight="1.7976931348623157E308" prefHeight="1000.0" prefWidth="1500.0">
                <children>
-                  <Pane prefHeight="576.0" prefWidth="707.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <styleClass>
-                        <String fx:value="left-innershadow" />
-                        <String fx:value="grey-background" />
-                     </styleClass></Pane>
-                  <VBox fx:id="dashboardTabVBox" alignment="CENTER" prefHeight="576.0" prefWidth="707.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <Label text="My Reports">
-                           <font>
-                              <Font name="System Bold" size="25.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="20.0" />
-                           </VBox.margin>
-                        </Label>
-                        <JFXTreeTableView fx:id="dashboardTableView" maxWidth="850.0" prefHeight="420.0" prefWidth="628.0">
-                           <columns>
-                              <TreeTableColumn fx:id="obIdTableColumn" minWidth="57.0" prefWidth="57.0" text="OB Id" />
-                              <TreeTableColumn fx:id="reporterNameTableColumn" minWidth="147.0" prefWidth="147.0" text="Reporter Name" />
-                              <TreeTableColumn fx:id="offenderNameTableColumn" minWidth="147.0" prefWidth="147.0" text="Offender Name" />
-                              <TreeTableColumn fx:id="locationTableColumn" minWidth="123.0" prefWidth="123.0" text="Location" />
-                              <TreeTableColumn fx:id="dateTableColumn" minWidth="61.0" prefWidth="61.0" text="Date" />
-                              <TreeTableColumn fx:id="timeTableColumn" minWidth="50.0" prefWidth="50.0" text="Time" />
-                              <TreeTableColumn fx:id="crimeTypeTableColumn" minWidth="61.0" prefWidth="61.0" text="Crime" />
-                           </columns>
-                           <columnResizePolicy>
-                              <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                        </JFXTreeTableView>
-                     </children>
-                     <padding>
-                        <Insets bottom="30.0" left="30.0" right="30.0" />
-                     </padding>
-                     <styleClass>
-                        <String fx:value="left-innershadow" />
-                        <String fx:value="grey-background" />
-                     </styleClass>
-                  </VBox>
                   <VBox fx:id="custodiesTabVBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <styleClass>
                         <String fx:value="left-innershadow" />
@@ -369,6 +331,39 @@
                            </font>
                         </JFXButton>
                      </children>
+                     <styleClass>
+                        <String fx:value="left-innershadow" />
+                        <String fx:value="grey-background" />
+                     </styleClass>
+                  </VBox>
+                  <VBox fx:id="dashboardTabVBox" alignment="CENTER" prefHeight="576.0" prefWidth="707.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label text="My Reports">
+                           <font>
+                              <Font name="System Bold" size="25.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <JFXTreeTableView fx:id="dashboardTableView" maxWidth="850.0" prefHeight="420.0" prefWidth="628.0">
+                           <columns>
+                              <TreeTableColumn fx:id="obIdTableColumn" minWidth="57.0" prefWidth="57.0" text="OB Id" />
+                              <TreeTableColumn fx:id="reporterNameTableColumn" minWidth="147.0" prefWidth="147.0" text="Reporter Name" />
+                              <TreeTableColumn fx:id="offenderNameTableColumn" minWidth="147.0" prefWidth="147.0" text="Offender Name" />
+                              <TreeTableColumn fx:id="locationTableColumn" minWidth="123.0" prefWidth="123.0" text="Location" />
+                              <TreeTableColumn fx:id="dateTableColumn" minWidth="61.0" prefWidth="61.0" text="Date" />
+                              <TreeTableColumn fx:id="timeTableColumn" minWidth="50.0" prefWidth="50.0" text="Time" />
+                              <TreeTableColumn fx:id="crimeTypeTableColumn" minWidth="61.0" prefWidth="61.0" text="Crime" />
+                           </columns>
+                           <columnResizePolicy>
+                              <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </JFXTreeTableView>
+                     </children>
+                     <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0" />
+                     </padding>
                      <styleClass>
                         <String fx:value="left-innershadow" />
                         <String fx:value="grey-background" />

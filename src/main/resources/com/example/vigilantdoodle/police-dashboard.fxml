@@ -322,7 +322,7 @@
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font></TextArea>
-                        <JFXButton fx:id="reportButton" prefHeight="35.0" prefWidth="250.0" style="-fx-background-color: yellow;" text="Report" textFill="#003194">
+                        <JFXButton fx:id="reportButton" onAction="#onReportCrime" prefHeight="35.0" prefWidth="250.0" style="-fx-background-color: yellow;" text="Report" textFill="#003194">
                            <VBox.margin>
                               <Insets top="25.0" />
                            </VBox.margin>

@@ -1,5 +1,6 @@
 package com.example.vigilantdoodle;
 
+import com.example.vigilantdoodle.utilities.Data;
 import com.example.vigilantdoodle.utilities.MysqlConnector;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
@@ -74,18 +75,19 @@ public class ApplicationLoginController {
         }
     }
 
-    void loginUser(String obNumber, String password, ActionEvent event) {
+    void loginUser(String policeId, String password, ActionEvent event) {
         Connection connection = MysqlConnector.connectDB();
         if(connection != null){
             try{
                 PreparedStatement statement = (PreparedStatement)
                         connection.prepareStatement ("SELECT * FROM "+ getUserTables() + " WHERE `Police_Id` = ? and password = ?");
-                statement.setString(1, obNumber);
+                statement.setString(1, policeId);
                 statement.setString(2, password);
                 ResultSet res = statement.executeQuery();
 
                 if(res.next()){
                     messageLabel.setText("Logged in successfully");
+                    Data.POLICE_ID = policeId;
                     navigate(event);
                 }else{
                     messageLabel.setText("Invalid Credentials for " + loginState);

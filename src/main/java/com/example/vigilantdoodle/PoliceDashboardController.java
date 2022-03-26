@@ -183,7 +183,32 @@ public class PoliceDashboardController implements Initializable {
 
     @FXML
     private void onReportCrime(ActionEvent event){
+        if(areReportingTextFieldsEmpty() || isChoiceBoxValueEmpty() || isReportingTextAreaEmpty()){
+            System.out.println("All Fields Must be Filled");
+            return;
+        }
 
+        Connection connection = MysqlConnector.connectDB();
+        if(connection != null){
+            try {
+                PreparedStatement statement = (PreparedStatement)connection.prepareStatement ("INSERT INTO `cases` (`OB_id`, `Police_Id`, `Reporter_Id`, `Offender_Id`, `Location`, `Date`, `Time`, `Description`, `Crime_Type`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)");
+                statement.setString(1, Data.POLICE_ID);
+                statement.setString(2, reporterIdTextField.getText());
+                statement.setString(3, offenderNameTextField.getText());
+                statement.setString(4, locationTextField.getText());
+                statement.setString(5, dateTextField.getText());
+                statement.setString(6, timeTextField.getText());
+                statement.setString(7, descriptionTextArea.getText());
+                statement.setString(8, "1");
+                int res = statement.executeUpdate();
+//                PopUpaAlert.display("SUCCESS", "Evidence Successfully Updated.");
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+                Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            System.out.println("The connection is not available");
+        }
     }
 
     //Sets the logged in police name on the welcome banner

@@ -20,12 +20,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -127,10 +127,13 @@ public class PoliceDashboardController implements Initializable {
     @FXML
     private JFXButton reportButton;
 
+    private List<TextField> reportingTextFieldList;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         setWelcomeBannerLabel();
         showPoliceReports();
+        createTextButtonList();
     }
 
     //Logout Button Function
@@ -245,6 +248,16 @@ public class PoliceDashboardController implements Initializable {
         TreeItem<PoliceReports> root = new RecursiveTreeItem<>(list, RecursiveTreeObject::getChildren);
         dashboardTableView.setRoot(root);
         dashboardTableView.setShowRoot(false);
+    }
+
+    //Build Reporting TextFeild List
+    private void createTextButtonList(){
+        reportingTextFieldList.add(reporterNameTextField);
+        reportingTextFieldList.add(reporterIdTextField);
+        reportingTextFieldList.add(offenderNameTextField);
+        reportingTextFieldList.add(locationTextField);
+        reportingTextFieldList.add(dateTextField);
+        reportingTextFieldList.add(timeTextField);
     }
 
 }

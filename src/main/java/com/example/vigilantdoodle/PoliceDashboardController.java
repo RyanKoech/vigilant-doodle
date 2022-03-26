@@ -119,7 +119,7 @@ public class PoliceDashboardController implements Initializable {
     private TextField timeTextField;
 
     @FXML
-    private ChoiceBox<?> crimeTypeChoiceBox;
+    private ChoiceBox<String> crimeTypeChoiceBox;
 
     @FXML
     private TextArea descriptionTextArea;
@@ -134,6 +134,7 @@ public class PoliceDashboardController implements Initializable {
         setWelcomeBannerLabel();
         showPoliceReports();
         createTextButtonList();
+        setChoiceBoxItems();
     }
 
     //Logout Button Function
@@ -278,6 +279,25 @@ public class PoliceDashboardController implements Initializable {
     //Check if reporting case description ChoiceBox is empty
     private Boolean isChoiceBoxValueEmpty(){
         return (crimeTypeChoiceBox.getValue() == null);
+    }
+
+    //Sets ChoiceBox Items from the Database
+    private void setChoiceBoxItems(){
+        Connection connection = MysqlConnector.connectDB();
+        if(connection != null){
+            try{
+                PreparedStatement statement = (PreparedStatement)connection.prepareStatement ("SELECT * FROM `crime types`");
+
+                ResultSet resultSet = statement.executeQuery();
+                while (resultSet.next()){
+                    String crime = resultSet.getString("Type");
+                    crimeTypeChoiceBox.getItems().addAll(crime);
+                }
+
+            }catch(SQLException e){
+
+            }
+        }
     }
 
 }

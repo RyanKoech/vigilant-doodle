@@ -127,7 +127,7 @@ public class PoliceDashboardController implements Initializable {
     @FXML
     private JFXButton reportButton;
 
-    private List<TextField> reportingTextFieldList;
+    private final List<TextField> reportingTextFieldList = new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

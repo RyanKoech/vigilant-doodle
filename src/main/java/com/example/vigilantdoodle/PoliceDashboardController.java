@@ -212,13 +212,15 @@ public class PoliceDashboardController implements Initializable {
         Connection connection = MysqlConnector.connectDB();
 
         try {
-            PreparedStatement st = (PreparedStatement)connection.prepareStatement ("SELECT `OB_id`, `Reporter_Id`, `Offender_Id`, `Location`, `Date`, `Time`, `Crime_Type` FROM `cases` WHERE `Police_Id`=?");
+            PreparedStatement st = (PreparedStatement)connection.prepareStatement ("SELECT cases.OB_id, Reporters.Name Reporter_Name, Offenders.Name Offender_Name, "+
+                    "cases.Location, cases.Date, cases.Time, crime_types.Type Crime_Type FROM cases INNER JOIN citizens as Reporters ON cases.Reporter_Id = Reporters.`National ID`"+
+                    " INNER JOIN citizens as Offenders ON cases.Offender_Id = Offenders.`National ID` INNER JOIN `crime types` as crime_types ON cases.Crime_Type = crime_types.Type_Id WHERE `Police_Id`=?");
             st.setString(1, Data.POLICE_ID);
             ResultSet res =st.executeQuery();
             PoliceReports policeReports;
 
             while(res.next()){
-                policeReports = new PoliceReports(res.getString("OB_id"), res.getString("Reporter_Id"), res.getString("Offender_Id") , res.getString("Location")  , res.getString("Date") , res.getString("Time") , res.getString("Crime_Type"));
+                policeReports = new PoliceReports(res.getString("OB_id"), res.getString("Reporter_Name"), res.getString("Offender_Name") , res.getString("Location")  , res.getString("Date") , res.getString("Time") , res.getString("Crime_Type"));
                 policeReportsList.add(policeReports);
             }
         } catch (Exception ex) {

@@ -205,16 +205,13 @@ public class PoliceDashboardController implements Initializable {
         }
     }
 
+    //Create Observable list of type PoliceReports (From Database) to be used in TableView
     private ObservableList<PoliceReports> getPoliceReportList(){
         ObservableList<PoliceReports> policeReportsList = FXCollections.observableArrayList();
 
         Connection connection = MysqlConnector.connectDB();
-//        String query = "SELECT `OB_id`, `Reporter_Id`, `Offender_Id`, `Location`, `Date`, `Time`, `Crime_Type` FROM `cases` WHERE `Police_Id`=?";
-//        Statement st;
-//        ResultSet rs;
 
         try {
-//            st = connection.createStatement();
             PreparedStatement st = (PreparedStatement)connection.prepareStatement ("SELECT `OB_id`, `Reporter_Id`, `Offender_Id`, `Location`, `Date`, `Time`, `Crime_Type` FROM `cases` WHERE `Police_Id`=?");
             st.setString(1, Data.POLICE_ID);
             ResultSet res =st.executeQuery();
@@ -231,6 +228,7 @@ public class PoliceDashboardController implements Initializable {
         return policeReportsList;
     }
 
+    //Display concents of an Observable list into TableView
     private void showPoliceReports()  {
         ObservableList<PoliceReports> list = getPoliceReportList();
 

@@ -48,12 +48,13 @@ public class ApplicationLoginController {
     @FXML
     private Label messageLabel;
 
-
+    //Change loginState to Investigating
     @FXML
     void onInvestigatingTextClick(ActionEvent event) {
         loginState = INVESTIGATING_STATE;
     }
 
+    //Kickstart login after login button is pressed
     @FXML
     void onLoginButtonClick(ActionEvent event) {
         //Ensure no fields are empty
@@ -64,6 +65,7 @@ public class ApplicationLoginController {
         loginUser(obNumberTextfield.getText(), passwordTextfield.getText(), event);
     }
 
+    //Toggle between police and admin state
     @FXML
     void onToggleAdminClick(ActionEvent event) {
         if(adminButton.getText().equalsIgnoreCase(ADMIN_STATE)){
@@ -75,6 +77,7 @@ public class ApplicationLoginController {
         }
     }
 
+    //Verify users details according to login state
     void loginUser(String policeId, String password, ActionEvent event) {
         Connection connection = MysqlConnector.connectDB();
         if(connection != null){
@@ -101,6 +104,7 @@ public class ApplicationLoginController {
         }
     }
 
+    //Return string for specific user database table
     String getUserTables(){
         return switch (loginState) {
             case ADMIN_STATE -> "`police admin`";
@@ -110,6 +114,7 @@ public class ApplicationLoginController {
         };
     }
 
+    //Handle navigation to user dashboards
     void navigate(ActionEvent event){
         try{
             Parent menuParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(getDashboardFXMLs())));
@@ -123,6 +128,7 @@ public class ApplicationLoginController {
         }
     }
 
+    //Return string representing fxml to navigate to according to the current state
     String getDashboardFXMLs(){
         return switch (loginState) {
             case ADMIN_STATE -> "police-admin-dashboard.fxml";

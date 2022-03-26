@@ -260,4 +260,24 @@ public class PoliceDashboardController implements Initializable {
         reportingTextFieldList.add(timeTextField);
     }
 
+    //Check if reporting Textfields are empty(True = are Empty)
+    private Boolean areReportingTextFieldsEmpty(){
+        for (TextField reportingTextField: reportingTextFieldList){
+            if(reportingTextField.getText() == null || reportingTextField.getText().trim().isEmpty()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //Check if reporting case description TextField is empty
+    private Boolean isReportingTextAreaEmpty(){
+        return descriptionTextArea.getText() == null || descriptionTextArea.getText().trim().isEmpty();
+    }
+
+    //Check if reporting case description ChoiceBox is empty
+    private Boolean isChoiceBoxValueEmpty(){
+        return (crimeTypeChoiceBox.getValue() == null);
+    }
+
 }

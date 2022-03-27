@@ -185,10 +185,10 @@ public class PoliceDashboardController implements Initializable {
 
     @FXML
     private void onReportCrime(ActionEvent event){
-        //if(areReportingTextFieldsEmpty() || isChoiceBoxValueEmpty() || isReportingTextAreaEmpty()){
-        //    System.out.println("All Fields Must be Filled");
-        //    return;
-        //}
+        if(areReportingTextFieldsEmpty() || isChoiceBoxValueEmpty() || isReportingTextAreaEmpty()){
+            System.out.println("All Fields Must be Filled");
+            return;
+        }
 
         Connection connection = MysqlConnector.connectDB();
         if(connection != null){

@@ -129,6 +129,8 @@ public class PoliceDashboardController implements Initializable {
 
     private final List<TextField> reportingTextFieldList = new ArrayList<>();
 
+    private final Map crimeTypetoCrimeIdMap = new HashMap();
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         setWelcomeBannerLabel();
@@ -183,10 +185,10 @@ public class PoliceDashboardController implements Initializable {
 
     @FXML
     private void onReportCrime(ActionEvent event){
-        if(areReportingTextFieldsEmpty() || isChoiceBoxValueEmpty() || isReportingTextAreaEmpty()){
-            System.out.println("All Fields Must be Filled");
-            return;
-        }
+        //if(areReportingTextFieldsEmpty() || isChoiceBoxValueEmpty() || isReportingTextAreaEmpty()){
+        //    System.out.println("All Fields Must be Filled");
+        //    return;
+        //}
 
         Connection connection = MysqlConnector.connectDB();
         if(connection != null){
@@ -199,9 +201,12 @@ public class PoliceDashboardController implements Initializable {
                 statement.setString(5, dateTextField.getText());
                 statement.setString(6, timeTextField.getText());
                 statement.setString(7, descriptionTextArea.getText());
-                statement.setString(8, "1");
+                statement.setString(8, crimeTypetoCrimeIdMap.get(crimeTypeChoiceBox.getValue()).toString());
+
                 int res = statement.executeUpdate();
-//                PopUpaAlert.display("SUCCESS", "Evidence Successfully Updated.");
+
+                resetReportingTabInputs();
+                //PopUpaAlert.display("SUCCESS", "Evidence Successfully Updated.");
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
                 Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
@@ -259,7 +264,7 @@ public class PoliceDashboardController implements Initializable {
         return policeReportsList;
     }
 
-    //Display concents of an Observable list into TableView
+    //Display contents of an Observable list into TableView
     private void showPoliceReports()  {
         ObservableList<PoliceReports> list = getPoliceReportList();
 
@@ -306,23 +311,38 @@ public class PoliceDashboardController implements Initializable {
         return (crimeTypeChoiceBox.getValue() == null);
     }
 
-    //Sets ChoiceBox Items from the Database
+    //Sets ChoiceBox Items from the Database and Maps Crime types to  Type Id
     private void setChoiceBoxItems(){
         Connection connection = MysqlConnector.connectDB();
         if(connection != null){
             try{
                 PreparedStatement statement = (PreparedStatement)connection.prepareStatement ("SELECT * FROM `crime types`");
-
                 ResultSet resultSet = statement.executeQuery();
+
+                //Clear Map
+                crimeTypetoCrimeIdMap.clear();
+
                 while (resultSet.next()){
                     String crime = resultSet.getString("Type");
+                    String crimeId = resultSet.getString("Type_Id");
+
+                    //Map crime type to crime id
+                    crimeTypetoCrimeIdMap.put(crime, crimeId);
+
+                    //Add crime type to ChoiceBox
                     crimeTypeChoiceBox.getItems().addAll(crime);
                 }
-
-            }catch(SQLException e){
-
+            }catch(SQLException ex){
+                Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
 
+    private void resetReportingTabInputs(){
+        for (TextField reportingTextField: reportingTextFieldList){
+            reportingTextField.setText("");
+        }
+        descriptionTextArea.setText("");
+        crimeTypeChoiceBox.setValue(null);
+    }
 }

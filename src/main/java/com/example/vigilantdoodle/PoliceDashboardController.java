@@ -338,6 +338,7 @@ public class PoliceDashboardController implements Initializable {
         }
     }
 
+    //Reset the Reporting Tab Inputs
     private void resetReportingTabInputs(){
         for (TextField reportingTextField: reportingTextFieldList){
             reportingTextField.setText("");

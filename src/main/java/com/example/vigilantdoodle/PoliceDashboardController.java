@@ -88,7 +88,7 @@ public class PoliceDashboardController implements Initializable {
     private Label currentCustodyLabel;
 
     @FXML
-    private Label custodyTypeChoiceBox;
+    private ChoiceBox<String> custodyTypeChoiceBox;
 
     @FXML
     private Label bailFeeLabel;
@@ -130,12 +130,15 @@ public class PoliceDashboardController implements Initializable {
 
     private final Map crimeTypetoCrimeIdMap = new HashMap();
 
+    private final Map custodyTypetoCustodyIdMap = new HashMap();
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         setWelcomeBannerLabel();
         showPoliceReports();
         createTextButtonList();
         setCrimeTypeChoiceBoxItems();
+        setCustodyTypeChoiceBoxItems();
     }
 
     //Logout Button Function
@@ -333,6 +336,33 @@ public class PoliceDashboardController implements Initializable {
 
                     //Add crime type to ChoiceBox
                     crimeTypeChoiceBox.getItems().addAll(crime);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    //Sets ChoiceBox Items from the Database and Maps Crime types to  Type Id
+    private void setCustodyTypeChoiceBoxItems() {
+        Connection connection = MysqlConnector.connectDB();
+        if (connection != null) {
+            try {
+                PreparedStatement statement = (PreparedStatement) connection.prepareStatement("SELECT `Type_Id`, `Custody_Type` FROM `custody types`");
+                ResultSet resultSet = statement.executeQuery();
+
+                //Clear Map
+                custodyTypetoCustodyIdMap.clear();
+
+                while (resultSet.next()) {
+                    String custody = resultSet.getString("Custody_Type");
+                    String custodyId = resultSet.getString("Type_Id");
+
+                    //Map crime type to crime id
+                    custodyTypetoCustodyIdMap.put(custody, custodyId);
+
+                    //Add crime type to ChoiceBox
+                    custodyTypeChoiceBox.getItems().addAll(custody);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);

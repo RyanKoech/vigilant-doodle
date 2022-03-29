@@ -142,14 +142,14 @@ public class PoliceDashboardController implements Initializable {
     //Logout Button Function
     @FXML
     private void onLogout(ActionEvent event) {
-        try{
+        try {
             Parent menuParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("application-login.fxml")));
             Scene menuScene = new Scene(menuParent);
 
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
             window.setScene(menuScene);
             window.show();
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -180,20 +180,23 @@ public class PoliceDashboardController implements Initializable {
 
     @FXML
     private void onSearchCase(ActionEvent event) {
-
+        //if(obNumberTextField.getText() == null || obNumberTextField.getText().trim().isEmpty()){
+        //    return;
+        //}
+        //getSuspectCustodyRecords(obNumberTextField.getText());
     }
 
     @FXML
-    private void onReportCrime(ActionEvent event){
-        if(areReportingTextFieldsEmpty() || isChoiceBoxValueEmpty() || isReportingTextAreaEmpty()){
+    private void onReportCrime(ActionEvent event) {
+        if (areReportingTextFieldsEmpty() || isChoiceBoxValueEmpty() || isReportingTextAreaEmpty()) {
             System.out.println("All Fields Must be Filled");
             return;
         }
 
         Connection connection = MysqlConnector.connectDB();
-        if(connection != null){
+        if (connection != null) {
             try {
-                PreparedStatement statement = (PreparedStatement)connection.prepareStatement ("INSERT INTO `cases` (`OB_id`, `Police_Id`, `Reporter_Id`, `Offender_Id`, `Location`, `Date`, `Time`, `Description`, `Crime_Type`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)");
+                PreparedStatement statement = (PreparedStatement) connection.prepareStatement("INSERT INTO `cases` (`OB_id`, `Police_Id`, `Reporter_Id`, `Offender_Id`, `Location`, `Date`, `Time`, `Description`, `Crime_Type`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)");
                 statement.setString(1, Data.POLICE_ID);
                 statement.setString(2, reporterIdTextField.getText());
                 statement.setString(3, offenderNameTextField.getText());
@@ -211,50 +214,50 @@ public class PoliceDashboardController implements Initializable {
                 System.out.println(ex.getMessage());
                 Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else{
+        } else {
             System.out.println("The connection is not available");
         }
     }
 
     //Sets the logged in police name on the welcome banner
-    private void setWelcomeBannerLabel(){
+    private void setWelcomeBannerLabel() {
         Connection dbConn = MysqlConnector.connectDB();
-        if(dbConn != null){
+        if (dbConn != null) {
             try {
 
-                PreparedStatement st = (PreparedStatement)dbConn.prepareStatement ("SELECT Name FROM `users` WHERE `Police_Id` = ?");
+                PreparedStatement st = (PreparedStatement) dbConn.prepareStatement("SELECT Name FROM `users` WHERE `Police_Id` = ?");
                 st.setString(1, Data.POLICE_ID);
                 ResultSet res = st.executeQuery();
 
-                while (res.next()){
+                while (res.next()) {
                     String welcomeName = res.getString("Name");
-                    welcomeBannerLabel.setText("Inspector "+ welcomeName);
+                    welcomeBannerLabel.setText("Inspector " + welcomeName);
 
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else{
+        } else {
             System.out.println("The connection is not available");
         }
     }
 
     //Create Observable list of type PoliceReports (From Database) to be used in TableView
-    private ObservableList<PoliceReports> getPoliceReportList(){
+    private ObservableList<PoliceReports> getPoliceReportList() {
         ObservableList<PoliceReports> policeReportsList = FXCollections.observableArrayList();
 
         Connection connection = MysqlConnector.connectDB();
 
         try {
-            PreparedStatement st = (PreparedStatement)connection.prepareStatement ("SELECT cases.OB_id, Reporters.Name Reporter_Name, Offenders.Name Offender_Name, "+
-                    "cases.Location, cases.Date, cases.Time, crime_types.Type Crime_Type FROM cases INNER JOIN citizens as Reporters ON cases.Reporter_Id = Reporters.`National ID`"+
+            PreparedStatement st = (PreparedStatement) connection.prepareStatement("SELECT cases.OB_id, Reporters.Name Reporter_Name, Offenders.Name Offender_Name, " +
+                    "cases.Location, cases.Date, cases.Time, crime_types.Type Crime_Type FROM cases INNER JOIN citizens as Reporters ON cases.Reporter_Id = Reporters.`National ID`" +
                     " INNER JOIN citizens as Offenders ON cases.Offender_Id = Offenders.`National ID` INNER JOIN `crime types` as crime_types ON cases.Crime_Type = crime_types.Type_Id WHERE `Police_Id`=?");
             st.setString(1, Data.POLICE_ID);
-            ResultSet res =st.executeQuery();
+            ResultSet res = st.executeQuery();
             PoliceReports policeReports;
 
-            while(res.next()){
-                policeReports = new PoliceReports(res.getString("OB_id"), res.getString("Reporter_Name"), res.getString("Offender_Name") , res.getString("Location")  , res.getString("Date") , res.getString("Time") , res.getString("Crime_Type"));
+            while (res.next()) {
+                policeReports = new PoliceReports(res.getString("OB_id"), res.getString("Reporter_Name"), res.getString("Offender_Name"), res.getString("Location"), res.getString("Date"), res.getString("Time"), res.getString("Crime_Type"));
                 policeReportsList.add(policeReports);
             }
         } catch (Exception ex) {
@@ -265,7 +268,7 @@ public class PoliceDashboardController implements Initializable {
     }
 
     //Display contents of an Observable list into TableView
-    private void showPoliceReports()  {
+    private void showPoliceReports() {
         ObservableList<PoliceReports> list = getPoliceReportList();
 
         obIdTableColumn.setCellValueFactory(new TreeItemPropertyValueFactory<PoliceReports, String>("obId"));
@@ -282,7 +285,7 @@ public class PoliceDashboardController implements Initializable {
     }
 
     //Build Reporting TextFeild List
-    private void createTextButtonList(){
+    private void createTextButtonList() {
         reportingTextFieldList.add(reporterNameTextField);
         reportingTextFieldList.add(reporterIdTextField);
         reportingTextFieldList.add(offenderNameTextField);
@@ -292,9 +295,9 @@ public class PoliceDashboardController implements Initializable {
     }
 
     //Check if reporting Textfields are empty(True = are Empty)
-    private Boolean areReportingTextFieldsEmpty(){
-        for (TextField reportingTextField: reportingTextFieldList){
-            if(reportingTextField.getText() == null || reportingTextField.getText().trim().isEmpty()){
+    private Boolean areReportingTextFieldsEmpty() {
+        for (TextField reportingTextField : reportingTextFieldList) {
+            if (reportingTextField.getText() == null || reportingTextField.getText().trim().isEmpty()) {
                 return true;
             }
         }
@@ -302,27 +305,27 @@ public class PoliceDashboardController implements Initializable {
     }
 
     //Check if reporting case description TextField is empty
-    private Boolean isReportingTextAreaEmpty(){
+    private Boolean isReportingTextAreaEmpty() {
         return descriptionTextArea.getText() == null || descriptionTextArea.getText().trim().isEmpty();
     }
 
     //Check if reporting case description ChoiceBox is empty
-    private Boolean isChoiceBoxValueEmpty(){
+    private Boolean isChoiceBoxValueEmpty() {
         return (crimeTypeChoiceBox.getValue() == null);
     }
 
     //Sets ChoiceBox Items from the Database and Maps Crime types to  Type Id
-    private void setChoiceBoxItems(){
+    private void setChoiceBoxItems() {
         Connection connection = MysqlConnector.connectDB();
-        if(connection != null){
-            try{
-                PreparedStatement statement = (PreparedStatement)connection.prepareStatement ("SELECT * FROM `crime types`");
+        if (connection != null) {
+            try {
+                PreparedStatement statement = (PreparedStatement) connection.prepareStatement("SELECT * FROM `crime types`");
                 ResultSet resultSet = statement.executeQuery();
 
                 //Clear Map
                 crimeTypetoCrimeIdMap.clear();
 
-                while (resultSet.next()){
+                while (resultSet.next()) {
                     String crime = resultSet.getString("Type");
                     String crimeId = resultSet.getString("Type_Id");
 
@@ -332,18 +335,45 @@ public class PoliceDashboardController implements Initializable {
                     //Add crime type to ChoiceBox
                     crimeTypeChoiceBox.getItems().addAll(crime);
                 }
-            }catch(SQLException ex){
+            } catch (SQLException ex) {
                 Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
 
     //Reset the Reporting Tab Inputs
-    private void resetReportingTabInputs(){
-        for (TextField reportingTextField: reportingTextFieldList){
+    private void resetReportingTabInputs() {
+        for (TextField reportingTextField : reportingTextFieldList) {
             reportingTextField.setText("");
         }
         descriptionTextArea.setText("");
         crimeTypeChoiceBox.setValue(null);
     }
+
+    //private void getSuspectCustodyRecords(String obNumber) {
+    //    Connection connection = MysqlConnector.connectDB();
+    //    if (connection != null) {
+    //        try {
+    //            PreparedStatement statement = (PreparedStatement) connection.prepareStatement("SELECT * FROM cases Where ");
+    //            ResultSet resultSet = statement.executeQuery();
+    //
+    //            //Clear Map
+    //            crimeTypetoCrimeIdMap.clear();
+    //
+    //            while (resultSet.next()) {
+    //                String crime = resultSet.getString("Type");
+    //                String crimeId = resultSet.getString("Type_Id");
+    //
+    //                //Map crime type to crime id
+    //                crimeTypetoCrimeIdMap.put(crime, crimeId);
+    //
+    //                //Add crime type to ChoiceBox
+    //                crimeTypeChoiceBox.getItems().addAll(crime);
+    //            }
+    //        } catch (SQLException ex) {
+    //            Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+    //        }
+    //    }
+    //}
+
 }

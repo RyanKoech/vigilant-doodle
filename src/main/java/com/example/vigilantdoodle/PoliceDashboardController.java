@@ -20,7 +20,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.net.URL;
@@ -136,7 +135,7 @@ public class PoliceDashboardController implements Initializable {
         setWelcomeBannerLabel();
         showPoliceReports();
         createTextButtonList();
-        setChoiceBoxItems();
+        setCrimeTypeChoiceBoxItems();
     }
 
     //Logout Button Function
@@ -315,7 +314,7 @@ public class PoliceDashboardController implements Initializable {
     }
 
     //Sets ChoiceBox Items from the Database and Maps Crime types to  Type Id
-    private void setChoiceBoxItems() {
+    private void setCrimeTypeChoiceBoxItems() {
         Connection connection = MysqlConnector.connectDB();
         if (connection != null) {
             try {

@@ -191,7 +191,7 @@
                         </HBox>
                         <HBox alignment="CENTER_LEFT" maxWidth="470.0" minWidth="470.0" prefWidth="470.0">
                            <children>
-                              <Label fx:id="custodyTypeChoiceBox" text="Custody Type:" textFill="#003194">
+                              <Label text="Custody Type:" textFill="#003194">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font>
@@ -199,7 +199,7 @@
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </Label>
-                              <ChoiceBox prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #ffffff; -fx-border-color: #F7F7F7; -fx-border-style: solid; -fx-border-width: 2px;">
+                              <ChoiceBox fx:id="custodyTypeChoiceBox" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #ffffff; -fx-border-color: #F7F7F7; -fx-border-style: solid; -fx-border-width: 2px;">
                                  <effect>
                                     <InnerShadow choke="1.0" color="#2916ba7c" height="5.0" radius="2.0" width="5.0" />
                                  </effect>

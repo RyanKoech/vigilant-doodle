@@ -180,10 +180,10 @@ public class PoliceDashboardController implements Initializable {
 
     @FXML
     private void onSearchCase(ActionEvent event) {
-        //if(obNumberTextField.getText() == null || obNumberTextField.getText().trim().isEmpty()){
-        //    return;
-        //}
-        //getSuspectCustodyRecords(obNumberTextField.getText());
+        if(obNumberTextField.getText() == null || obNumberTextField.getText().trim().isEmpty()){
+            return;
+        }
+        getSuspectCustodyRecords(obNumberTextField.getText());
     }
 
     @FXML
@@ -350,30 +350,26 @@ public class PoliceDashboardController implements Initializable {
         crimeTypeChoiceBox.setValue(null);
     }
 
-    //private void getSuspectCustodyRecords(String obNumber) {
-    //    Connection connection = MysqlConnector.connectDB();
-    //    if (connection != null) {
-    //        try {
-    //            PreparedStatement statement = (PreparedStatement) connection.prepareStatement("SELECT * FROM cases Where ");
-    //            ResultSet resultSet = statement.executeQuery();
-    //
-    //            //Clear Map
-    //            crimeTypetoCrimeIdMap.clear();
-    //
-    //            while (resultSet.next()) {
-    //                String crime = resultSet.getString("Type");
-    //                String crimeId = resultSet.getString("Type_Id");
-    //
-    //                //Map crime type to crime id
-    //                crimeTypetoCrimeIdMap.put(crime, crimeId);
-    //
-    //                //Add crime type to ChoiceBox
-    //                crimeTypeChoiceBox.getItems().addAll(crime);
-    //            }
-    //        } catch (SQLException ex) {
-    //            Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
-    //        }
-    //    }
-    //}
+    private void getSuspectCustodyRecords(String obNumber) {
+        Connection connection = MysqlConnector.connectDB();
+
+        if(connection != null){
+            try {
+                PreparedStatement st = (PreparedStatement) connection.prepareStatement("SELECT citizens.Name, `custody types`.`Custody_Type`, `custody types`.`bail_index` FROM cases INNER JOIN citizens ON cases.Offender_Id = citizens.`National ID` INNER JOIN offenders ON cases.Offender_Id = offenders.National_Id INNER JOIN `custody types` ON offenders.Custody_Id = `custody types`.`Type_Id` WHERE cases.OB_id = ?");
+                st.setString(1, obNumber);
+                ResultSet res = st.executeQuery();
+
+                if (res.next()) {
+
+                    double bailIndex = Double.parseDouble(res.getString("bail_index"));
+                    suspectNameLabel.setText(res.getString("Name"));
+                    currentCustodyLabel.setText(res.getString("Custody_Type"));
+                    bailFeeLabel.setText(String.valueOf(bailIndex*Data.BASE_BAIL));
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
 
 }

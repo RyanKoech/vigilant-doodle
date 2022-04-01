@@ -1,9 +1,12 @@
 package com.example.vigilantdoodle;
 
+import com.example.vigilantdoodle.utilities.Data;
+import com.example.vigilantdoodle.utilities.MysqlConnector;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTreeTableView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -11,7 +14,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.layout.VBox;
 
-public class PoliceAdminDashboardController {
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class PoliceAdminDashboardController implements Initializable {
 
     @FXML
     private JFXButton dashboardMenuButton;
@@ -181,6 +193,11 @@ public class PoliceAdminDashboardController {
     @FXML
     private TreeTableColumn<?, ?> crimeTableColumn;
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        setWelcomeBannerLabel();
+    }
+
     @FXML
     void onAddPolice(ActionEvent event) {
 
@@ -214,6 +231,29 @@ public class PoliceAdminDashboardController {
     @FXML
     void onUpdatePolice(ActionEvent event) {
 
+    }
+
+    //Sets the logged in police name on the welcome banner
+    private void setWelcomeBannerLabel() {
+        Connection connection = MysqlConnector.connectDB();
+        if (connection != null) {
+            try {
+
+                PreparedStatement st = (PreparedStatement) connection.prepareStatement("SELECT Name FROM `users` WHERE `Police_Id` = ?");
+                st.setString(1, Data.POLICE_ID);
+                ResultSet res = st.executeQuery();
+
+                while (res.next()) {
+                    String welcomeName = res.getString("Name");
+                    welcomeBannerLabel.setText("Inspector " + welcomeName);
+
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            System.out.println("The connection is not available");
+        }
     }
 
 }

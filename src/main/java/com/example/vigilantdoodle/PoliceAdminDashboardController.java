@@ -1,9 +1,15 @@
 package com.example.vigilantdoodle;
 
+import com.example.vigilantdoodle.datamodels.AdminReports;
+import com.example.vigilantdoodle.datamodels.PoliceReports;
 import com.example.vigilantdoodle.utilities.Data;
 import com.example.vigilantdoodle.utilities.MysqlConnector;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTreeTableView;
+import com.jfoenix.controls.RecursiveTreeItem;
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,11 +17,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -177,32 +180,33 @@ public class PoliceAdminDashboardController implements Initializable {
     private Label stat3Label;
 
     @FXML
-    private JFXTreeTableView<?> dashboardTableView;
+    private JFXTreeTableView<AdminReports> dashboardTableView;
 
     @FXML
-    private TreeTableColumn<?, ?> obIdTableColumn;
+    private TreeTableColumn<AdminReports, String> obIdTableColumn;
 
     @FXML
-    private TreeTableColumn<?, ?> policeNameTableColumn;
+    private TreeTableColumn<AdminReports, String> policeNameTableColumn;
 
     @FXML
-    private TreeTableColumn<?, ?> offenderNameTableColumn;
+    private TreeTableColumn<AdminReports, String> offenderNameTableColumn;
 
     @FXML
-    private TreeTableColumn<?, ?> locationTableColumn;
+    private TreeTableColumn<AdminReports, String> locationTableColumn;
 
     @FXML
-    private TreeTableColumn<?, ?> dateTableColumn;
+    private TreeTableColumn<AdminReports, String> dateTableColumn;
 
     @FXML
-    private TreeTableColumn<?, ?> timeTableColumn;
+    private TreeTableColumn<AdminReports, String>timeTableColumn;
 
     @FXML
-    private TreeTableColumn<?, ?> crimeTableColumn;
+    private TreeTableColumn<AdminReports, String> crimeTableColumn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setWelcomeBannerLabel();
+        showAdminReports();
     }
 
     //Side Menu Navigation Button Actions
@@ -294,5 +298,46 @@ public class PoliceAdminDashboardController implements Initializable {
             System.out.println("The connection is not available");
         }
     }
+
+    //Create Observable list of type PoliceReports (From Database) to be used in TableView
+    private ObservableList<AdminReports> getAdminReportList() {
+        ObservableList<AdminReports> adminReportsList = FXCollections.observableArrayList();
+
+        Connection connection = MysqlConnector.connectDB();
+
+        try {
+            PreparedStatement st = (PreparedStatement) connection.prepareStatement("SELECT cases.OB_id, users.Name Police_Name, Offenders.Name Offender_Name, cases.Location, cases.Date, cases.Time, crime_types.Type Crime_Type FROM cases INNER JOIN users ON cases.Police_Id = users.Police_Id INNER JOIN citizens as Offenders ON cases.Offender_Id = Offenders.`National ID` INNER JOIN `crime types` as crime_types ON cases.Crime_Type = crime_types.Type_Id ");
+            //st.setString(1, Data.POLICE_ID);
+            ResultSet res = st.executeQuery();
+            AdminReports adminReports;
+
+            while (res.next()) {
+                adminReports = new AdminReports(res.getString("OB_id"), res.getString("Police_Name"), res.getString("Offender_Name"), res.getString("Location"), res.getString("Date"), res.getString("Time"), res.getString("Crime_Type"));
+                adminReportsList.add(adminReports);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return adminReportsList;
+    }
+
+    //Display contents of an Observable list into TableView
+    private void showAdminReports() {
+        ObservableList<AdminReports> list = getAdminReportList();
+
+        obIdTableColumn.setCellValueFactory(new TreeItemPropertyValueFactory<AdminReports, String>("obId"));
+        policeNameTableColumn.setCellValueFactory(new TreeItemPropertyValueFactory<AdminReports, String>("policeName"));
+        offenderNameTableColumn.setCellValueFactory(new TreeItemPropertyValueFactory<AdminReports, String>("offenderName"));
+        locationTableColumn.setCellValueFactory(new TreeItemPropertyValueFactory<AdminReports, String>("location"));
+        dateTableColumn.setCellValueFactory(new TreeItemPropertyValueFactory<AdminReports, String>("date"));
+        timeTableColumn.setCellValueFactory(new TreeItemPropertyValueFactory<AdminReports, String>("time"));
+        crimeTableColumn.setCellValueFactory(new TreeItemPropertyValueFactory<AdminReports, String>("crime"));
+
+        TreeItem<AdminReports> root = new RecursiveTreeItem<>(list, RecursiveTreeObject::getChildren);
+        dashboardTableView.setRoot(root);
+        dashboardTableView.setShowRoot(false);
+    }
+
 
 }

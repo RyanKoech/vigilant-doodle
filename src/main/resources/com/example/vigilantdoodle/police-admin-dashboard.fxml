@@ -164,94 +164,6 @@
                                 <String fx:value="left-innershadow" />
                                 <String fx:value="grey-background" />
                             </styleClass></Pane>
-                        <VBox alignment="TOP_CENTER" prefHeight="576.0" prefWidth="707.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <children>
-                        <HBox maxWidth="850.0" prefHeight="126.0" prefWidth="642.0">
-                           <children>
-                              <Pane maxHeight="150.0" maxWidth="175.0" minHeight="150.0" minWidth="175.0" prefHeight="150.0" prefWidth="175.0" style="-fx-background-color: #FFFFFF;">
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                                 <children>
-                                    <Label layoutX="14.0" layoutY="38.0" text="FACT 1" textFill="#003194">
-                                       <font>
-                                          <Font name="System Bold" size="20.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="14.0" layoutY="86.0" text="Stat 1" textFill="#6f6f6f">
-                                       <font>
-                                          <Font name="System Bold" size="17.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                                 <effect>
-                                    <DropShadow color="#bcbcbc" height="10.0" offsetX="1.0" offsetY="1.0" radius="4.5" width="10.0" />
-                                 </effect>
-                              </Pane>
-                              <Pane prefHeight="200.0" prefWidth="500.0" />
-                              <Pane layoutX="10.0" layoutY="10.0" maxHeight="150.0" maxWidth="175.0" minHeight="150.0" minWidth="175.0" prefHeight="150.0" prefWidth="175.0" style="-fx-background-color: #FFFFFF;">
-                                 <children>
-                                    <Label layoutX="14.0" layoutY="38.0" text="FACT 2" textFill="#003194">
-                                       <font>
-                                          <Font name="System Bold" size="20.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="14.0" layoutY="86.0" text="Stat 2" textFill="#6f6f6f">
-                                       <font>
-                                          <Font name="System Bold" size="17.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                                 <effect>
-                                    <DropShadow color="#bcbcbc" height="10.0" offsetX="1.0" offsetY="1.0" radius="4.5" width="10.0" />
-                                 </effect>
-                              </Pane>
-                              <Pane layoutX="185.0" layoutY="10.0" prefHeight="200.0" prefWidth="500.0" />
-                              <Pane layoutX="210.0" layoutY="10.0" maxHeight="150.0" maxWidth="175.0" minHeight="150.0" minWidth="175.0" prefHeight="150.0" prefWidth="175.0" style="-fx-background-color: #FFFFFF;">
-                                 <children>
-                                    <Label layoutX="12.0" layoutY="37.0" text="FACT 3" textFill="#003194">
-                                       <font>
-                                          <Font name="System Bold" size="20.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="12.0" layoutY="85.0" text="Stat 3" textFill="#6f6f6f">
-                                       <font>
-                                          <Font name="System Bold" size="17.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                                 <effect>
-                                    <DropShadow color="#bcbcbc" height="10.0" offsetX="1.0" offsetY="1.0" radius="4.5" width="10.0" />
-                                 </effect>
-                              </Pane>
-                           </children>
-                           <VBox.margin>
-                              <Insets bottom="30.0" />
-                           </VBox.margin>
-                        </HBox>
-                                <JFXTreeTableView maxWidth="850.0" prefHeight="344.0" prefWidth="642.0">
-                                    <columns>
-                                        <TreeTableColumn minWidth="57.0" prefWidth="57.0" text="OB Id" />
-                                        <TreeTableColumn minWidth="147.0" prefWidth="147.0" text="Police Name" />
-                                        <TreeTableColumn minWidth="147.0" prefWidth="147.0" text="Offender Name" />
-                                        <TreeTableColumn minWidth="123.0" prefWidth="123.0" text="Location" />
-                                        <TreeTableColumn minWidth="61.0" prefWidth="61.0" text="Date" />
-                                        <TreeTableColumn minWidth="50.0" prefWidth="50.0" text="Time" />
-                                        <TreeTableColumn minWidth="61.0" prefWidth="61.0" text="Crime" />
-                                    </columns>
-                                    <columnResizePolicy>
-                                        <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                    </columnResizePolicy>
-                                </JFXTreeTableView>
-                            </children>
-                            <padding>
-                                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-                            </padding>
-                            <styleClass>
-                                <String fx:value="left-innershadow" />
-                                <String fx:value="grey-background" />
-                            </styleClass>
-                        </VBox>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                                 <HBox layoutX="131.0" layoutY="285.0" maxWidth="-Infinity">
@@ -352,75 +264,6 @@
                                 <String fx:value="grey-background" />
                             </styleClass>
                         </VBox>
-                  <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <TextField layoutX="266.0" layoutY="193.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Police ID">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="25.0" />
-                           </VBox.margin>
-                        </TextField>
-                        <TextField layoutX="266.0" layoutY="208.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Police Name">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="25.0" />
-                           </VBox.margin>
-                        </TextField>
-                        <TextField layoutX="266.0" layoutY="223.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Phone Number">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="25.0" />
-                           </VBox.margin>
-                        </TextField>
-                        <TextField maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Email Address">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="25.0" />
-                           </VBox.margin>
-                        </TextField>
-                        <HBox alignment="CENTER_LEFT" layoutX="131.0" layoutY="353.0" maxWidth="-Infinity">
-                           <VBox.margin>
-                              <Insets bottom="25.0" />
-                           </VBox.margin>
-                           <children>
-                              <Label text="Role" textFill="#b2b2b2">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets right="10.0" />
-                                 </HBox.margin>
-                              </Label>
-                              <ChoiceBox prefHeight="30.0" prefWidth="162.0" style="-fx-background-color: #ffffff; -fx-border-color: #F7F7F7; -fx-border-style: solid; -fx-border-width: 2px;">
-                                 <effect>
-                                    <InnerShadow choke="1.0" color="#2916ba7c" height="5.0" radius="2.0" width="5.0" />
-                                 </effect>
-                              </ChoiceBox>
-                           </children>
-                        </HBox>
-                        <Pane prefHeight="100.0" prefWidth="200.0" />
-                        <JFXButton prefHeight="35.0" prefWidth="250.0" style="-fx-background-color: yellow;" text="Report" textFill="#003194">
-                           <VBox.margin>
-                              <Insets top="25.0" />
-                           </VBox.margin>
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </JFXButton>
-                     </children>
-                     <styleClass>
-                        <String fx:value="left-innershadow" />
-                        <String fx:value="grey-background" />
-                     </styleClass>
-                  </VBox>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <styleClass>
                                 <String fx:value="left-innershadow" />
@@ -533,6 +376,75 @@
                         </VBox>
                   <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
+                        <TextField layoutX="266.0" layoutY="193.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Police ID">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="25.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField layoutX="266.0" layoutY="208.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Police Name">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="25.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField layoutX="266.0" layoutY="223.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Phone Number">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="25.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Email Address">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="25.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <HBox alignment="CENTER_LEFT" layoutX="131.0" layoutY="353.0" maxWidth="-Infinity">
+                           <VBox.margin>
+                              <Insets bottom="25.0" />
+                           </VBox.margin>
+                           <children>
+                              <Label text="Role" textFill="#b2b2b2">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <ChoiceBox prefHeight="30.0" prefWidth="162.0" style="-fx-background-color: #ffffff; -fx-border-color: #F7F7F7; -fx-border-style: solid; -fx-border-width: 2px;">
+                                 <effect>
+                                    <InnerShadow choke="1.0" color="#2916ba7c" height="5.0" radius="2.0" width="5.0" />
+                                 </effect>
+                              </ChoiceBox>
+                           </children>
+                        </HBox>
+                        <Pane prefHeight="100.0" prefWidth="200.0" />
+                        <JFXButton prefHeight="35.0" prefWidth="250.0" style="-fx-background-color: yellow;" text="Report" textFill="#003194">
+                           <VBox.margin>
+                              <Insets top="25.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                     <styleClass>
+                        <String fx:value="left-innershadow" />
+                        <String fx:value="grey-background" />
+                     </styleClass>
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
                         <HBox alignment="CENTER_RIGHT">
                            <children>
                               <TextField prefHeight="30.0" prefWidth="200.0" promptText="Police ID">
@@ -615,6 +527,94 @@
                         <Insets left="70.0" right="70.0" />
                      </padding>
                   </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="576.0" prefWidth="707.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                        <HBox maxWidth="850.0" prefHeight="126.0" prefWidth="642.0">
+                           <children>
+                              <Pane maxHeight="150.0" maxWidth="175.0" minHeight="150.0" minWidth="175.0" prefHeight="150.0" prefWidth="175.0" style="-fx-background-color: #FFFFFF;">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <children>
+                                    <Label layoutX="14.0" layoutY="38.0" text="FACT 1" textFill="#003194">
+                                       <font>
+                                          <Font name="System Bold" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="14.0" layoutY="86.0" text="Stat 1" textFill="#6f6f6f">
+                                       <font>
+                                          <Font name="System Bold" size="17.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <effect>
+                                    <DropShadow color="#bcbcbc" height="10.0" offsetX="1.0" offsetY="1.0" radius="4.5" width="10.0" />
+                                 </effect>
+                              </Pane>
+                              <Pane prefHeight="200.0" prefWidth="500.0" />
+                              <Pane layoutX="10.0" layoutY="10.0" maxHeight="150.0" maxWidth="175.0" minHeight="150.0" minWidth="175.0" prefHeight="150.0" prefWidth="175.0" style="-fx-background-color: #FFFFFF;">
+                                 <children>
+                                    <Label layoutX="14.0" layoutY="38.0" text="FACT 2" textFill="#003194">
+                                       <font>
+                                          <Font name="System Bold" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="14.0" layoutY="86.0" text="Stat 2" textFill="#6f6f6f">
+                                       <font>
+                                          <Font name="System Bold" size="17.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <effect>
+                                    <DropShadow color="#bcbcbc" height="10.0" offsetX="1.0" offsetY="1.0" radius="4.5" width="10.0" />
+                                 </effect>
+                              </Pane>
+                              <Pane layoutX="185.0" layoutY="10.0" prefHeight="200.0" prefWidth="500.0" />
+                              <Pane layoutX="210.0" layoutY="10.0" maxHeight="150.0" maxWidth="175.0" minHeight="150.0" minWidth="175.0" prefHeight="150.0" prefWidth="175.0" style="-fx-background-color: #FFFFFF;">
+                                 <children>
+                                    <Label layoutX="12.0" layoutY="37.0" text="FACT 3" textFill="#003194">
+                                       <font>
+                                          <Font name="System Bold" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="12.0" layoutY="85.0" text="Stat 3" textFill="#6f6f6f">
+                                       <font>
+                                          <Font name="System Bold" size="17.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <effect>
+                                    <DropShadow color="#bcbcbc" height="10.0" offsetX="1.0" offsetY="1.0" radius="4.5" width="10.0" />
+                                 </effect>
+                              </Pane>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="30.0" />
+                           </VBox.margin>
+                        </HBox>
+                                <JFXTreeTableView maxWidth="850.0" prefHeight="344.0" prefWidth="642.0">
+                                    <columns>
+                                        <TreeTableColumn minWidth="57.0" prefWidth="57.0" text="OB Id" />
+                                        <TreeTableColumn minWidth="147.0" prefWidth="147.0" text="Police Name" />
+                                        <TreeTableColumn minWidth="147.0" prefWidth="147.0" text="Offender Name" />
+                                        <TreeTableColumn minWidth="123.0" prefWidth="123.0" text="Location" />
+                                        <TreeTableColumn minWidth="61.0" prefWidth="61.0" text="Date" />
+                                        <TreeTableColumn minWidth="50.0" prefWidth="50.0" text="Time" />
+                                        <TreeTableColumn minWidth="61.0" prefWidth="61.0" text="Crime" />
+                                    </columns>
+                                    <columnResizePolicy>
+                                        <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                    </columnResizePolicy>
+                                </JFXTreeTableView>
+                            </children>
+                            <padding>
+                                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                            </padding>
+                            <styleClass>
+                                <String fx:value="left-innershadow" />
+                                <String fx:value="grey-background" />
+                            </styleClass>
+                        </VBox>
                     </children>
                 </AnchorPane>
             </children>

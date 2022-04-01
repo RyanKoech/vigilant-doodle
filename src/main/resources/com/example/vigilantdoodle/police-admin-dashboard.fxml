@@ -33,7 +33,7 @@
                         <Insets bottom="30.0" />
                     </VBox.margin>
                 </ImageView>
-                <JFXButton alignment="BASELINE_LEFT" graphicTextGap="20.0" prefHeight="40.0" prefWidth="215.0" text="Dashboard" textFill="#b1c5d3">
+                <JFXButton fx:id="dashboardMenuButton" alignment="BASELINE_LEFT" graphicTextGap="20.0" prefHeight="40.0" prefWidth="215.0" text="Dashboard" textFill="#b1c5d3">
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>
@@ -51,7 +51,7 @@
                         <Insets left="20.0" />
                     </padding>
                 </JFXButton>
-                <JFXButton alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="10.0" layoutY="170.0" prefHeight="40.0" prefWidth="215.0" text="Reporting" textFill="#b1c5d3">
+                <JFXButton fx:id="reportingMenuButton" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="10.0" layoutY="170.0" prefHeight="40.0" prefWidth="215.0" text="Reporting" textFill="#b1c5d3">
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>
@@ -69,7 +69,7 @@
                         <Insets left="20.0" />
                     </padding>
                 </JFXButton>
-                <JFXButton alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="10.0" layoutY="212.0" prefHeight="40.0" prefWidth="215.0" text="Custodies" textFill="#b1c5d3">
+                <JFXButton fx:id="custodiesMenuButton" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="10.0" layoutY="212.0" prefHeight="40.0" prefWidth="215.0" text="Custodies" textFill="#b1c5d3">
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>
@@ -87,7 +87,7 @@
                         <Insets left="20.0" />
                     </padding>
                 </JFXButton>
-            <JFXButton alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="10.0" layoutY="280.0" prefHeight="40.0" prefWidth="215.0" text="Add Police" textFill="#b1c5d3">
+            <JFXButton fx:id="addPoliceMenuButton" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="10.0" layoutY="280.0" prefHeight="40.0" prefWidth="215.0" text="Add Police" textFill="#b1c5d3">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -105,7 +105,7 @@
                   <Insets bottom="15.0" />
                </VBox.margin>
             </JFXButton>
-            <JFXButton alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="10.0" layoutY="335.0" prefHeight="40.0" prefWidth="215.0" text="Edit Police" textFill="#b1c5d3">
+            <JFXButton fx:id="editPoliceMenuButton" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="10.0" layoutY="335.0" prefHeight="40.0" prefWidth="215.0" text="Edit Police" textFill="#b1c5d3">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -134,7 +134,7 @@
             <children>
                 <HBox alignment="CENTER_LEFT" minHeight="125.0" prefHeight="138.0" prefWidth="725.0" style="-fx-background-color: #fff10b;" styleClass="left-innershadow" stylesheets="@styles/styles.css">
                     <children>
-                        <Label minWidth="200.0" text="Inpsector John Doe">
+                        <Label fx:id="welcomeBannerLabel" minWidth="200.0" text="Inpsector John Doe">
                             <font>
                                 <Font size="20.0" />
                             </font>
@@ -143,7 +143,7 @@
                             </HBox.margin>
                         </Label>
                         <Pane prefHeight="200.0" prefWidth="1000.0" />
-                        <JFXButton contentDisplay="CENTER" text=" ">
+                        <JFXButton fx:id="logoutButton" contentDisplay="CENTER" text=" ">
                             <graphic>
                                 <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
@@ -164,11 +164,11 @@
                                 <String fx:value="left-innershadow" />
                                 <String fx:value="grey-background" />
                             </styleClass></Pane>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox fx:id="reportingTabVBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                                 <HBox layoutX="131.0" layoutY="285.0" maxWidth="-Infinity">
                                     <children>
-                                        <TextField prefHeight="30.0" prefWidth="200.0" promptText="Reporter Name">
+                                        <TextField fx:id="reporterNameTextField" prefHeight="30.0" prefWidth="200.0" promptText="Reporter Name">
                                             <HBox.margin>
                                                 <Insets right="70.0" />
                                             </HBox.margin>
@@ -176,7 +176,7 @@
                                                 <Font size="13.0" />
                                             </font>
                                         </TextField>
-                                        <TextField layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" promptText="Reporter ID">
+                                        <TextField fx:id="reporterIdTextField" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" promptText="Reporter ID">
                                             <font>
                                                 <Font size="13.0" />
                                             </font></TextField>
@@ -187,7 +187,7 @@
                                 </HBox>
                                 <HBox layoutX="131.0" layoutY="283.0" maxWidth="-Infinity">
                                     <children>
-                                        <TextField prefHeight="30.0" prefWidth="200.0" promptText="Offender Name">
+                                        <TextField fx:id="offenderIdTextField" prefHeight="30.0" prefWidth="200.0" promptText="Offender ID">
                                             <HBox.margin>
                                                 <Insets right="70.0" />
                                             </HBox.margin>
@@ -195,7 +195,7 @@
                                                 <Font size="13.0" />
                                             </font>
                                         </TextField>
-                                        <TextField layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" promptText="Location">
+                                        <TextField fx:id="locationTextField" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" promptText="Location">
                                             <font>
                                                 <Font size="13.0" />
                                             </font></TextField>
@@ -206,7 +206,7 @@
                                 </HBox>
                                 <HBox layoutX="131.0" layoutY="318.0" maxWidth="-Infinity">
                                     <children>
-                                        <TextField prefHeight="30.0" prefWidth="200.0" promptText="Date">
+                                        <TextField fx:id="dateTextField" prefHeight="30.0" prefWidth="200.0" promptText="Date">
                                             <HBox.margin>
                                                 <Insets right="70.0" />
                                             </HBox.margin>
@@ -214,7 +214,7 @@
                                                 <Font size="13.0" />
                                             </font>
                                         </TextField>
-                                        <TextField layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" promptText="Time">
+                                        <TextField fx:id="timeTextField" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" promptText="Time">
                                             <font>
                                                 <Font size="13.0" />
                                             </font></TextField>
@@ -236,21 +236,21 @@
                                                 <Insets right="10.0" />
                                             </HBox.margin>
                                         </Label>
-                                        <ChoiceBox prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #ffffff; -fx-border-color: #F7F7F7; -fx-border-style: solid; -fx-border-width: 2px;">
+                                        <ChoiceBox fx:id="crimeTypeChoiceBox" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #ffffff; -fx-border-color: #F7F7F7; -fx-border-style: solid; -fx-border-width: 2px;">
                                             <effect>
                                                 <InnerShadow choke="1.0" color="#2916ba7c" height="5.0" radius="2.0" width="5.0" />
                                             </effect>
                                         </ChoiceBox>
                                     </children>
                                 </HBox>
-                                <TextArea maxWidth="470.0" prefHeight="200.0" prefWidth="200.0" promptText="Desciption" wrapText="true">
+                                <TextArea fx:id="descriptionTextArea" maxWidth="470.0" prefHeight="200.0" prefWidth="200.0" promptText="Desciption" wrapText="true">
                                     <VBox.margin>
                                         <Insets />
                                     </VBox.margin>
                                     <font>
                                         <Font name="Consolas" size="14.0" />
                                     </font></TextArea>
-                                <JFXButton prefHeight="35.0" prefWidth="250.0" style="-fx-background-color: yellow;" text="Report" textFill="#003194">
+                                <JFXButton fx:id="reportButton" onAction="#onReportCrime" prefHeight="35.0" prefWidth="250.0" style="-fx-background-color: yellow;" text="Report" textFill="#003194">
                                     <VBox.margin>
                                         <Insets top="25.0" />
                                     </VBox.margin>
@@ -264,7 +264,7 @@
                                 <String fx:value="grey-background" />
                             </styleClass>
                         </VBox>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox fx:id="custodiesTabVBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <styleClass>
                                 <String fx:value="left-innershadow" />
                                 <String fx:value="grey-background" />
@@ -272,12 +272,12 @@
                             <children>
                                 <HBox maxWidth="470.0" minWidth="470.0" prefWidth="470.0">
                                     <children>
-                                        <TextField prefHeight="30.0" prefWidth="200.0" promptText="OB Number">
+                                        <TextField fx:id="obNumberTextField" prefHeight="30.0" prefWidth="200.0" promptText="OB Number">
                                             <font>
                                                 <Font size="13.0" />
                                             </font>
                                         </TextField>
-                                        <JFXButton prefHeight="30.0" style="-fx-background-color: #003194;" text="Search" textFill="#fff10b">
+                                        <JFXButton fx:id="searchButton" onAction="#onSearchCase" prefHeight="30.0" style="-fx-background-color: #003194;" text="Search" textFill="#fff10b">
                                             <font>
                                                 <Font name="System Bold" size="12.0" />
                                             </font>
@@ -297,7 +297,7 @@
                                                 <Insets right="15.0" />
                                             </HBox.margin>
                                         </Label>
-                                        <Label text="John Doe">
+                                        <Label fx:id="suspectNameLabel" text="John Doe">
                                             <font>
                                                 <Font size="15.0" />
                                             </font>
@@ -317,7 +317,7 @@
                                                 <Insets right="15.0" />
                                             </HBox.margin>
                                         </Label>
-                                        <Label text="Released">
+                                        <Label fx:id="currentCustodyLabel" text="Released">
                                             <font>
                                                 <Font size="15.0" />
                                             </font>
@@ -329,7 +329,7 @@
                                 </HBox>
                                 <HBox alignment="CENTER_LEFT" maxWidth="470.0" minWidth="470.0" prefWidth="470.0">
                                     <children>
-                                        <Label text="Crime Type:" textFill="#003194">
+                                        <Label text="Custody Type:" textFill="#003194">
                                             <font>
                                                 <Font name="System Bold" size="16.0" />
                                             </font>
@@ -337,7 +337,7 @@
                                                 <Insets right="10.0" />
                                             </HBox.margin>
                                         </Label>
-                                        <ChoiceBox prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #ffffff; -fx-border-color: #F7F7F7; -fx-border-style: solid; -fx-border-width: 2px;">
+                                        <ChoiceBox fx:id="custodyTypeChoiceBox" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #ffffff; -fx-border-color: #F7F7F7; -fx-border-style: solid; -fx-border-width: 2px;">
                                             <effect>
                                                 <InnerShadow choke="1.0" color="#2916ba7c" height="5.0" radius="2.0" width="5.0" />
                                             </effect>
@@ -357,7 +357,7 @@
                                                 <Insets right="15.0" />
                                             </HBox.margin>
                                         </Label>
-                                        <Label text="15,000 Kenya Shillings" textFill="#00d74f">
+                                        <Label fx:id="bailFeeLabel" text="15,000 Kenya Shillings" textFill="#00d74f">
                                             <font>
                                                 <Font name="System Bold" size="15.0" />
                                             </font>
@@ -367,16 +367,16 @@
                                         <Insets bottom="100.0" />
                                     </VBox.margin>
                                 </HBox>
-                                <JFXButton prefHeight="35.0" prefWidth="250.0" style="-fx-background-color: yellow;" text="Update" textFill="#003194">
+                                <JFXButton fx:id="updateCustodyButton" onAction="#onUpdateCustody" prefHeight="35.0" prefWidth="250.0" style="-fx-background-color: yellow;" text="Update" textFill="#003194">
                                     <font>
                                         <Font name="System Bold" size="18.0" />
                                     </font>
                                 </JFXButton>
                             </children>
                         </VBox>
-                  <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox fx:id="addPoliceTabVBox" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <TextField layoutX="266.0" layoutY="193.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Police ID">
+                        <TextField fx:id="addPolicePoliceIdTextField" layoutX="266.0" layoutY="193.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Police ID">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -384,7 +384,7 @@
                               <Insets bottom="25.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField layoutX="266.0" layoutY="208.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Police Name">
+                        <TextField fx:id="addPolicePoliceNameTextField" layoutX="266.0" layoutY="208.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Police Name">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -392,7 +392,7 @@
                               <Insets bottom="25.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField layoutX="266.0" layoutY="223.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Phone Number">
+                        <TextField fx:id="addPolicePhoneNumberTextField" layoutX="266.0" layoutY="223.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Phone Number">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -400,7 +400,7 @@
                               <Insets bottom="25.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Email Address">
+                        <TextField fx:id="addPoliceEmailAddressTextField" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Email Address">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -421,7 +421,7 @@
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </Label>
-                              <ChoiceBox prefHeight="30.0" prefWidth="162.0" style="-fx-background-color: #ffffff; -fx-border-color: #F7F7F7; -fx-border-style: solid; -fx-border-width: 2px;">
+                              <ChoiceBox fx:id="addPolicePoliceRoleChoiceBox" prefHeight="30.0" prefWidth="162.0" style="-fx-background-color: #ffffff; -fx-border-color: #F7F7F7; -fx-border-style: solid; -fx-border-width: 2px;">
                                  <effect>
                                     <InnerShadow choke="1.0" color="#2916ba7c" height="5.0" radius="2.0" width="5.0" />
                                  </effect>
@@ -429,7 +429,7 @@
                            </children>
                         </HBox>
                         <Pane prefHeight="100.0" prefWidth="200.0" />
-                        <JFXButton prefHeight="35.0" prefWidth="250.0" style="-fx-background-color: yellow;" text="Report" textFill="#003194">
+                        <JFXButton fx:id="addPoliceButton" onAction="#onAddPolice" prefHeight="35.0" prefWidth="250.0" style="-fx-background-color: yellow;" text="Add Police" textFill="#003194">
                            <VBox.margin>
                               <Insets top="25.0" />
                            </VBox.margin>
@@ -443,16 +443,16 @@
                         <String fx:value="grey-background" />
                      </styleClass>
                   </VBox>
-                  <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox fx:id="editPoliceTabVBox" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <HBox alignment="CENTER_RIGHT">
                            <children>
-                              <TextField prefHeight="30.0" prefWidth="200.0" promptText="Police ID">
+                              <TextField fx:id="seachPoliceTextField" prefHeight="30.0" prefWidth="200.0" promptText="Police ID">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
                               </TextField>
-                              <JFXButton prefHeight="30.0" style="-fx-background-color: #003194;" text="Search" textFill="#fff10b">
+                              <JFXButton fx:id="searchPoliceButton" onAction="#onSearchPolice" prefHeight="30.0" style="-fx-background-color: #003194;" text="Search" textFill="#fff10b">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
@@ -462,7 +462,7 @@
                               <Insets bottom="50.0" />
                            </VBox.margin>
                         </HBox>
-                        <TextField layoutX="266.0" layoutY="193.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Police ID">
+                        <TextField fx:id="editPolicePoliceIdTextField" layoutX="266.0" layoutY="193.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Police ID">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -470,7 +470,7 @@
                               <Insets bottom="25.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField layoutX="266.0" layoutY="208.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Police Name">
+                        <TextField fx:id="editPolicePoliceNameTextField" layoutX="266.0" layoutY="208.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Police Name">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -478,7 +478,7 @@
                               <Insets bottom="25.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField layoutX="266.0" layoutY="223.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Phone Number">
+                        <TextField fx:id="editPolicePoliceNumberTextField" layoutX="266.0" layoutY="223.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Phone Number">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -486,7 +486,7 @@
                               <Insets bottom="25.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Email Address">
+                        <TextField fx:id="editPoliceEmailAddressTextField" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Email Address">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -500,7 +500,7 @@
                               <Insets bottom="25.0" />
                            </VBox.margin>
                            <children>
-                              <JFXButton prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: yellow;" text="Update" textFill="#003194">
+                              <JFXButton fx:id="updatePoliceButton" onAction="#onUpdatePolice" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: yellow;" text="Update" textFill="#003194">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
@@ -508,7 +508,7 @@
                                     <Insets right="50.0" />
                                  </HBox.margin>
                               </JFXButton>
-                              <JFXButton layoutX="48.0" layoutY="10.0" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: yellow;" text="Delete" textFill="#003194">
+                              <JFXButton fx:id="deletePoliceButton" layoutX="48.0" layoutY="10.0" onAction="#onDeletePolice" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: yellow;" text="Delete" textFill="#003194">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
@@ -527,7 +527,7 @@
                         <Insets left="70.0" right="70.0" />
                      </padding>
                   </VBox>
-                        <VBox alignment="TOP_CENTER" prefHeight="576.0" prefWidth="707.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox fx:id="dashboardTabVBox" alignment="TOP_CENTER" prefHeight="576.0" prefWidth="707.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                         <HBox maxWidth="850.0" prefHeight="126.0" prefWidth="642.0">
                            <children>
@@ -536,12 +536,12 @@
                                     <Insets />
                                  </HBox.margin>
                                  <children>
-                                    <Label layoutX="14.0" layoutY="38.0" text="FACT 1" textFill="#003194">
+                                    <Label fx:id="fact1Label" layoutX="14.0" layoutY="38.0" text="FACT 1" textFill="#003194">
                                        <font>
                                           <Font name="System Bold" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="14.0" layoutY="86.0" text="Stat 1" textFill="#6f6f6f">
+                                    <Label fx:id="stat1Label" layoutX="14.0" layoutY="86.0" text="Stat 1" textFill="#6f6f6f">
                                        <font>
                                           <Font name="System Bold" size="17.0" />
                                        </font>
@@ -554,12 +554,12 @@
                               <Pane prefHeight="200.0" prefWidth="500.0" />
                               <Pane layoutX="10.0" layoutY="10.0" maxHeight="150.0" maxWidth="175.0" minHeight="150.0" minWidth="175.0" prefHeight="150.0" prefWidth="175.0" style="-fx-background-color: #FFFFFF;">
                                  <children>
-                                    <Label layoutX="14.0" layoutY="38.0" text="FACT 2" textFill="#003194">
+                                    <Label fx:id="fact2Label" layoutX="14.0" layoutY="38.0" text="FACT 2" textFill="#003194">
                                        <font>
                                           <Font name="System Bold" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="14.0" layoutY="86.0" text="Stat 2" textFill="#6f6f6f">
+                                    <Label fx:id="stat2Label" layoutX="14.0" layoutY="86.0" text="Stat 2" textFill="#6f6f6f">
                                        <font>
                                           <Font name="System Bold" size="17.0" />
                                        </font>
@@ -572,12 +572,12 @@
                               <Pane layoutX="185.0" layoutY="10.0" prefHeight="200.0" prefWidth="500.0" />
                               <Pane layoutX="210.0" layoutY="10.0" maxHeight="150.0" maxWidth="175.0" minHeight="150.0" minWidth="175.0" prefHeight="150.0" prefWidth="175.0" style="-fx-background-color: #FFFFFF;">
                                  <children>
-                                    <Label layoutX="12.0" layoutY="37.0" text="FACT 3" textFill="#003194">
+                                    <Label fx:id="fact3Label" layoutX="12.0" layoutY="37.0" text="FACT 3" textFill="#003194">
                                        <font>
                                           <Font name="System Bold" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="12.0" layoutY="85.0" text="Stat 3" textFill="#6f6f6f">
+                                    <Label fx:id="stat3Label" layoutX="12.0" layoutY="85.0" text="Stat 3" textFill="#6f6f6f">
                                        <font>
                                           <Font name="System Bold" size="17.0" />
                                        </font>
@@ -592,15 +592,15 @@
                               <Insets bottom="30.0" />
                            </VBox.margin>
                         </HBox>
-                                <JFXTreeTableView maxWidth="850.0" prefHeight="344.0" prefWidth="642.0">
+                                <JFXTreeTableView fx:id="dashboardTableView" maxWidth="850.0" prefHeight="344.0" prefWidth="642.0">
                                     <columns>
-                                        <TreeTableColumn minWidth="57.0" prefWidth="57.0" text="OB Id" />
-                                        <TreeTableColumn minWidth="147.0" prefWidth="147.0" text="Police Name" />
-                                        <TreeTableColumn minWidth="147.0" prefWidth="147.0" text="Offender Name" />
-                                        <TreeTableColumn minWidth="123.0" prefWidth="123.0" text="Location" />
-                                        <TreeTableColumn minWidth="61.0" prefWidth="61.0" text="Date" />
-                                        <TreeTableColumn minWidth="50.0" prefWidth="50.0" text="Time" />
-                                        <TreeTableColumn minWidth="61.0" prefWidth="61.0" text="Crime" />
+                                        <TreeTableColumn fx:id="obIdTableColumn" minWidth="57.0" prefWidth="57.0" text="OB Id" />
+                                        <TreeTableColumn fx:id="policeNameTableColumn" minWidth="147.0" prefWidth="147.0" text="Police Name" />
+                                        <TreeTableColumn fx:id="offenderNameTableColumn" minWidth="147.0" prefWidth="147.0" text="Offender Name" />
+                                        <TreeTableColumn fx:id="locationTableColumn" minWidth="123.0" prefWidth="123.0" text="Location" />
+                                        <TreeTableColumn fx:id="dateTableColumn" minWidth="61.0" prefWidth="61.0" text="Date" />
+                                        <TreeTableColumn fx:id="timeTableColumn" minWidth="50.0" prefWidth="50.0" text="Time" />
+                                        <TreeTableColumn fx:id="crimeTableColumn" minWidth="61.0" prefWidth="61.0" text="Crime" />
                                     </columns>
                                     <columnResizePolicy>
                                         <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

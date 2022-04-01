@@ -198,6 +198,24 @@ public class PoliceAdminDashboardController implements Initializable {
         setWelcomeBannerLabel();
     }
 
+    //Side Menu Navigation Button Actions
+    //To Dashboard Tab
+    @FXML
+    private void onShowDashboardTab(ActionEvent event) { dashboardTabVBox.toFront(); }
+    //To Reporting Tab
+    @FXML
+    private void onShowReportingTab(ActionEvent event) { reportingTabVBox.toFront(); }
+    //To Custodies Tab
+    @FXML
+    private void onShowCustodiesTab(ActionEvent event) { custodiesTabVBox.toFront(); }
+    //To Add Police Tab
+    @FXML
+    private void onShowAddPoliceTab(ActionEvent event){ addPoliceTabVBox.toFront(); }
+    //Edit Police Tab
+    @FXML
+    private void onShowEditPoliceTab(ActionEvent event){ editPoliceTabVBox.toFront(); }
+
+
     @FXML
     void onAddPolice(ActionEvent event) {
 

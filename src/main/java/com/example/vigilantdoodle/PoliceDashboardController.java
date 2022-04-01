@@ -132,6 +132,8 @@ public class PoliceDashboardController implements Initializable {
 
     private final Map custodyTypetoCustodyIdMap = new HashMap();
 
+    private String offenderId;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         setWelcomeBannerLabel();
@@ -139,6 +141,7 @@ public class PoliceDashboardController implements Initializable {
         createTextButtonList();
         setCrimeTypeChoiceBoxItems();
         setCustodyTypeChoiceBoxItems();
+        updateCustodyButton.setDisable(true);
     }
 
     //Logout Button Function
@@ -177,12 +180,15 @@ public class PoliceDashboardController implements Initializable {
 
     @FXML
     private void onUpdateCustody(ActionEvent event) {
-
+        if(isCustodiesChoiceBoxValueEmpty()){
+            return;
+        }
+        updateCustody(offenderId);
     }
 
     @FXML
     private void onSearchCase(ActionEvent event) {
-        if(obNumberTextField.getText() == null || obNumberTextField.getText().trim().isEmpty()){
+        if(isObIdTextFieldEmpty()){
             return;
         }
         getSuspectCustodyRecords(obNumberTextField.getText());
@@ -316,6 +322,16 @@ public class PoliceDashboardController implements Initializable {
         return (crimeTypeChoiceBox.getValue() == null);
     }
 
+    //Check if Ob_Id TextField is empty
+    private Boolean isObIdTextFieldEmpty(){
+        return (obNumberTextField.getText() == null || obNumberTextField.getText().trim().isEmpty());
+    }
+
+    //Check if custodies choice box value is empty
+    private  Boolean isCustodiesChoiceBoxValueEmpty(){
+        return (custodyTypeChoiceBox.getValue() == null);
+    }
+
     //Sets ChoiceBox Items from the Database and Maps Crime types to  Type Id
     private void setCrimeTypeChoiceBoxItems() {
         Connection connection = MysqlConnector.connectDB();
@@ -384,7 +400,7 @@ public class PoliceDashboardController implements Initializable {
 
         if(connection != null){
             try {
-                PreparedStatement st = (PreparedStatement) connection.prepareStatement("SELECT citizens.Name, `custody types`.`Custody_Type`, `custody types`.`bail_index` FROM cases INNER JOIN citizens ON cases.Offender_Id = citizens.`National ID` INNER JOIN offenders ON cases.Offender_Id = offenders.National_Id INNER JOIN `custody types` ON offenders.Custody_Id = `custody types`.`Type_Id` WHERE cases.OB_id = ?");
+                PreparedStatement st = (PreparedStatement) connection.prepareStatement("SELECT cases.Offender_Id, citizens.Name, `custody types`.`Custody_Type`, `custody types`.`bail_index` FROM cases INNER JOIN citizens ON cases.Offender_Id = citizens.`National ID` INNER JOIN offenders ON cases.Offender_Id = offenders.National_Id INNER JOIN `custody types` ON offenders.Custody_Id = `custody types`.`Type_Id` WHERE cases.OB_id = ?");
                 st.setString(1, obNumber);
                 ResultSet res = st.executeQuery();
 
@@ -394,10 +410,32 @@ public class PoliceDashboardController implements Initializable {
                     suspectNameLabel.setText(res.getString("Name"));
                     currentCustodyLabel.setText(res.getString("Custody_Type"));
                     bailFeeLabel.setText(String.valueOf(bailIndex*Data.BASE_BAIL));
+                    offenderId = res.getString("Offender_Id");
                 }
+                //To enable the user to be able to click in the update button
+                updateCustodyButton.setDisable(false);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
+        }
+    }
+
+    private void updateCustody(String offenderId){
+        Connection connection = MysqlConnector.connectDB();
+        if(connection != null){
+            try {
+
+                PreparedStatement st = (PreparedStatement)connection.prepareStatement ("UPDATE `offenders` SET `Custody_Id` = ? WHERE `offenders`.`National_Id` = ?");
+                st.setString(1, custodyTypetoCustodyIdMap.get(custodyTypeChoiceBox.getValue()).toString());
+                st.setString(2, offenderId);
+                int res = st.executeUpdate();
+
+                System.out.println("Success!");
+            } catch (SQLException ex) {
+                Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            System.out.println("The connection is not available");
         }
     }
 

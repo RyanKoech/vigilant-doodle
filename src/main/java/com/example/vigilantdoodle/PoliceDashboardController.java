@@ -229,11 +229,11 @@ public class PoliceDashboardController implements Initializable {
 
     //Sets the logged in police name on the welcome banner
     private void setWelcomeBannerLabel() {
-        Connection dbConn = MysqlConnector.connectDB();
-        if (dbConn != null) {
+        Connection connection = MysqlConnector.connectDB();
+        if (connection != null) {
             try {
 
-                PreparedStatement st = (PreparedStatement) dbConn.prepareStatement("SELECT Name FROM `users` WHERE `Police_Id` = ?");
+                PreparedStatement st = (PreparedStatement) connection.prepareStatement("SELECT Name FROM `users` WHERE `Police_Id` = ?");
                 st.setString(1, Data.POLICE_ID);
                 ResultSet res = st.executeQuery();
 

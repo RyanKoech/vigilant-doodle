@@ -207,6 +207,7 @@ public class PoliceAdminDashboardController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setWelcomeBannerLabel();
         showAdminReports();
+        getFirstDashboardFacts();
     }
 
     //Side Menu Navigation Button Actions
@@ -339,5 +340,20 @@ public class PoliceAdminDashboardController implements Initializable {
         dashboardTableView.setShowRoot(false);
     }
 
+    private void getFirstDashboardFacts(){
 
+        Connection connection = MysqlConnector.connectDB();
+
+        try {
+            PreparedStatement st = (PreparedStatement) connection.prepareStatement("SELECT COUNT(cases.OB_id) total FROM `cases`");
+            ResultSet res = st.executeQuery();
+
+            if (res.next()) {
+                fact1Label.setText("Total Cases");
+                stat1Label.setText(res.getString("total"));
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 }

@@ -352,7 +352,7 @@ public class PoliceAdminDashboardController implements Initializable {
 
             if (res.next()) {
                 fact1Label.setText("Total Cases");
-                stat1Label.setText(res.getString("total"));
+                stat1Label.setText(res.getString("total") + " cases");
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -369,7 +369,7 @@ public class PoliceAdminDashboardController implements Initializable {
 
             if (res.next()) {
                 fact2Label.setText(res.getString("Type"));
-                stat2Label.setText(res.getString("frequencies"));
+                stat2Label.setText(res.getString("frequencies") + " cases");
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -386,7 +386,7 @@ public class PoliceAdminDashboardController implements Initializable {
 
             if (res.next()) {
                 fact3Label.setText("Total Bails");
-                stat3Label.setText(res.getString("bails"));
+                stat3Label.setText("Ksh " + res.getString("bails"));
             }
         } catch (Exception ex) {
             ex.printStackTrace();

@@ -208,6 +208,7 @@ public class PoliceAdminDashboardController implements Initializable {
         setWelcomeBannerLabel();
         showAdminReports();
         getFirstDashboardFacts();
+        getSecondDashboardFacts();
     }
 
     //Side Menu Navigation Button Actions
@@ -351,6 +352,23 @@ public class PoliceAdminDashboardController implements Initializable {
             if (res.next()) {
                 fact1Label.setText("Total Cases");
                 stat1Label.setText(res.getString("total"));
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void getSecondDashboardFacts(){
+
+        Connection connection = MysqlConnector.connectDB();
+
+        try {
+            PreparedStatement st = (PreparedStatement) connection.prepareStatement("SELECT `crime types`.`Type`, COUNT(`crime types`.`Type`) frequencies FROM `cases` INNER JOIN `crime types` ON cases.Crime_Type = `crime types`.`Type_Id` GROUP BY `crime types`.`Type` ORDER BY frequencies DESC  LIMIT 1");
+            ResultSet res = st.executeQuery();
+
+            if (res.next()) {
+                fact2Label.setText(res.getString("Type"));
+                stat2Label.setText(res.getString("frequencies"));
             }
         } catch (Exception ex) {
             ex.printStackTrace();

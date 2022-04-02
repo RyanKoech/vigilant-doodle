@@ -209,6 +209,7 @@ public class PoliceAdminDashboardController implements Initializable {
         showAdminReports();
         getFirstDashboardFacts();
         getSecondDashboardFacts();
+        getThirdDashboardFacts();
     }
 
     //Side Menu Navigation Button Actions
@@ -369,6 +370,23 @@ public class PoliceAdminDashboardController implements Initializable {
             if (res.next()) {
                 fact2Label.setText(res.getString("Type"));
                 stat2Label.setText(res.getString("frequencies"));
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void getThirdDashboardFacts(){
+
+        Connection connection = MysqlConnector.connectDB();
+
+        try {
+            PreparedStatement st = (PreparedStatement) connection.prepareStatement("SELECT SUM(bails.Amount) bails FROM `bails` ");
+            ResultSet res = st.executeQuery();
+
+            if (res.next()) {
+                fact3Label.setText("Total Bails");
+                stat3Label.setText(res.getString("bails"));
             }
         } catch (Exception ex) {
             ex.printStackTrace();

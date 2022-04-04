@@ -316,7 +316,10 @@ public class PoliceAdminDashboardController implements Initializable {
 
     @FXML
     void onUpdateCustody(ActionEvent event) {
-
+        if(isCustodiesChoiceBoxValueEmpty()){
+            return;
+        }
+        updateCustody(offenderId);
     }
 
     @FXML
@@ -558,6 +561,31 @@ public class PoliceAdminDashboardController implements Initializable {
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
+        }
+    }
+
+    //Check if custodies choice box value is empty
+    private  Boolean isCustodiesChoiceBoxValueEmpty(){
+        return (custodyTypeChoiceBox.getValue() == null);
+    }
+
+    //Updates Suspect Custody Status into the Database
+    private void updateCustody(String offenderId){
+        Connection connection = MysqlConnector.connectDB();
+        if(connection != null){
+            try {
+
+                PreparedStatement st = (PreparedStatement)connection.prepareStatement ("UPDATE `offenders` SET `Custody_Id` = ? WHERE `offenders`.`National_Id` = ?");
+                st.setString(1, custodyTypetoCustodyIdMap.get(custodyTypeChoiceBox.getValue()).toString());
+                st.setString(2, offenderId);
+                int res = st.executeUpdate();
+
+                System.out.println("Success!");
+            } catch (SQLException ex) {
+                Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            System.out.println("The connection is not available");
         }
     }
 }

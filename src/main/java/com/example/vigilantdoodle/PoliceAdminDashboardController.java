@@ -28,6 +28,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -78,7 +80,7 @@ public class PoliceAdminDashboardController implements Initializable {
     private TextField timeTextField;
 
     @FXML
-    private ChoiceBox<?> crimeTypeChoiceBox;
+    private ChoiceBox<String> crimeTypeChoiceBox;
 
     @FXML
     private TextArea descriptionTextArea;
@@ -203,6 +205,9 @@ public class PoliceAdminDashboardController implements Initializable {
     @FXML
     private TreeTableColumn<AdminReports, String> crimeTableColumn;
 
+    //NON FXML PROPERTIES
+    private final Map crimeTypetoCrimeIdMap = new HashMap();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setWelcomeBannerLabel();
@@ -210,6 +215,7 @@ public class PoliceAdminDashboardController implements Initializable {
         getFirstDashboardFacts();
         getSecondDashboardFacts();
         getThirdDashboardFacts();
+        setCrimeTypeChoiceBoxItems();
     }
 
     //Side Menu Navigation Button Actions
@@ -390,6 +396,33 @@ public class PoliceAdminDashboardController implements Initializable {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+        }
+    }
+
+    //Sets ChoiceBox Items from the Database and Maps Crime types to  Type Id
+    private void setCrimeTypeChoiceBoxItems() {
+        Connection connection = MysqlConnector.connectDB();
+        if (connection != null) {
+            try {
+                PreparedStatement statement = (PreparedStatement) connection.prepareStatement("SELECT * FROM `crime types`");
+                ResultSet resultSet = statement.executeQuery();
+
+                //Clear Map
+                crimeTypetoCrimeIdMap.clear();
+
+                while (resultSet.next()) {
+                    String crime = resultSet.getString("Type");
+                    String crimeId = resultSet.getString("Type_Id");
+
+                    //Map crime type to crime id
+                    crimeTypetoCrimeIdMap.put(crime, crimeId);
+
+                    //Add crime type to ChoiceBox
+                    crimeTypeChoiceBox.getItems().addAll(crime);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }

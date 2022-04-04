@@ -28,10 +28,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -208,6 +205,8 @@ public class PoliceAdminDashboardController implements Initializable {
     //NON FXML PROPERTIES
     private final Map crimeTypetoCrimeIdMap = new HashMap();
 
+    private final List<TextField> reportingTextFieldList = new ArrayList<>();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setWelcomeBannerLabel();
@@ -216,6 +215,7 @@ public class PoliceAdminDashboardController implements Initializable {
         getSecondDashboardFacts();
         getThirdDashboardFacts();
         setCrimeTypeChoiceBoxItems();
+        createTextFieldList();
     }
 
     //Side Menu Navigation Button Actions
@@ -262,6 +262,36 @@ public class PoliceAdminDashboardController implements Initializable {
 
     @FXML
     void onReportCrime(ActionEvent event) {
+
+        if (areReportingTextFieldsEmpty() || isChoiceBoxValueEmpty() || isReportingTextAreaEmpty()) {
+            System.out.println("All Fields Must be Filled");
+            return;
+        }
+
+        Connection connection = MysqlConnector.connectDB();
+        if (connection != null) {
+            try {
+                PreparedStatement statement = (PreparedStatement) connection.prepareStatement("INSERT INTO `cases` (`OB_id`, `Police_Id`, `Reporter_Id`, `Offender_Id`, `Location`, `Date`, `Time`, `Description`, `Crime_Type`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)");
+                statement.setString(1, Data.POLICE_ID);
+                statement.setString(2, reporterIdTextField.getText());
+                statement.setString(3, offenderIdTextField.getText());
+                statement.setString(4, locationTextField.getText());
+                statement.setString(5, dateTextField.getText());
+                statement.setString(6, timeTextField.getText());
+                statement.setString(7, descriptionTextArea.getText());
+                statement.setString(8, crimeTypetoCrimeIdMap.get(crimeTypeChoiceBox.getValue()).toString());
+
+                int res = statement.executeUpdate();
+
+                resetReportingTabInputs();
+                //PopUpaAlert.display("SUCCESS", "Evidence Successfully Updated.");
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+                Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            System.out.println("The connection is not available");
+        }
 
     }
 
@@ -425,4 +455,43 @@ public class PoliceAdminDashboardController implements Initializable {
             }
         }
     }
+    //Build Reporting TextFeild List
+    private void createTextFieldList() {
+        reportingTextFieldList.add(reporterNameTextField);
+        reportingTextFieldList.add(reporterIdTextField);
+        reportingTextFieldList.add(offenderIdTextField);
+        reportingTextFieldList.add(locationTextField);
+        reportingTextFieldList.add(dateTextField);
+        reportingTextFieldList.add(timeTextField);
+    }
+
+    //Check if reporting Textfields are empty(True = are Empty)
+    private Boolean areReportingTextFieldsEmpty() {
+        for (TextField reportingTextField : reportingTextFieldList) {
+            if (reportingTextField.getText() == null || reportingTextField.getText().trim().isEmpty()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //Check if reporting case description TextField is empty
+    private Boolean isReportingTextAreaEmpty() {
+        return descriptionTextArea.getText() == null || descriptionTextArea.getText().trim().isEmpty();
+    }
+
+    //Check if reporting case description ChoiceBox is empty
+    private Boolean isChoiceBoxValueEmpty() {
+        return (crimeTypeChoiceBox.getValue() == null);
+    }
+
+    //Reset the Reporting Tab Inputs
+    private void resetReportingTabInputs() {
+        for (TextField reportingTextField : reportingTextFieldList) {
+            reportingTextField.setText("");
+        }
+        descriptionTextArea.setText("");
+        crimeTypeChoiceBox.setValue(null);
+    }
+
 }

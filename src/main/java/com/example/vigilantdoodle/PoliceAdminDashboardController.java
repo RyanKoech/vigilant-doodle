@@ -209,6 +209,8 @@ public class PoliceAdminDashboardController implements Initializable {
 
     private final Map custodyTypetoCustodyIdMap = new HashMap();
 
+    private String offenderId;
+
     //METHODS
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -301,7 +303,10 @@ public class PoliceAdminDashboardController implements Initializable {
 
     @FXML
     void onSearchCase(ActionEvent event) {
-
+        if(isObIdTextFieldEmpty()){
+            return;
+        }
+        getSuspectCustodyRecords(obNumberTextField.getText());
     }
 
     @FXML
@@ -521,6 +526,37 @@ public class PoliceAdminDashboardController implements Initializable {
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    //Check if Ob_Id TextField is empty
+    private Boolean isObIdTextFieldEmpty(){
+        return (obNumberTextField.getText() == null || obNumberTextField.getText().trim().isEmpty());
+    }
+
+    //Fetches and Loads Suspect's Records from the Database to the View
+    private void getSuspectCustodyRecords(String obNumber) {
+        Connection connection = MysqlConnector.connectDB();
+
+        if(connection != null){
+            try {
+                PreparedStatement st = (PreparedStatement) connection.prepareStatement("SELECT cases.Offender_Id, citizens.Name, `custody types`.`Custody_Type`, `custody types`.`bail_index` FROM cases INNER JOIN citizens ON cases.Offender_Id = citizens.`National ID` INNER JOIN offenders ON cases.Offender_Id = offenders.National_Id INNER JOIN `custody types` ON offenders.Custody_Id = `custody types`.`Type_Id` WHERE cases.OB_id = ?");
+                st.setString(1, obNumber);
+                ResultSet res = st.executeQuery();
+
+                if (res.next()) {
+
+                    double bailIndex = Double.parseDouble(res.getString("bail_index"));
+                    suspectNameLabel.setText(res.getString("Name"));
+                    currentCustodyLabel.setText(res.getString("Custody_Type"));
+                    bailFeeLabel.setText(String.valueOf(bailIndex*Data.BASE_BAIL));
+                    offenderId = res.getString("Offender_Id");
+                }
+                //To enable the user to be able to click in the update button
+                updateCustodyButton.setDisable(false);
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
         }
     }

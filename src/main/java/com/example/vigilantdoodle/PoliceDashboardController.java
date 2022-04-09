@@ -138,7 +138,7 @@ public class PoliceDashboardController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         setWelcomeBannerLabel();
         showPoliceReports();
-        createTextButtonList();
+        createTextFieldList();
         setCrimeTypeChoiceBoxItems();
         setCustodyTypeChoiceBoxItems();
         updateCustodyButton.setDisable(true);
@@ -293,7 +293,7 @@ public class PoliceDashboardController implements Initializable {
     }
 
     //Build Reporting TextFeild List
-    private void createTextButtonList() {
+    private void createTextFieldList() {
         reportingTextFieldList.add(reporterNameTextField);
         reportingTextFieldList.add(reporterIdTextField);
         reportingTextFieldList.add(offenderNameTextField);

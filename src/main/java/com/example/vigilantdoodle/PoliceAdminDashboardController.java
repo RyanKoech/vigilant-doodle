@@ -130,7 +130,7 @@ public class PoliceAdminDashboardController implements Initializable {
     private TextField addPolicePasswordTextField;
 
     @FXML
-    private ChoiceBox<?> addPolicePoliceRoleChoiceBox;
+    private ChoiceBox<String> addPolicePoliceRoleChoiceBox;
 
     @FXML
     private JFXButton addPoliceButton;
@@ -202,7 +202,7 @@ public class PoliceAdminDashboardController implements Initializable {
     private TreeTableColumn<AdminReports, String> dateTableColumn;
 
     @FXML
-    private TreeTableColumn<AdminReports, String>timeTableColumn;
+    private TreeTableColumn<AdminReports, String> timeTableColumn;
 
     @FXML
     private TreeTableColumn<AdminReports, String> crimeTableColumn;
@@ -229,24 +229,39 @@ public class PoliceAdminDashboardController implements Initializable {
         setCrimeTypeChoiceBoxItems();
         createTextFieldList();
         setCustodyTypeChoiceBoxItems();
+        setPoliceRoleChoiceBoxItems();
     }
 
     //Side Menu Navigation Button Actions
     //To Dashboard Tab
     @FXML
-    private void onShowDashboardTab(ActionEvent event) { dashboardTabVBox.toFront(); }
+    private void onShowDashboardTab(ActionEvent event) {
+        dashboardTabVBox.toFront();
+    }
+
     //To Reporting Tab
     @FXML
-    private void onShowReportingTab(ActionEvent event) { reportingTabVBox.toFront(); }
+    private void onShowReportingTab(ActionEvent event) {
+        reportingTabVBox.toFront();
+    }
+
     //To Custodies Tab
     @FXML
-    private void onShowCustodiesTab(ActionEvent event) { custodiesTabVBox.toFront(); }
+    private void onShowCustodiesTab(ActionEvent event) {
+        custodiesTabVBox.toFront();
+    }
+
     //To Add Police Tab
     @FXML
-    private void onShowAddPoliceTab(ActionEvent event){ addPoliceTabVBox.toFront(); }
+    private void onShowAddPoliceTab(ActionEvent event) {
+        addPoliceTabVBox.toFront();
+    }
+
     //Edit Police Tab
     @FXML
-    private void onShowEditPoliceTab(ActionEvent event){ editPoliceTabVBox.toFront(); }
+    private void onShowEditPoliceTab(ActionEvent event) {
+        editPoliceTabVBox.toFront();
+    }
 
     //Logout Button Function
     @FXML
@@ -266,7 +281,7 @@ public class PoliceAdminDashboardController implements Initializable {
     @FXML
     void onAddPolice(ActionEvent event) {
 
-        if (areTextFieldsEmpty(reportingTextFieldList) || isAddPoliceChoiceBoxValueEmpty() ) {
+        if (areTextFieldsEmpty(reportingTextFieldList) || isAddPoliceChoiceBoxValueEmpty()) {
             System.out.println("All Fields Must be Filled");
             return;
         }
@@ -316,7 +331,7 @@ public class PoliceAdminDashboardController implements Initializable {
 
     @FXML
     void onSearchCase(ActionEvent event) {
-        if(isObIdTextFieldEmpty()){
+        if (isObIdTextFieldEmpty()) {
             return;
         }
         getSuspectCustodyRecords(obNumberTextField.getText());
@@ -329,7 +344,7 @@ public class PoliceAdminDashboardController implements Initializable {
 
     @FXML
     void onUpdateCustody(ActionEvent event) {
-        if(isCustodiesChoiceBoxValueEmpty()){
+        if (isCustodiesChoiceBoxValueEmpty()) {
             return;
         }
         updateCustody(offenderId);
@@ -403,7 +418,7 @@ public class PoliceAdminDashboardController implements Initializable {
         dashboardTableView.setShowRoot(false);
     }
 
-    private void getFirstDashboardFacts(){
+    private void getFirstDashboardFacts() {
 
         Connection connection = MysqlConnector.connectDB();
 
@@ -420,7 +435,7 @@ public class PoliceAdminDashboardController implements Initializable {
         }
     }
 
-    private void getSecondDashboardFacts(){
+    private void getSecondDashboardFacts() {
 
         Connection connection = MysqlConnector.connectDB();
 
@@ -437,7 +452,7 @@ public class PoliceAdminDashboardController implements Initializable {
         }
     }
 
-    private void getThirdDashboardFacts(){
+    private void getThirdDashboardFacts() {
 
         Connection connection = MysqlConnector.connectDB();
 
@@ -480,6 +495,7 @@ public class PoliceAdminDashboardController implements Initializable {
             }
         }
     }
+
     //Build Reporting TextFeild List
     private void createTextFieldList() {
         reportingTextFieldList.add(reporterNameTextField);
@@ -547,7 +563,7 @@ public class PoliceAdminDashboardController implements Initializable {
     }
 
     //Check if Ob_Id TextField is empty
-    private Boolean isObIdTextFieldEmpty(){
+    private Boolean isObIdTextFieldEmpty() {
         return (obNumberTextField.getText() == null || obNumberTextField.getText().trim().isEmpty());
     }
 
@@ -555,7 +571,7 @@ public class PoliceAdminDashboardController implements Initializable {
     private void getSuspectCustodyRecords(String obNumber) {
         Connection connection = MysqlConnector.connectDB();
 
-        if(connection != null){
+        if (connection != null) {
             try {
                 PreparedStatement st = (PreparedStatement) connection.prepareStatement("SELECT cases.Offender_Id, citizens.Name, `custody types`.`Custody_Type`, `custody types`.`bail_index` FROM cases INNER JOIN citizens ON cases.Offender_Id = citizens.`National ID` INNER JOIN offenders ON cases.Offender_Id = offenders.National_Id INNER JOIN `custody types` ON offenders.Custody_Id = `custody types`.`Type_Id` WHERE cases.OB_id = ?");
                 st.setString(1, obNumber);
@@ -566,7 +582,7 @@ public class PoliceAdminDashboardController implements Initializable {
                     double bailIndex = Double.parseDouble(res.getString("bail_index"));
                     suspectNameLabel.setText(res.getString("Name"));
                     currentCustodyLabel.setText(res.getString("Custody_Type"));
-                    bailFeeLabel.setText(String.valueOf(bailIndex*Data.BASE_BAIL));
+                    bailFeeLabel.setText(String.valueOf(bailIndex * Data.BASE_BAIL));
                     offenderId = res.getString("Offender_Id");
                 }
                 //To enable the user to be able to click in the update button
@@ -578,17 +594,17 @@ public class PoliceAdminDashboardController implements Initializable {
     }
 
     //Check if custodies choice box value is empty
-    private  Boolean isCustodiesChoiceBoxValueEmpty(){
+    private Boolean isCustodiesChoiceBoxValueEmpty() {
         return (custodyTypeChoiceBox.getValue() == null);
     }
 
     //Updates Suspect Custody Status into the Database
-    private void updateCustody(String offenderId){
+    private void updateCustody(String offenderId) {
         Connection connection = MysqlConnector.connectDB();
-        if(connection != null){
+        if (connection != null) {
             try {
 
-                PreparedStatement st = (PreparedStatement)connection.prepareStatement ("UPDATE `offenders` SET `Custody_Id` = ? WHERE `offenders`.`National_Id` = ?");
+                PreparedStatement st = (PreparedStatement) connection.prepareStatement("UPDATE `offenders` SET `Custody_Id` = ? WHERE `offenders`.`National_Id` = ?");
                 st.setString(1, custodyTypetoCustodyIdMap.get(custodyTypeChoiceBox.getValue()).toString());
                 st.setString(2, offenderId);
                 int res = st.executeUpdate();
@@ -597,7 +613,7 @@ public class PoliceAdminDashboardController implements Initializable {
             } catch (SQLException ex) {
                 Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else{
+        } else {
             System.out.println("The connection is not available");
         }
     }
@@ -618,7 +634,7 @@ public class PoliceAdminDashboardController implements Initializable {
     }
 
     //Uploads new police information into the database
-    private void uploadNewPoliceInformation(){
+    private void uploadNewPoliceInformation() {
         Connection connection = MysqlConnector.connectDB();
         if (connection != null) {
             try {
@@ -642,4 +658,9 @@ public class PoliceAdminDashboardController implements Initializable {
         }
     }
 
+    //Sets ChoiceBox Items from the Database and Maps Crime types to  Type Id
+    private void setPoliceRoleChoiceBoxItems() {
+        addPolicePoliceRoleChoiceBox.getItems().removeAll();
+        addPolicePoliceRoleChoiceBox.getItems().addAll("Police", "Admin Police");
+    }
 }

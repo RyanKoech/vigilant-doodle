@@ -6,6 +6,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TreeTableColumn?>
@@ -392,6 +393,14 @@
                               <Insets bottom="25.0" />
                            </VBox.margin>
                         </TextField>
+                        <TextField fx:id="addPoliceNationalIdTextField" layoutX="266.0" layoutY="188.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="National ID">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="25.0" />
+                           </VBox.margin>
+                        </TextField>
                         <TextField fx:id="addPolicePhoneNumberTextField" layoutX="266.0" layoutY="223.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Phone Number">
                            <font>
                               <Font size="13.0" />
@@ -408,6 +417,11 @@
                               <Insets bottom="25.0" />
                            </VBox.margin>
                         </TextField>
+                        <PasswordField fx:id="addPolicePasswordTextField" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Password">
+                           <VBox.margin>
+                              <Insets bottom="25.0" />
+                           </VBox.margin>
+                        </PasswordField>
                         <HBox alignment="CENTER_LEFT" layoutX="131.0" layoutY="353.0" maxWidth="-Infinity">
                            <VBox.margin>
                               <Insets bottom="25.0" />
@@ -428,7 +442,7 @@
                               </ChoiceBox>
                            </children>
                         </HBox>
-                        <Pane prefHeight="100.0" prefWidth="200.0" />
+                        <Pane prefHeight="50.0" prefWidth="200.0" />
                         <JFXButton fx:id="addPoliceButton" onAction="#onAddPolice" prefHeight="35.0" prefWidth="250.0" style="-fx-background-color: yellow;" text="Add Police" textFill="#003194">
                            <VBox.margin>
                               <Insets top="25.0" />

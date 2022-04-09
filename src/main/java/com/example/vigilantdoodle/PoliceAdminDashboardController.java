@@ -218,6 +218,12 @@ public class PoliceAdminDashboardController implements Initializable {
 
     private String offenderId;
 
+    private enum policeRoleEnum {
+        POLICE, ADMIN
+    }
+
+    EnumMap<policeRoleEnum, String> policeRoleMapping = new EnumMap<>(policeRoleEnum.class);
+
     //METHODS
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -230,6 +236,8 @@ public class PoliceAdminDashboardController implements Initializable {
         createTextFieldList();
         setCustodyTypeChoiceBoxItems();
         setPoliceRoleChoiceBoxItems();
+        createPoliceRoleMapping();
+        createAddPoliceTextFieldList();
     }
 
     //Side Menu Navigation Button Actions
@@ -281,11 +289,13 @@ public class PoliceAdminDashboardController implements Initializable {
     @FXML
     void onAddPolice(ActionEvent event) {
 
-        if (areTextFieldsEmpty(reportingTextFieldList) || isAddPoliceChoiceBoxValueEmpty()) {
+        if (areTextFieldsEmpty(addPoliceTextFieldList) || isAddPoliceChoiceBoxValueEmpty()) {
             System.out.println("All Fields Must be Filled");
             return;
         }
         uploadNewPoliceInformation();
+        uploadNewPoliceLoginInformation();
+        resetAddPoliceInputFields();
 
     }
 
@@ -662,5 +672,42 @@ public class PoliceAdminDashboardController implements Initializable {
     private void setPoliceRoleChoiceBoxItems() {
         addPolicePoliceRoleChoiceBox.getItems().removeAll();
         addPolicePoliceRoleChoiceBox.getItems().addAll("Police", "Admin Police");
+    }
+
+    //Create police roles mapping
+    private void createPoliceRoleMapping(){
+        policeRoleMapping.put(policeRoleEnum.ADMIN, "Admin Police");
+        policeRoleMapping.put(policeRoleEnum.POLICE, "Police");
+    }
+
+    //Uploads new police information into the database
+    private void uploadNewPoliceLoginInformation() {
+        String query = "INSERT INTO `" + ((policeRoleMapping.get(policeRoleEnum.ADMIN)).equals(addPolicePoliceRoleChoiceBox.getValue()) ? "police admin": "police") +"` (`Police_Id`, `Password`) VALUES (?, ?) ";
+
+        Connection connection = MysqlConnector.connectDB();
+        if (connection != null) {
+            try {
+                PreparedStatement statement = (PreparedStatement) connection.prepareStatement(query);
+                statement.setString(1, addPolicePoliceIdTextField.getText());
+                statement.setString(2, addPolicePasswordTextField.getText());
+
+                int res = statement.executeUpdate();
+
+                //PopUpaAlert.display("SUCCESS", "Evidence Successfully Updated.");
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+                Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            System.out.println("The connection is not available");
+        }
+    }
+
+    //Resets Add Police Tap Input Fields
+    private void resetAddPoliceInputFields() {
+        for (TextField addPoliceTextField : addPoliceTextFieldList) {
+            addPoliceTextField.setText("");
+        }
+        addPolicePoliceRoleChoiceBox.setValue(null);
     }
 }

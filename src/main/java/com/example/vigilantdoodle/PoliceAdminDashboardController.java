@@ -1,7 +1,6 @@
 package com.example.vigilantdoodle;
 
 import com.example.vigilantdoodle.datamodels.AdminReports;
-import com.example.vigilantdoodle.datamodels.PoliceReports;
 import com.example.vigilantdoodle.utilities.Data;
 import com.example.vigilantdoodle.utilities.MysqlConnector;
 import com.jfoenix.controls.JFXButton;
@@ -125,6 +124,12 @@ public class PoliceAdminDashboardController implements Initializable {
     private TextField addPoliceEmailAddressTextField;
 
     @FXML
+    private TextField addPoliceNationalIdTextField;
+
+    @FXML
+    private TextField addPolicePasswordTextField;
+
+    @FXML
     private ChoiceBox<?> addPolicePoliceRoleChoiceBox;
 
     @FXML
@@ -205,9 +210,11 @@ public class PoliceAdminDashboardController implements Initializable {
     //NON FXML PROPERTIES
     private final Map crimeTypetoCrimeIdMap = new HashMap();
 
+    private final Map custodyTypetoCustodyIdMap = new HashMap();
+
     private final List<TextField> reportingTextFieldList = new ArrayList<>();
 
-    private final Map custodyTypetoCustodyIdMap = new HashMap();
+    private final List<TextField> addPoliceTextFieldList = new ArrayList<>();
 
     private String offenderId;
 
@@ -259,6 +266,12 @@ public class PoliceAdminDashboardController implements Initializable {
     @FXML
     void onAddPolice(ActionEvent event) {
 
+        if (areTextFieldsEmpty(reportingTextFieldList) || isAddPoliceChoiceBoxValueEmpty() ) {
+            System.out.println("All Fields Must be Filled");
+            return;
+        }
+        uploadNewPoliceInformation();
+
     }
 
     @FXML
@@ -269,7 +282,7 @@ public class PoliceAdminDashboardController implements Initializable {
     @FXML
     void onReportCrime(ActionEvent event) {
 
-        if (areReportingTextFieldsEmpty() || isChoiceBoxValueEmpty() || isReportingTextAreaEmpty()) {
+        if (areTextFieldsEmpty(reportingTextFieldList) || isReportingChoiceBoxValueEmpty() || isReportingTextAreaEmpty()) {
             System.out.println("All Fields Must be Filled");
             return;
         }
@@ -478,9 +491,9 @@ public class PoliceAdminDashboardController implements Initializable {
     }
 
     //Check if reporting Textfields are empty(True = are Empty)
-    private Boolean areReportingTextFieldsEmpty() {
-        for (TextField reportingTextField : reportingTextFieldList) {
-            if (reportingTextField.getText() == null || reportingTextField.getText().trim().isEmpty()) {
+    private Boolean areTextFieldsEmpty(List<TextField> textFieldList) {
+        for (TextField textField : textFieldList) {
+            if (textField.getText() == null || textField.getText().trim().isEmpty()) {
                 return true;
             }
         }
@@ -493,7 +506,7 @@ public class PoliceAdminDashboardController implements Initializable {
     }
 
     //Check if reporting case description ChoiceBox is empty
-    private Boolean isChoiceBoxValueEmpty() {
+    private Boolean isReportingChoiceBoxValueEmpty() {
         return (crimeTypeChoiceBox.getValue() == null);
     }
 
@@ -588,4 +601,45 @@ public class PoliceAdminDashboardController implements Initializable {
             System.out.println("The connection is not available");
         }
     }
+
+    //Build Reporting TextFeild List
+    private void createAddPoliceTextFieldList() {
+        addPoliceTextFieldList.add(addPolicePoliceIdTextField);
+        addPoliceTextFieldList.add(addPolicePoliceNameTextField);
+        addPoliceTextFieldList.add(addPoliceNationalIdTextField);
+        addPoliceTextFieldList.add(addPolicePhoneNumberTextField);
+        addPoliceTextFieldList.add(addPoliceEmailAddressTextField);
+        addPoliceTextFieldList.add(addPolicePasswordTextField);
+    }
+
+    //Check if add police case description ChoiceBox is empty
+    private Boolean isAddPoliceChoiceBoxValueEmpty() {
+        return (addPolicePoliceRoleChoiceBox.getValue() == null);
+    }
+
+    //Uploads new police information into the database
+    private void uploadNewPoliceInformation(){
+        Connection connection = MysqlConnector.connectDB();
+        if (connection != null) {
+            try {
+                PreparedStatement statement = (PreparedStatement) connection.prepareStatement("INSERT INTO `users` (`Police_Id`, `Name`, `National_Id`, `Phone_Number`, `Occupied`, `Email_Address`) VALUES (?, ?, ?, ?, ?, ?)");
+                statement.setString(1, addPolicePoliceIdTextField.getText());
+                statement.setString(2, addPolicePoliceNameTextField.getText());
+                statement.setString(3, addPoliceNationalIdTextField.getText());
+                statement.setString(4, addPolicePhoneNumberTextField.getText());
+                statement.setString(5, "test");
+                statement.setString(6, addPoliceEmailAddressTextField.getText());
+
+                int res = statement.executeUpdate();
+
+                //PopUpaAlert.display("SUCCESS", "Evidence Successfully Updated.");
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+                Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            System.out.println("The connection is not available");
+        }
+    }
+
 }

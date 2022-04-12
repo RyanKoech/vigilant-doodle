@@ -148,6 +148,9 @@ public class PoliceAdminDashboardController implements Initializable {
     private TextField editPolicePoliceIdTextField;
 
     @FXML
+    private TextField editPoliceNationalIdTextField1;
+
+    @FXML
     private TextField editPolicePoliceNameTextField;
 
     @FXML
@@ -155,6 +158,9 @@ public class PoliceAdminDashboardController implements Initializable {
 
     @FXML
     private TextField editPoliceEmailAddressTextField;
+
+    @FXML
+    private PasswordField editPolicePasswordTextField1;
 
     @FXML
     private JFXButton updatePoliceButton;
@@ -300,11 +306,6 @@ public class PoliceAdminDashboardController implements Initializable {
     }
 
     @FXML
-    void onDeletePolice(ActionEvent event) {
-
-    }
-
-    @FXML
     void onReportCrime(ActionEvent event) {
 
         if (areTextFieldsEmpty(reportingTextFieldList) || isReportingChoiceBoxValueEmpty() || isReportingTextAreaEmpty()) {
@@ -348,11 +349,6 @@ public class PoliceAdminDashboardController implements Initializable {
     }
 
     @FXML
-    void onSearchPolice(ActionEvent event) {
-
-    }
-
-    @FXML
     void onUpdateCustody(ActionEvent event) {
         if (isCustodiesChoiceBoxValueEmpty()) {
             return;
@@ -361,9 +357,22 @@ public class PoliceAdminDashboardController implements Initializable {
     }
 
     @FXML
+    void onSearchPolice(ActionEvent event) {
+        if(seachPoliceTextField.getText().isEmpty()){
+            return;
+        }
+        getPoliceRecords(seachPoliceTextField.getText());
+    }
+
+    @FXML
     void onUpdatePolice(ActionEvent event) {
 
     }
+    @FXML
+    void onDeletePolice(ActionEvent event) {
+
+    }
+
 
     //Sets the logged in police name on the welcome banner
     private void setWelcomeBannerLabel() {
@@ -709,5 +718,31 @@ public class PoliceAdminDashboardController implements Initializable {
             addPoliceTextField.setText("");
         }
         addPolicePoliceRoleChoiceBox.setValue(null);
+    }
+
+    private void getPoliceRecords(String policeId) {
+        Connection connection = MysqlConnector.connectDB();
+
+        if(connection != null){
+            try {
+                PreparedStatement st = (PreparedStatement) connection.prepareStatement("SELECT police.Police_Id, users.National_Id, users.Name, users.Phone_Number, users.Email_Address FROM `police` INNER JOIN users ON police.Police_Id = users.Police_Id WHERE police.Police_Id = ?");
+                st.setString(1, policeId);
+                ResultSet res = st.executeQuery();
+
+                if (res.next()) {
+                    editPolicePoliceIdTextField.setText(res.getString("Police_Id"));
+                    editPoliceNationalIdTextField1.setText(res.getString("National_Id"));
+                    editPolicePoliceNameTextField.setText(res.getString("Name"));
+                    editPolicePoliceNumberTextField.setText(res.getString("Phone_Number"));
+                    editPoliceEmailAddressTextField.setText(res.getString("Email_Address"));
+
+                    //To enable the user to be able to click in the buttons
+                    updatePoliceButton.setDisable(false);
+                    deletePoliceButton.setDisable(false);
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 }

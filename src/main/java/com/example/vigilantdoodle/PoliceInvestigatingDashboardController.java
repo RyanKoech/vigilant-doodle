@@ -1,5 +1,7 @@
 package com.example.vigilantdoodle;
 
+import com.example.vigilantdoodle.utilities.Data;
+import com.example.vigilantdoodle.utilities.MysqlConnector;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,7 +11,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PoliceInvestigatingDashboardController implements Initializable {
 
@@ -41,7 +51,7 @@ public class PoliceInvestigatingDashboardController implements Initializable {
     private JFXButton deleteEvidenceButton;
 
     @FXML
-    private ChoiceBox<?> crimeIdChoiceBox;
+    private ChoiceBox<String> crimeIdChoiceBox;
 
     @FXML
     private Label crimeTypeLabel;
@@ -61,10 +71,12 @@ public class PoliceInvestigatingDashboardController implements Initializable {
     @FXML
     private TextArea caseDescriptionTextArea;
 
+    //NON FXML PROPERTIES
+
     //METHODS
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        setCrimeIdChoiceBoxItems();
     }
 
     @FXML
@@ -97,4 +109,24 @@ public class PoliceInvestigatingDashboardController implements Initializable {
 
     }
 
+    private void setCrimeIdChoiceBoxItems(){
+        Connection connection = MysqlConnector.connectDB();
+        if (connection != null) {
+            try {
+                PreparedStatement statement = (PreparedStatement) connection.prepareStatement("SELECT `cases`.`OB_id` FROM `cases` WHERE cases.Investigator_Id = ?");
+                statement.setString(1, Data.POLICE_ID);
+                ResultSet resultSet = statement.executeQuery();
+
+                crimeIdChoiceBox.getItems().clear();
+                while (resultSet.next()) {
+                    String obId = resultSet.getString("OB_id");
+
+                    //Add crime type to ChoiceBox
+                    crimeIdChoiceBox.getItems().addAll(obId);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 }

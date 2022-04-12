@@ -222,6 +222,8 @@ public class PoliceAdminDashboardController implements Initializable {
 
     private final List<TextField> addPoliceTextFieldList = new ArrayList<>();
 
+    private final List<TextField> editPoliceTextFieldList = new ArrayList<>();
+
     private String offenderId;
 
     private enum policeRoleEnum {
@@ -244,6 +246,7 @@ public class PoliceAdminDashboardController implements Initializable {
         setPoliceRoleChoiceBoxItems();
         createPoliceRoleMapping();
         createAddPoliceTextFieldList();
+        createEditPoliceTextFieldList();
     }
 
     //Side Menu Navigation Button Actions
@@ -366,7 +369,10 @@ public class PoliceAdminDashboardController implements Initializable {
 
     @FXML
     void onUpdatePolice(ActionEvent event) {
-
+        if(areTextFieldsEmpty(editPoliceTextFieldList)){
+            return;
+        }
+        updatePoliceInformation();
     }
     @FXML
     void onDeletePolice(ActionEvent event) {
@@ -743,6 +749,43 @@ public class PoliceAdminDashboardController implements Initializable {
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
+        }
+    }
+
+    private void createEditPoliceTextFieldList() {
+        editPoliceTextFieldList.add(editPolicePoliceIdTextField);
+        editPoliceTextFieldList.add(editPolicePoliceNameTextField);
+        editPoliceTextFieldList.add(editPoliceNationalIdTextField1);
+        editPoliceTextFieldList.add(editPolicePoliceNumberTextField);
+        editPoliceTextFieldList.add(editPoliceEmailAddressTextField);
+    }
+
+    private void updatePoliceInformation(){
+        Connection connection = MysqlConnector.connectDB();
+        if (connection != null) {
+            try {
+
+                PreparedStatement st = (PreparedStatement) connection.prepareStatement("UPDATE `users` SET `Name`=?,`National_Id`=?,`Phone_Number`=?,`Email_Address`=? WHERE `Police_Id`=?");
+                st.setString(1, editPolicePoliceNameTextField.getText());
+                st.setString(2, editPoliceNationalIdTextField1.getText());
+                st.setString(3, editPolicePoliceNumberTextField.getText());
+                st.setString(4, editPoliceEmailAddressTextField.getText());
+                st.setString(5, editPolicePoliceIdTextField.getText());
+
+                int res = st.executeUpdate();
+
+                resetEditPoliceInputFields();
+            } catch (SQLException ex) {
+                Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            System.out.println("The connection is not available");
+        }
+    }
+
+    private void resetEditPoliceInputFields(){
+        for (TextField addPoliceTextField : editPoliceTextFieldList) {
+            addPoliceTextField.setText("");
         }
     }
 }

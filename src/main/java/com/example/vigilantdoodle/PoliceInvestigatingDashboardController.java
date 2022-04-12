@@ -144,4 +144,26 @@ public class PoliceInvestigatingDashboardController implements Initializable {
             }
         }
     }
+
+    private void getCaseInformation(String obId){
+        Connection connection = MysqlConnector.connectDB();
+        if (connection != null) {
+            try {
+                PreparedStatement statement = (PreparedStatement) connection.prepareStatement("SELECT `crime types`.`Type`, `citizens`.`Name`, `Date`, `Time`, `Location`,`Description` FROM `cases` INNER JOIN `crime types` ON `cases`.`Crime_Type` = `crime types`.`Type_Id` INNER JOIN `citizens` ON `cases`.`Offender_Id` = `citizens`.`National ID` WHERE `cases`.`OB_id` = ?");
+                statement.setString(1, obId);
+                ResultSet resultSet = statement.executeQuery();
+
+                if (resultSet.next()) {
+                    crimeTypeLabel.setText(resultSet.getString("Type"));
+                    suspectNameLabel.setText(resultSet.getString("Name"));
+                    dateLabel.setText(resultSet.getString("Date"));
+                    timeLabel.setText(resultSet.getString("Time"));
+                    locationLabel.setText(resultSet.getString("Location"));
+                    caseDescriptionTextArea.setText("Description");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 }

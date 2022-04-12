@@ -373,6 +373,10 @@ public class PoliceAdminDashboardController implements Initializable {
             return;
         }
         updatePoliceInformation();
+        if(!editPolicePasswordTextField1.getText().isEmpty()){
+           updatePolicePassword();
+        }
+        resetEditPoliceInputFields();
     }
     @FXML
     void onDeletePolice(ActionEvent event) {
@@ -773,8 +777,25 @@ public class PoliceAdminDashboardController implements Initializable {
                 st.setString(5, editPolicePoliceIdTextField.getText());
 
                 int res = st.executeUpdate();
+            } catch (SQLException ex) {
+                Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            System.out.println("The connection is not available");
+        }
+    }
 
-                resetEditPoliceInputFields();
+    private void updatePolicePassword(){
+        Connection connection = MysqlConnector.connectDB();
+        if (connection != null) {
+            try {
+
+                PreparedStatement st = (PreparedStatement) connection.prepareStatement("UPDATE `police` SET `Password`=? WHERE `Police_Id`=?");
+                st.setString(1, editPolicePasswordTextField1.getText());
+                st.setString(2, editPolicePoliceIdTextField.getText());
+
+                int res = st.executeUpdate();
+
             } catch (SQLException ex) {
                 Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -787,5 +808,6 @@ public class PoliceAdminDashboardController implements Initializable {
         for (TextField addPoliceTextField : editPoliceTextFieldList) {
             addPoliceTextField.setText("");
         }
+        editPolicePasswordTextField1.setText("");
     }
 }

@@ -82,6 +82,7 @@ public class PoliceInvestigatingDashboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setCrimeIdChoiceBoxItems();
+        crimeIdChoiceBox.getSelectionModel().selectedItemProperty().addListener((v , oldValue, newValue) -> getCaseInformation(newValue));
     }
 
     @FXML

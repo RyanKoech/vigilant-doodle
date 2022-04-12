@@ -68,32 +68,32 @@ public class PoliceInvestigatingDashboardController implements Initializable {
     }
 
     @FXML
-    void addEvidence(ActionEvent event) {
+    private void addEvidence(ActionEvent event) {
 
     }
 
     @FXML
-    void deleteEvidence(ActionEvent event) {
+    private void deleteEvidence(ActionEvent event) {
 
     }
 
     @FXML
-    void onLogout(ActionEvent event) {
+    private void onLogout(ActionEvent event) {
 
     }
 
     @FXML
-    void onShowDahboardTab(ActionEvent event) {
+    private void onShowDahboardTab(ActionEvent event) {
 
     }
 
     @FXML
-    void onShowEvidenceTab(ActionEvent event) {
+    private void onShowEvidenceTab(ActionEvent event) {
 
     }
 
     @FXML
-    void updateEvidence(ActionEvent event) {
+    private void updateEvidence(ActionEvent event) {
 
     }
 

@@ -29,7 +29,7 @@
                         <Insets bottom="30.0" />
                     </VBox.margin>
                 </ImageView>
-                <JFXButton alignment="BASELINE_LEFT" graphicTextGap="20.0" prefHeight="40.0" prefWidth="215.0" text="Dashboard" textFill="#b1c5d3">
+                <JFXButton fx:id="dashboardMenuButton" alignment="BASELINE_LEFT" graphicTextGap="20.0" onAction="#onShowDahboardTab" prefHeight="40.0" prefWidth="215.0" text="Dashboard" textFill="#b1c5d3">
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>
@@ -47,7 +47,7 @@
                         <Insets left="20.0" />
                     </padding>
                 </JFXButton>
-                <JFXButton alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="10.0" layoutY="170.0" prefHeight="40.0" prefWidth="215.0" text="Evidence" textFill="#b1c5d3">
+                <JFXButton fx:id="evidenceMenuButton" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="10.0" layoutY="170.0" onAction="#onShowEvidenceTab" prefHeight="40.0" prefWidth="215.0" text="Evidence" textFill="#b1c5d3">
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>
@@ -79,7 +79,7 @@
             <children>
                 <HBox alignment="CENTER_LEFT" minHeight="125.0" prefHeight="138.0" prefWidth="725.0" style="-fx-background-color: #fff10b;" styleClass="left-innershadow" stylesheets="@styles/styles.css">
                     <children>
-                        <Label minWidth="200.0" text="Inpsector John Doe">
+                        <Label fx:id="welcomeBannerLabel" minWidth="200.0" text="Inpsector John Doe">
                             <font>
                                 <Font size="20.0" />
                             </font>
@@ -88,7 +88,7 @@
                             </HBox.margin>
                         </Label>
                         <Pane prefHeight="200.0" prefWidth="1000.0" />
-                        <JFXButton contentDisplay="CENTER" text=" ">
+                        <JFXButton fx:id="logoutButton" contentDisplay="CENTER" onAction="#onLogout" text=" ">
                             <graphic>
                                 <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
@@ -108,7 +108,7 @@
                             <children>
                         <HBox alignment="CENTER_LEFT" maxWidth="562.0">
                            <children>
-                              <Label text="Crime ID:" textFill="#b2b2b2">
+                              <Label text="Evidence ID:" textFill="#b2b2b2">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -116,7 +116,7 @@
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </Label>
-                              <ChoiceBox prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #ffffff; -fx-border-color: #F7F7F7; -fx-border-style: solid; -fx-border-width: 2px;">
+                              <ChoiceBox fx:id="evidenceIdChoiceBox" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #ffffff; -fx-border-color: #F7F7F7; -fx-border-style: solid; -fx-border-width: 2px;">
                                  <effect>
                                     <InnerShadow choke="1.0" color="#2916ba7c" height="5.0" radius="2.0" width="5.0" />
                                  </effect>
@@ -124,7 +124,7 @@
                            </children>
                         </HBox>
                                 <Pane prefHeight="100.0" prefWidth="200.0" />
-                        <TextArea maxWidth="562.0" promptText="Desciption" wrapText="true">
+                        <TextArea fx:id="evidenceDescription" maxWidth="562.0" promptText="Desciption" wrapText="true">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
@@ -137,7 +137,7 @@
                                         <Insets bottom="25.0" />
                                     </VBox.margin>
                                     <children>
-                                        <JFXButton layoutX="48.0" layoutY="10.0" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: #A3FF82;" text="Add" textFill="#003194">
+                                        <JFXButton fx:id="addEvidenceButton" layoutX="48.0" layoutY="10.0" onAction="#addEvidence" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: #A3FF82;" text="Add" textFill="#003194">
                                             <font>
                                                 <Font name="System Bold" size="18.0" />
                                             </font>
@@ -145,7 +145,7 @@
                                                 <Insets right="30.0" />
                                             </HBox.margin>
                                         </JFXButton>
-                                        <JFXButton prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: yellow;" text="Update" textFill="#003194">
+                                        <JFXButton fx:id="updateEvidenceButton" onAction="#updateEvidence" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: yellow;" text="Update" textFill="#003194">
                                             <font>
                                                 <Font name="System Bold" size="18.0" />
                                             </font>
@@ -153,7 +153,7 @@
                                                 <Insets right="30.0" />
                                             </HBox.margin>
                                         </JFXButton>
-                              <JFXButton layoutX="235.0" layoutY="10.0" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: #FF8282;" text="Delete" textFill="#003194">
+                              <JFXButton fx:id="deleteEvidenceButton" layoutX="235.0" layoutY="10.0" onAction="#deleteEvidence" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: #FF8282;" text="Delete" textFill="#003194">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
@@ -178,6 +178,26 @@
                                 <String fx:value="grey-background" />
                             </styleClass>
                      <children>
+                        <HBox alignment="CENTER_RIGHT" maxWidth="562.0">
+                           <children>
+                              <Label text="Crime ID:" textFill="#003194">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <ChoiceBox fx:id="crimeIdChoiceBox" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #ffffff; -fx-border-color: #F7F7F7; -fx-border-style: solid; -fx-border-width: 2px;">
+                                 <effect>
+                                    <InnerShadow choke="1.0" color="#2916ba7c" height="5.0" radius="2.0" width="5.0" />
+                                 </effect>
+                              </ChoiceBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                        </HBox>
                         <HBox alignment="BOTTOM_LEFT" prefWidth="642.0">
                            <children>
                               <Label text="Crime: ">
@@ -188,7 +208,7 @@
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </Label>
-                              <Label text="Crime_Type" textFill="#003194">
+                              <Label fx:id="crimeTypeLabel" text="Crime_Type" textFill="#003194">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
                                  </font>
@@ -211,7 +231,7 @@
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </Label>
-                              <Label text="Suspect Name" textFill="#003194">
+                              <Label fx:id="suspectNameLabel" text="Suspect Name" textFill="#003194">
                                  <font>
                                     <Font name="System Bold" size="17.0" />
                                  </font>
@@ -234,7 +254,7 @@
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </Label>
-                              <Label text="1/1/1111" textFill="#003194">
+                              <Label fx:id="dateLabel" text="1/1/1111" textFill="#003194">
                                  <font>
                                     <Font name="System Bold" size="17.0" />
                                  </font>
@@ -257,7 +277,7 @@
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </Label>
-                              <Label text="00:00" textFill="#003194">
+                              <Label fx:id="timeLabel" text="00:00" textFill="#003194">
                                  <font>
                                     <Font name="System Bold" size="17.0" />
                                  </font>
@@ -280,7 +300,7 @@
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </Label>
-                              <Label text="Some Location" textFill="#003194">
+                              <Label fx:id="locationLabel" text="Some Location" textFill="#003194">
                                  <font>
                                     <Font name="System Bold" size="17.0" />
                                  </font>
@@ -305,7 +325,7 @@
                               </Label>
                            </children>
                         </HBox>
-                        <TextArea editable="false" promptText="Desciption" wrapText="true">
+                        <TextArea fx:id="caseDescriptionTextArea" editable="false" promptText="Desciption" wrapText="true">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>

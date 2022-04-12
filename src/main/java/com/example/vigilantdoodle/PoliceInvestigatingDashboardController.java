@@ -86,14 +86,15 @@ public class PoliceInvestigatingDashboardController implements Initializable {
     }
 
     @FXML
-    private void addEvidence(ActionEvent event) {
+    private void onShowDahboardTab(ActionEvent event) {
 
     }
 
     @FXML
-    private void deleteEvidence(ActionEvent event) {
+    private void onShowEvidenceTab(ActionEvent event) {
 
     }
+
 
     //Logout Button Function
     @FXML
@@ -110,13 +111,14 @@ public class PoliceInvestigatingDashboardController implements Initializable {
         }
     }
 
+
     @FXML
-    private void onShowDahboardTab(ActionEvent event) {
+    private void addEvidence(ActionEvent event) {
 
     }
 
     @FXML
-    private void onShowEvidenceTab(ActionEvent event) {
+    private void deleteEvidence(ActionEvent event) {
 
     }
 

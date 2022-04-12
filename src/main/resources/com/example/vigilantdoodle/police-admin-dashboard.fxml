@@ -492,6 +492,14 @@
                               <Insets bottom="25.0" />
                            </VBox.margin>
                         </TextField>
+                        <TextField fx:id="editPoliceNationalIdTextField1" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="National ID">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="25.0" />
+                           </VBox.margin>
+                        </TextField>
                         <TextField fx:id="editPolicePoliceNumberTextField" layoutX="266.0" layoutY="223.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Phone Number">
                            <font>
                               <Font size="13.0" />
@@ -508,13 +516,14 @@
                               <Insets bottom="25.0" />
                            </VBox.margin>
                         </TextField>
-                        <Pane prefHeight="100.0" prefWidth="200.0" />
+                        <PasswordField fx:id="editPolicePasswordTextField1" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="New Password" />
+                        <Pane prefHeight="50.0" prefWidth="200.0" />
                         <HBox alignment="CENTER_LEFT" layoutX="131.0" layoutY="353.0" maxWidth="-Infinity">
                            <VBox.margin>
                               <Insets bottom="25.0" />
                            </VBox.margin>
                            <children>
-                              <JFXButton fx:id="updatePoliceButton" onAction="#onUpdatePolice" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: yellow;" text="Update" textFill="#003194">
+                              <JFXButton fx:id="updatePoliceButton" disable="true" onAction="#onUpdatePolice" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: yellow;" text="Update" textFill="#003194">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
@@ -522,7 +531,7 @@
                                     <Insets right="50.0" />
                                  </HBox.margin>
                               </JFXButton>
-                              <JFXButton fx:id="deletePoliceButton" layoutX="48.0" layoutY="10.0" onAction="#onDeletePolice" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: yellow;" text="Delete" textFill="#003194">
+                              <JFXButton fx:id="deletePoliceButton" disable="true" layoutX="48.0" layoutY="10.0" onAction="#onDeletePolice" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: yellow;" text="Delete" textFill="#003194">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>

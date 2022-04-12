@@ -476,7 +476,7 @@
                               <Insets bottom="50.0" />
                            </VBox.margin>
                         </HBox>
-                        <TextField fx:id="editPolicePoliceIdTextField" layoutX="266.0" layoutY="193.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Police ID">
+                        <TextField fx:id="editPolicePoliceIdTextField" editable="false" layoutX="266.0" layoutY="193.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Police ID">
                            <font>
                               <Font size="13.0" />
                            </font>

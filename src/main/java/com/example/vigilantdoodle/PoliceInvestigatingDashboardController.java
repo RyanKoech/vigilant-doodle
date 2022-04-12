@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -54,6 +55,9 @@ public class PoliceInvestigatingDashboardController implements Initializable {
     private TextArea evidenceDescription;
 
     @FXML
+    private TextField evidenceTitleTextField;
+
+    @FXML
     private JFXButton addEvidenceButton;
 
     @FXML
@@ -84,6 +88,7 @@ public class PoliceInvestigatingDashboardController implements Initializable {
     private TextArea caseDescriptionTextArea;
 
     //NON FXML PROPERTIES
+    private String _obId;
 
     //METHODS
     @Override
@@ -122,6 +127,25 @@ public class PoliceInvestigatingDashboardController implements Initializable {
     @FXML
     private void addEvidence(ActionEvent event) {
 
+        Connection connection = MysqlConnector.connectDB();
+        if(connection != null){
+            try {
+
+                PreparedStatement statement = (PreparedStatement)connection.prepareStatement ("INSERT INTO `evidence` (`Id`, `OB_Id`, `Evidence_Title`, `Evidence`) VALUES (NULL, ?, ?, ?) ");
+                statement.setString(1, _obId);
+                statement.setString(2, evidenceTitleTextField.getText());
+                statement.setString(3, evidenceDescription.getText());
+
+                int res = statement.executeUpdate();
+
+                evidenceIdChoiceBox.getItems().clear();
+                setEvidenceIdChoiceBoxItems();
+            } catch (SQLException ex) {
+                Logger.getLogger(PoliceInvestigatingDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            System.out.println("The connection is not available");
+        }
     }
 
     @FXML
@@ -156,6 +180,8 @@ public class PoliceInvestigatingDashboardController implements Initializable {
     }
 
     private void getCaseInformation(String obId){
+        _obId = obId;
+
         Connection connection = MysqlConnector.connectDB();
         if (connection != null) {
             try {

@@ -3,11 +3,15 @@ package com.example.vigilantdoodle;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
-public class PoliceInvestigatingDashboardController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class PoliceInvestigatingDashboardController implements Initializable {
 
     @FXML
     private JFXButton dashboardMenuButton;
@@ -56,6 +60,12 @@ public class PoliceInvestigatingDashboardController {
 
     @FXML
     private TextArea caseDescriptionTextArea;
+
+    //METHODS
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
 
     @FXML
     void addEvidence(ActionEvent event) {

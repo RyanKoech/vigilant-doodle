@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -27,6 +28,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PoliceInvestigatingDashboardController implements Initializable {
+
+    @FXML
+    private VBox dashboardTabVBox;
+
+    @FXML
+    private VBox evidenceTabVBox;
 
     @FXML
     private JFXButton dashboardMenuButton;
@@ -87,12 +94,12 @@ public class PoliceInvestigatingDashboardController implements Initializable {
 
     @FXML
     private void onShowDahboardTab(ActionEvent event) {
-
+        dashboardTabVBox.toFront();
     }
 
     @FXML
     private void onShowEvidenceTab(ActionEvent event) {
-
+        evidenceTabVBox.toFront();
     }
 
 

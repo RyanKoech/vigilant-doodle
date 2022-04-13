@@ -159,7 +159,21 @@ public class PoliceInvestigatingDashboardController implements Initializable {
 
     @FXML
     private void updateEvidence(ActionEvent event) {
+        if(areEvidenceInputsEmpty()) return;
+        Connection connection = MysqlConnector.connectDB();
+        if (connection != null) {
+            try {
+                PreparedStatement statement = (PreparedStatement) connection.prepareStatement("UPDATE `evidence` SET `Evidence_Title`=?,`Evidence`=? WHERE `Id`=?");
+                statement.setString(1, evidenceTitleTextField.getText());
+                statement.setString(2, evidenceDescription.getText());
+                statement.setString(3, evidenceTitleToEvidenceId.get(evidenceIdChoiceBox.getValue()).toString());
 
+                int resultSet = statement.executeUpdate();
+                setEvidenceChoiceBoxItems();
+            } catch (SQLException ex) {
+                Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     private void setCrimeIdChoiceBoxItems(){

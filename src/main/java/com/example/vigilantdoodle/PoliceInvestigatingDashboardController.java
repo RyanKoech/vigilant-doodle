@@ -23,6 +23,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -49,7 +51,7 @@ public class PoliceInvestigatingDashboardController implements Initializable {
     private JFXButton logoutButton;
 
     @FXML
-    private ChoiceBox<?> evidenceIdChoiceBox;
+    private ChoiceBox<String> evidenceIdChoiceBox;
 
     @FXML
     private TextArea evidenceDescription;
@@ -89,6 +91,8 @@ public class PoliceInvestigatingDashboardController implements Initializable {
 
     //NON FXML PROPERTIES
     private String _obId;
+
+    private final Map evidenceTitleToEvidenceId = new HashMap();
 
     //METHODS
     @Override
@@ -139,7 +143,7 @@ public class PoliceInvestigatingDashboardController implements Initializable {
                 int res = statement.executeUpdate();
 
                 evidenceIdChoiceBox.getItems().clear();
-                //setEvidenceIdChoiceBoxItems();
+                setEvidenceChoiceBoxItems();
             } catch (SQLException ex) {
                 Logger.getLogger(PoliceInvestigatingDashboardController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -196,6 +200,36 @@ public class PoliceInvestigatingDashboardController implements Initializable {
                     timeLabel.setText(resultSet.getString("Time"));
                     locationLabel.setText(resultSet.getString("Location"));
                     caseDescriptionTextArea.setText("Description");
+                }
+                setEvidenceChoiceBoxItems();
+            } catch (SQLException ex) {
+                Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    //Sets ChoiceBox Items from the Database and Maps Evidence Title to Evidence Id
+    private void setEvidenceChoiceBoxItems() {
+        evidenceIdChoiceBox.getItems().clear();
+        Connection connection = MysqlConnector.connectDB();
+        if (connection != null) {
+            try {
+                PreparedStatement statement = (PreparedStatement) connection.prepareStatement("SELECT `Id`, `Evidence_Title` FROM `evidence` WHERE OB_Id = ?");
+                statement.setString(1, _obId);
+                ResultSet resultSet = statement.executeQuery();
+
+                //Clear Map
+                evidenceTitleToEvidenceId.clear();
+
+                while (resultSet.next()) {
+                    String evidenceTitle = resultSet.getString("Evidence_Title");
+                    String evidenceId = resultSet.getString("Id");
+
+                    //Map crime type to crime id
+                    evidenceTitleToEvidenceId.put(evidenceTitle, evidenceId);
+
+                    //Add crime type to ChoiceBox
+                    evidenceIdChoiceBox.getItems().addAll(evidenceTitle);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);

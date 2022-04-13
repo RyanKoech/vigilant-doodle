@@ -99,6 +99,7 @@ public class PoliceInvestigatingDashboardController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setCrimeIdChoiceBoxItems();
         crimeIdChoiceBox.getSelectionModel().selectedItemProperty().addListener((v , oldValue, newValue) -> getCaseInformation(newValue));
+        evidenceIdChoiceBox.getSelectionModel().selectedItemProperty().addListener((v , oldValue, newValue) -> setEvidenceInformation(newValue));
     }
 
     @FXML
@@ -265,5 +266,25 @@ public class PoliceInvestigatingDashboardController implements Initializable {
 
     private boolean areEvidenceInputsEmpty(){
         return evidenceTitleTextField.getText().isEmpty() || evidenceDescription.getText().isEmpty();
+    }
+
+    private void setEvidenceInformation(String evidenceTitle){
+        System.out.println("setEvidenceInformation is Called");
+        Connection connection = MysqlConnector.connectDB();
+        if (connection != null) {
+            try {
+                PreparedStatement statement = (PreparedStatement) connection.prepareStatement("SELECT `Evidence_Title`, `Evidence` FROM `evidence` WHERE Id=?");
+                statement.setString(1, evidenceTitleToEvidenceId.get(evidenceTitle).toString());
+
+                ResultSet resultSet = statement.executeQuery();
+
+                if(resultSet.next()){
+                    evidenceTitleTextField.setText(resultSet.getString("Evidence_Title"));
+                    evidenceDescription.setText(resultSet.getString("Evidence"));
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

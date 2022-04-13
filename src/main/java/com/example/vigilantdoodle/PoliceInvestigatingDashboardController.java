@@ -99,7 +99,10 @@ public class PoliceInvestigatingDashboardController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setCrimeIdChoiceBoxItems();
         crimeIdChoiceBox.getSelectionModel().selectedItemProperty().addListener((v , oldValue, newValue) -> getCaseInformation(newValue));
-        evidenceIdChoiceBox.getSelectionModel().selectedItemProperty().addListener((v , oldValue, newValue) -> setEvidenceInformation(newValue));
+        evidenceIdChoiceBox.getSelectionModel().selectedItemProperty().addListener((v , oldValue, newValue) -> {
+            if(newValue == null) return;
+            setEvidenceInformation(newValue);
+        });
     }
 
     @FXML

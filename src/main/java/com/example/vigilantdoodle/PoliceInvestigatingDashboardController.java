@@ -139,7 +139,7 @@ public class PoliceInvestigatingDashboardController implements Initializable {
                 int res = statement.executeUpdate();
 
                 evidenceIdChoiceBox.getItems().clear();
-                setEvidenceIdChoiceBoxItems();
+                //setEvidenceIdChoiceBoxItems();
             } catch (SQLException ex) {
                 Logger.getLogger(PoliceInvestigatingDashboardController.class.getName()).log(Level.SEVERE, null, ex);
             }

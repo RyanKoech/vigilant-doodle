@@ -109,7 +109,7 @@ public class ApplicationLoginController {
         return switch (loginState) {
             case ADMIN_STATE -> "`police admin`";
             case POLICE_STATE -> "`police`";
-            case INVESTIGATING_STATE -> "`police investigating`";
+            case INVESTIGATING_STATE -> "`police`";
             default -> "";
         };
     }

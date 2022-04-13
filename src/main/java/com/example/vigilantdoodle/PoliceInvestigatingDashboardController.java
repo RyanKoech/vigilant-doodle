@@ -154,7 +154,19 @@ public class PoliceInvestigatingDashboardController implements Initializable {
 
     @FXML
     private void deleteEvidence(ActionEvent event) {
+        if(areEvidenceInputsEmpty()) return;
+        Connection connection = MysqlConnector.connectDB();
+        if (connection != null) {
+            try {
+                PreparedStatement statement = (PreparedStatement) connection.prepareStatement("DELETE FROM `evidence` WHERE `evidence`.`Id` = ?");
+                statement.setString(1, evidenceTitleToEvidenceId.get(evidenceIdChoiceBox.getValue()).toString());
 
+                int resultSet = statement.executeUpdate();
+                setEvidenceChoiceBoxItems();
+            } catch (SQLException ex) {
+                Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @FXML

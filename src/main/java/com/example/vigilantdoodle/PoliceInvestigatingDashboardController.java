@@ -236,4 +236,8 @@ public class PoliceInvestigatingDashboardController implements Initializable {
             }
         }
     }
+
+    private boolean areEvidenceInputsEmpty(){
+        return evidenceTitleTextField.getText().isEmpty() || evidenceDescription.getText().isEmpty();
+    }
 }

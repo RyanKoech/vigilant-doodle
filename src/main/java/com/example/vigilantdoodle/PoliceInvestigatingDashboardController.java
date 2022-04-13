@@ -130,7 +130,7 @@ public class PoliceInvestigatingDashboardController implements Initializable {
 
     @FXML
     private void addEvidence(ActionEvent event) {
-
+        if(areEvidenceInputsEmpty()) return;
         Connection connection = MysqlConnector.connectDB();
         if(connection != null){
             try {

@@ -7,6 +7,7 @@ module com.example.vigilantdoodle {
     requires javafx.graphics;
     requires com.jfoenix;
     requires java.sql;
+    requires java.mail;
 
     opens com.example.vigilantdoodle to javafx.fxml;
     opens com.example.vigilantdoodle.datamodels to javafx.fxml;

@@ -141,3 +141,4 @@ replay_pid*
 
 ## CUSTOM GITINGORES
 /target
+/src/main/java/com/example/vigilantdoodle/privates

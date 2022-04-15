@@ -8,6 +8,7 @@ import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.HashMap;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,7 +16,7 @@ import java.util.logging.Logger;
 public class SendEmail {
 
     //Send email functions
-    public static void notification(String recepient) throws MessagingException {
+    public static void notification(final HashMap<Data.emailInfo, String> emailInfoMap) throws MessagingException {
 
         System.err.println("Prepareing to send message...");
         Properties properties = new Properties();
@@ -39,31 +40,21 @@ public class SendEmail {
 
         });
 
-        Message message = prepareMessage(session, email, recepient);
+        Message message = prepareMessage(session, email, emailInfoMap);
         javax.mail.Transport.send(message);
         System.out.println("Message Sent Successfully");
     }
 
     //Prepare email to be sent
-    private static Message prepareMessage(Session session, String email, String recepient){
+    private static Message prepareMessage(Session session, String sender,final HashMap<Data.emailInfo, String> emailInfoMap){
 
         try {
-            String[] recipientList = recepient.split(",");
-            InternetAddress[] recipientAddress = new InternetAddress[recipientList.length];
-            int counter = 0;
-            for (String recipient : recipientList) {
-                recipientAddress[counter] = new InternetAddress(recipient.trim());
-                counter++;
-            }
+            InternetAddress recipientAddress = new InternetAddress(emailInfoMap.get(Data.emailInfo.RECIPIENT));
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(email));
-            message.setRecipients(Message.RecipientType.TO, recipientAddress);
+            message.setFrom(new InternetAddress(sender));
+            message.setRecipient(Message.RecipientType.TO, recipientAddress);
             message.setSubject("Upcoming Court Meeting For Case ID: " + Data.POLICE_ID);
-            message.setText("Dear Litigant,\n\nWe hope you have been doing well. This is to remind you that you are expected to report to court within the next 24hours. Kindly avail yourself early enough to avoid inconviences \n\n"
-                    + "Make Sure you carry all that you are required to a have and incase you see that you may not attend communicae in due time which is 48hrs before the meeting else face the penalty.\n\n"
-                    + "Thank you and stay safe making sure you abid by the law at all times.\n\n"
-                    + "Kind Regards,\n"
-                    + "The Judiciary");
+            message.setText(Data.getEmailBody(emailInfoMap));
             return message;
 
         } catch (Exception ex) {

@@ -224,13 +224,13 @@ public class PoliceAdminDashboardController implements Initializable {
 
     private final List<TextField> editPoliceTextFieldList = new ArrayList<>();
 
+    private final EnumMap<policeRoleEnum, String> policeRoleMapping = new EnumMap<>(policeRoleEnum.class);
+
     private String offenderId;
 
     private enum policeRoleEnum {
         POLICE, ADMIN
     }
-
-    EnumMap<policeRoleEnum, String> policeRoleMapping = new EnumMap<>(policeRoleEnum.class);
 
     //METHODS
     @Override

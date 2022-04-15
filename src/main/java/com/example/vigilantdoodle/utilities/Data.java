@@ -9,7 +9,7 @@ public class Data {
         RECIPIENT, RECIPIENTNAME, OBID, REPORTDATE, REPORTTIME,
     }
 
-    public static  String getEmailBody(final HashMap<emailInfo, String> emailInfoMap){
+    public static  String getReporterEmailBody(final HashMap<emailInfo, String> emailInfoMap){
         return "Dear " + emailInfoMap.get(emailInfo.RECIPIENTNAME) + ",\n\n" +
                 "This is to notify the case you reported on " + emailInfoMap.get(emailInfo.REPORTDATE) + " " + emailInfoMap.get(emailInfo.REPORTTIME) + " hase been recorded and our officers" +
                 "will get into the matter as soon as possible.\n\n" +

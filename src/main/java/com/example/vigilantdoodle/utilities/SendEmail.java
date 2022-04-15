@@ -1,6 +1,7 @@
 package com.example.vigilantdoodle.utilities;
 
 import com.example.vigilantdoodle.ApplicationLogin;
+import com.example.vigilantdoodle.utilities.Data.emailInfo;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -16,7 +17,7 @@ import java.util.logging.Logger;
 public class SendEmail {
 
     //Send email functions
-    public static void notification(final HashMap<Data.emailInfo, String> emailInfoMap) throws MessagingException {
+    public static void notification(final HashMap<emailInfo, String> emailInfoMap) throws MessagingException {
 
         System.err.println("Prepareing to send message...");
         Properties properties = new Properties();
@@ -46,15 +47,15 @@ public class SendEmail {
     }
 
     //Prepare email to be sent
-    private static Message prepareMessage(Session session, String sender,final HashMap<Data.emailInfo, String> emailInfoMap){
+    private static Message prepareMessage(Session session, String sender,final HashMap<emailInfo, String> emailInfoMap){
 
         try {
-            InternetAddress recipientAddress = new InternetAddress(emailInfoMap.get(Data.emailInfo.RECIPIENT));
+            InternetAddress recipientAddress = new InternetAddress(emailInfoMap.get(emailInfo.RECIPIENT));
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(sender));
             message.setRecipient(Message.RecipientType.TO, recipientAddress);
             message.setSubject("Upcoming Court Meeting For Case ID: " + Data.POLICE_ID);
-            message.setText(Data.getEmailBody(emailInfoMap));
+            message.setText(Data.getReporterEmailBody(emailInfoMap));
             return message;
 
         } catch (Exception ex) {

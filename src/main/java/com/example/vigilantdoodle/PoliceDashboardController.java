@@ -2,6 +2,7 @@ package com.example.vigilantdoodle;
 
 import com.example.vigilantdoodle.datamodels.PoliceReports;
 import com.example.vigilantdoodle.utilities.Data;
+import com.example.vigilantdoodle.utilities.Data.emailInfo;
 import com.example.vigilantdoodle.utilities.MysqlConnector;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTreeTableView;
@@ -204,7 +205,7 @@ public class PoliceDashboardController implements Initializable {
         Connection connection = MysqlConnector.connectDB();
         if (connection != null) {
             try {
-                PreparedStatement statement = (PreparedStatement) connection.prepareStatement("INSERT INTO `cases` (`OB_id`, `Police_Id`, `Reporter_Id`, `Offender_Id`, `Location`, `Date`, `Time`, `Description`, `Crime_Type`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)");
+                PreparedStatement statement = (PreparedStatement) connection.prepareStatement("INSERT INTO `cases` (`OB_id`, `Police_Id`, `Reporter_Id`, `Offender_Id`, `Location`, `Date`, `Time`, `Description`, `Crime_Type`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?); SELECT LAST_INSERT_ID() AS id;");
                 statement.setString(1, Data.POLICE_ID);
                 statement.setString(2, reporterIdTextField.getText());
                 statement.setString(3, offenderNameTextField.getText());
@@ -214,7 +215,27 @@ public class PoliceDashboardController implements Initializable {
                 statement.setString(7, descriptionTextArea.getText());
                 statement.setString(8, crimeTypetoCrimeIdMap.get(crimeTypeChoiceBox.getValue()).toString());
 
-                int res = statement.executeUpdate();
+                boolean hasMoreResultSets = statement.execute();
+
+                READING_QUERY_RESULTS: // label
+                while ( hasMoreResultSets || statement.getUpdateCount() != -1 ) {
+                    if ( hasMoreResultSets ) {
+                        ResultSet resultSet = statement.getResultSet();
+                        if(resultSet.next()){
+                            sendReporterEmail(resultSet.getString("id"));
+                        }
+                    }
+                    else {
+                        int queryResult = statement.getUpdateCount();
+                        if ( queryResult == -1 ) { // no more queries processed
+                            break READING_QUERY_RESULTS;
+                        }
+                        // handle success, failure, generated keys, etc here
+                    }
+
+                    // check to continue in the loop
+                    hasMoreResultSets = statement.getMoreResults();
+                }
 
                 resetReportingTabInputs();
                 //PopUpaAlert.display("SUCCESS", "Evidence Successfully Updated.");

@@ -485,10 +485,8 @@ public class PoliceDashboardController implements Initializable {
 
                     //Prepare Email Information
                     emailInfoMap.put(emailInfo.RECIPIENT, recipient);
-                    emailInfoMap.put(emailInfo.RECIPIENTNAME, recipientName);
-                    emailInfoMap.put(emailInfo.OBID, obNumber);
-                    emailInfoMap.put(emailInfo.REPORTTIME, reportTime);
-                    emailInfoMap.put(emailInfo.REPORTDATE, reportDate);
+                    emailInfoMap.put(emailInfo.EMAIL_SUBJECT, Data.getReporterEmailSubject());
+                    emailInfoMap.put(emailInfo.EMAIL_BODY, Data.getReporterEmailBody(recipientName, reportDate, reportTime, obNumber));
 
                     SendEmail.notification(emailInfoMap);
                 }

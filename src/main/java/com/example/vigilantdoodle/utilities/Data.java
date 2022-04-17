@@ -11,9 +11,9 @@ public class Data {
 
     public static  String getReporterEmailBody(final HashMap<emailInfo, String> emailInfoMap){
         return "Dear " + emailInfoMap.get(emailInfo.RECIPIENTNAME) + ",\n\n" +
-                "This is to notify the case you reported on " + emailInfoMap.get(emailInfo.REPORTDATE) + " " + emailInfoMap.get(emailInfo.REPORTTIME) + " hase been recorded and our officers" +
-                "will get into the matter as soon as possible.\n\n" +
-                "Use the OB Number: " + emailInfoMap.get(emailInfo.OBID) + " from now on to report to the case.\n\n" +
+                "This is to notify you that the case you reported on the date " + emailInfoMap.get(emailInfo.REPORTDATE) + " at " + emailInfoMap.get(emailInfo.REPORTTIME) + "HRS hase been recorded and our investigating officers " +
+                "will dive into the matter and begin investigations as soon as possible.\n\n" +
+                "Use the OB Number: " + emailInfoMap.get(emailInfo.OBID) + " from now on to reference the case.\n\n" +
                 "Yours protective,\n" +
                 "The Kenya Police Service";
     }

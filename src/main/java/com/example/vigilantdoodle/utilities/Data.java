@@ -22,9 +22,9 @@ public class Data {
         return "Reported Case Confirmation";
     }
 
-    public static String getInvestigatorEmailBody(final HashMap<emailInfo, String> emailInfoMap){
-        return "Dear Inspector" + emailInfoMap.get(emailInfo.INVESTIGATING_OFFICER) + ",\n\n" +
-                "This is to notify you have been assigned as the Lead Investigating Officer over the case #" + emailInfoMap.get(emailInfo.OBID) + ". " +
+    public static String getInvestigatorEmailBody(String investigatingOfficer, String obId){
+        return "Dear Inspector" + investigatingOfficer + ",\n\n" +
+                "This is to notify you have been assigned as the Lead Investigating Officer over the case #" + investigatingOfficer + ". " +
                 "If you are not at the station, kindly report within the next 24 hours to gather the required documents and information to begin carrying out " +
                 "investigations into the case.\n\n" +
                 "Yours protective,\n" +

@@ -58,8 +58,8 @@ public class SendEmail {
             message.addHeader("Content-Type", "text/html; charset=UTF-8");
             message.setFrom(new InternetAddress(sender));
             message.setRecipient(Message.RecipientType.TO, recipientAddress);
-            message.setSubject(Data.getReporterEmailSubject());
-            message.setText(Data.getReporterEmailBody(emailInfoMap));
+            message.setSubject(emailInfoMap.get(emailInfo.EMAIL_SUBJECT));
+            message.setText(emailInfoMap.get(emailInfo.EMAIL_BODY));
             message.setSentDate(new Date());
             return message;
 

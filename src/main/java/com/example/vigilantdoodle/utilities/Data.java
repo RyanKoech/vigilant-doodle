@@ -22,9 +22,9 @@ public class Data {
         return "Reported Case Confirmation";
     }
 
-    public static String getInvestigatorEmailBody(String investigatingOfficer, String obId){
-        return "Dear Inspector" + investigatingOfficer + ",\n\n" +
-                "This is to notify you have been assigned as the Lead Investigating Officer over the case #" + investigatingOfficer + ". " +
+    public static String getInvestigatorEmailBody(String investigatorName, String obId){
+        return "Dear Inspector" + investigatorName + ",\n\n" +
+                "This is to notify you have been assigned as the Lead Investigating Officer over the case #" + obId + ". " +
                 "If you are not at the station, kindly report within the next 24 hours to gather the required documents and information to begin carrying out " +
                 "investigations into the case.\n\n" +
                 "Yours protective,\n" +

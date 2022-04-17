@@ -17,4 +17,8 @@ public class Data {
                 "Yours protective,\n" +
                 "The Kenya Police Service";
     }
+
+    public static String getReporterEmailSubject(){
+        return "Reported Case Confirmation";
+    }
 }

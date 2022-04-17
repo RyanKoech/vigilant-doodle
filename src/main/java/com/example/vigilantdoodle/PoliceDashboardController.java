@@ -204,6 +204,7 @@ public class PoliceDashboardController implements Initializable {
         }
 
         String investigatorId = getLeastOccupiedPolice();
+        String obId = "";
 
         Connection connection = MysqlConnector.connectDB();
         if (connection != null) {
@@ -226,7 +227,7 @@ public class PoliceDashboardController implements Initializable {
                     if ( hasMoreResultSets ) {
                         ResultSet resultSet = statement.getResultSet();
                         if(resultSet.next()){
-                            sendReporterEmail(resultSet.getString("id"));
+                            obId = (resultSet.getString("id"));
                         }
                     }
                     else {
@@ -240,6 +241,9 @@ public class PoliceDashboardController implements Initializable {
                     // check to continue in the loop
                     hasMoreResultSets = statement.getMoreResults();
                 }
+
+                sendReporterEmail(obId);
+                sendInvestigatorEmail(investigatorId, obId);
 
                 resetReportingTabInputs();
                 //PopUpaAlert.display("SUCCESS", "Evidence Successfully Updated.");

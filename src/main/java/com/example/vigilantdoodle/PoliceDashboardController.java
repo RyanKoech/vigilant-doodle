@@ -203,10 +203,12 @@ public class PoliceDashboardController implements Initializable {
             return;
         }
 
+        String investigatorId = getLeastOccupiedPolice();
+
         Connection connection = MysqlConnector.connectDB();
         if (connection != null) {
             try {
-                PreparedStatement statement = (PreparedStatement) connection.prepareStatement("INSERT INTO `cases` (`OB_id`, `Police_Id`, `Reporter_Id`, `Offender_Id`, `Location`, `Date`, `Time`, `Description`, `Crime_Type`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?); SELECT LAST_INSERT_ID() AS id;");
+                PreparedStatement statement = (PreparedStatement) connection.prepareStatement("INSERT INTO `cases` (`OB_id`, `Police_Id`, `Reporter_Id`, `Offender_Id`, `Location`, `Date`, `Time`, `Description`, `Crime_Type`, `Investigator_Id`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?); SELECT LAST_INSERT_ID() AS id;");
                 statement.setString(1, Data.POLICE_ID);
                 statement.setString(2, reporterIdTextField.getText());
                 statement.setString(3, offenderNameTextField.getText());
@@ -215,6 +217,7 @@ public class PoliceDashboardController implements Initializable {
                 statement.setString(6, timeTextField.getText());
                 statement.setString(7, descriptionTextArea.getText());
                 statement.setString(8, crimeTypetoCrimeIdMap.get(crimeTypeChoiceBox.getValue()).toString());
+                statement.setString(9, investigatorId);
 
                 boolean hasMoreResultSets = statement.execute();
 
@@ -494,5 +497,26 @@ public class PoliceDashboardController implements Initializable {
                 ex.printStackTrace();
             }
         }
+    }
+
+    private String getLeastOccupiedPolice(){
+        String policeId = "";
+
+        Connection connection = MysqlConnector.connectDB();
+
+        if(connection != null){
+            try {
+                PreparedStatement st = (PreparedStatement) connection.prepareStatement("SELECT `police`.`Police_Id`, COUNT(`cases`.`Investigator_Id`) as cases FROM `cases` RIGHT JOIN `police` ON `cases`.`Investigator_Id` = `police`.`Police_Id` GROUP BY `police`.`Police_Id` ORDER BY cases ASC LIMIT 1");
+                ResultSet res = st.executeQuery();
+
+                if (res.next()) {
+                    policeId = res.getString("Police_Id");
+                }
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        return policeId;
     }
 }

@@ -888,4 +888,34 @@ public class PoliceAdminDashboardController implements Initializable {
         }
         return policeId;
     }
+
+    private void sendInvestigatorEmail(String investigatorId, String obNumber){
+        HashMap<Data.emailInfo, String> emailInfoMap = new HashMap ();
+        String recipient, investigatorName;
+
+        Connection connection = MysqlConnector.connectDB();
+
+        if(connection != null){
+            try {
+                PreparedStatement st = (PreparedStatement) connection.prepareStatement("SELECT `users`.`Name` , `users`.`Email_Address` FROM `users` WHERE `users`.`Police_Id` = ?");
+                st.setString(1, investigatorId);
+                ResultSet res = st.executeQuery();
+
+                if (res.next()) {
+                    recipient = res.getString("Email_Address");
+                    investigatorName = res.getString("Name");
+
+                    //Prepare Email Information
+                    emailInfoMap.put(Data.emailInfo.RECIPIENT, recipient);
+                    emailInfoMap.put(Data.emailInfo.EMAIL_SUBJECT, Data.getInvestigatorEmailSubject());
+                    emailInfoMap.put(Data.emailInfo.EMAIL_BODY, Data.getInvestigatorEmailBody(investigatorName, obNumber));
+
+                    SendEmail.notification(emailInfoMap);
+                }
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
 }

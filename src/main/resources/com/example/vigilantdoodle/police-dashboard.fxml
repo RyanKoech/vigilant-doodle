@@ -126,6 +126,106 @@
             </HBox>
             <AnchorPane maxHeight="1.7976931348623157E308" prefHeight="1000.0" prefWidth="1500.0">
                <children>
+                  <VBox fx:id="reportingTabVBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <HBox layoutX="131.0" layoutY="285.0" maxWidth="-Infinity">
+                           <children>
+                              <TextField fx:id="reporterNameTextField" prefHeight="30.0" prefWidth="200.0" promptText="Reporter Name">
+                                 <HBox.margin>
+                                    <Insets right="70.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </TextField>
+                              <TextField fx:id="reporterIdTextField" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" promptText="Reporter ID">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font></TextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="25.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox layoutX="131.0" layoutY="283.0" maxWidth="-Infinity">
+                           <children>
+                              <TextField fx:id="offenderNameTextField" prefHeight="30.0" prefWidth="200.0" promptText="Offender Name">
+                                 <HBox.margin>
+                                    <Insets right="70.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </TextField>
+                              <TextField fx:id="locationTextField" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" promptText="Location">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font></TextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="25.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox layoutX="131.0" layoutY="318.0" maxWidth="-Infinity">
+                           <children>
+                              <TextField fx:id="dateTextField" prefHeight="30.0" prefWidth="200.0" promptText="Date">
+                                 <HBox.margin>
+                                    <Insets right="70.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </TextField>
+                              <TextField fx:id="timeTextField" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" promptText="Time">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font></TextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="25.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="131.0" layoutY="353.0" maxWidth="470.0" minWidth="470.0" prefWidth="470.0">
+                           <VBox.margin>
+                              <Insets bottom="25.0" />
+                           </VBox.margin>
+                           <children>
+                              <Label text="Crime Type:" textFill="#b2b2b2">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <ChoiceBox fx:id="crimeTypeChoiceBox" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #ffffff; -fx-border-color: #F7F7F7; -fx-border-style: solid; -fx-border-width: 2px;">
+                                 <effect>
+                                    <InnerShadow choke="1.0" color="#2916ba7c" height="5.0" radius="2.0" width="5.0" />
+                                 </effect>
+                              </ChoiceBox>
+                           </children>
+                        </HBox>
+                        <TextArea fx:id="descriptionTextArea" maxWidth="470.0" prefHeight="200.0" prefWidth="200.0" promptText="Desciption" wrapText="true">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <font>
+                              <Font name="Consolas" size="14.0" />
+                           </font></TextArea>
+                        <JFXButton fx:id="reportButton" onAction="#onReportCrime" prefHeight="35.0" prefWidth="250.0" style="-fx-background-color: yellow;" text="Report" textFill="#003194">
+                           <VBox.margin>
+                              <Insets top="25.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                     <styleClass>
+                        <String fx:value="left-innershadow" />
+                        <String fx:value="grey-background" />
+                     </styleClass>
+                  </VBox>
                   <VBox fx:id="custodiesTabVBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <styleClass>
                         <String fx:value="left-innershadow" />
@@ -235,106 +335,6 @@
                            </font>
                         </JFXButton>
                      </children>
-                  </VBox>
-                  <VBox fx:id="reportingTabVBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <HBox layoutX="131.0" layoutY="285.0" maxWidth="-Infinity">
-                           <children>
-                              <TextField fx:id="reporterNameTextField" prefHeight="30.0" prefWidth="200.0" promptText="Reporter Name">
-                                 <HBox.margin>
-                                    <Insets right="70.0" />
-                                 </HBox.margin>
-                                 <font>
-                                    <Font size="13.0" />
-                                 </font>
-                              </TextField>
-                              <TextField fx:id="reporterIdTextField" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" promptText="Reporter ID">
-                                 <font>
-                                    <Font size="13.0" />
-                                 </font></TextField>
-                           </children>
-                           <VBox.margin>
-                              <Insets bottom="25.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox layoutX="131.0" layoutY="283.0" maxWidth="-Infinity">
-                           <children>
-                              <TextField fx:id="offenderNameTextField" prefHeight="30.0" prefWidth="200.0" promptText="Offender Name">
-                                 <HBox.margin>
-                                    <Insets right="70.0" />
-                                 </HBox.margin>
-                                 <font>
-                                    <Font size="13.0" />
-                                 </font>
-                              </TextField>
-                              <TextField fx:id="locationTextField" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" promptText="Location">
-                                 <font>
-                                    <Font size="13.0" />
-                                 </font></TextField>
-                           </children>
-                           <VBox.margin>
-                              <Insets bottom="25.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox layoutX="131.0" layoutY="318.0" maxWidth="-Infinity">
-                           <children>
-                              <TextField fx:id="dateTextField" prefHeight="30.0" prefWidth="200.0" promptText="Date">
-                                 <HBox.margin>
-                                    <Insets right="70.0" />
-                                 </HBox.margin>
-                                 <font>
-                                    <Font size="13.0" />
-                                 </font>
-                              </TextField>
-                              <TextField fx:id="timeTextField" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" promptText="Time">
-                                 <font>
-                                    <Font size="13.0" />
-                                 </font></TextField>
-                           </children>
-                           <VBox.margin>
-                              <Insets bottom="25.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox alignment="CENTER_LEFT" layoutX="131.0" layoutY="353.0" maxWidth="470.0" minWidth="470.0" prefWidth="470.0">
-                           <VBox.margin>
-                              <Insets bottom="25.0" />
-                           </VBox.margin>
-                           <children>
-                              <Label text="Crime Type:" textFill="#b2b2b2">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets right="10.0" />
-                                 </HBox.margin>
-                              </Label>
-                              <ChoiceBox fx:id="crimeTypeChoiceBox" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #ffffff; -fx-border-color: #F7F7F7; -fx-border-style: solid; -fx-border-width: 2px;">
-                                 <effect>
-                                    <InnerShadow choke="1.0" color="#2916ba7c" height="5.0" radius="2.0" width="5.0" />
-                                 </effect>
-                              </ChoiceBox>
-                           </children>
-                        </HBox>
-                        <TextArea fx:id="descriptionTextArea" maxWidth="470.0" prefHeight="200.0" prefWidth="200.0" promptText="Desciption" wrapText="true">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                           <font>
-                              <Font name="Consolas" size="14.0" />
-                           </font></TextArea>
-                        <JFXButton fx:id="reportButton" onAction="#onReportCrime" prefHeight="35.0" prefWidth="250.0" style="-fx-background-color: yellow;" text="Report" textFill="#003194">
-                           <VBox.margin>
-                              <Insets top="25.0" />
-                           </VBox.margin>
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </JFXButton>
-                     </children>
-                     <styleClass>
-                        <String fx:value="left-innershadow" />
-                        <String fx:value="grey-background" />
-                     </styleClass>
                   </VBox>
                   <VBox fx:id="dashboardTabVBox" alignment="CENTER" prefHeight="576.0" prefWidth="707.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>

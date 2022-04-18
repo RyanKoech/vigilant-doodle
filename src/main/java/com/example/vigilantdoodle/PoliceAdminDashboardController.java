@@ -216,6 +216,9 @@ public class PoliceAdminDashboardController implements Initializable {
     @FXML
     private TreeTableColumn<AdminReports, String> crimeTableColumn;
 
+    @FXML
+    private VBox statisticsTabVBox;
+
     //NON FXML PROPERTIES
     private final Map crimeTypetoCrimeIdMap = new HashMap();
 
@@ -281,6 +284,12 @@ public class PoliceAdminDashboardController implements Initializable {
     @FXML
     private void onShowEditPoliceTab(ActionEvent event) {
         editPoliceTabVBox.toFront();
+    }
+
+    //Statistics Tab
+    @FXML
+    private void onShowStatisticsTab(ActionEvent event) {
+        statisticsTabVBox.toFront();
     }
 
     //Logout Button Function

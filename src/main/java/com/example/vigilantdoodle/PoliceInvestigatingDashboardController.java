@@ -1,5 +1,7 @@
 package com.example.vigilantdoodle;
 
+import com.example.vigilantdoodle.ui_utilities.ConfirmBox;
+import com.example.vigilantdoodle.ui_utilities.PopUpAlert;
 import com.example.vigilantdoodle.utilities.Data;
 import com.example.vigilantdoodle.utilities.MysqlConnector;
 import com.jfoenix.controls.JFXButton;
@@ -119,6 +121,8 @@ public class PoliceInvestigatingDashboardController implements Initializable {
     //Logout Button Function
     @FXML
     private void onLogout(ActionEvent event) {
+        boolean confirm = ConfirmBox.displayConfirmBox(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.WARNING), "Are you sure you want to logout?");
+        if (!confirm) return;
         try {
             Parent menuParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("application-login.fxml")));
             Scene menuScene = new Scene(menuParent);
@@ -134,7 +138,13 @@ public class PoliceInvestigatingDashboardController implements Initializable {
 
     @FXML
     private void addEvidence(ActionEvent event) {
-        if(areEvidenceInputsEmpty()) return;
+        if(areEvidenceInputsEmpty()) {
+            PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.WARNING), "Make Sure All Fields are Filled.");
+            return;
+        }
+        boolean confirm = ConfirmBox.displayConfirmBox(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.WARNING), "Are you sure you want to logout?");
+        if (!confirm) return;
+
         Connection connection = MysqlConnector.connectDB();
         if(connection != null){
             try {
@@ -149,6 +159,7 @@ public class PoliceInvestigatingDashboardController implements Initializable {
                 evidenceIdChoiceBox.getItems().clear();
                 setEvidenceChoiceBoxItems();
             } catch (SQLException ex) {
+                PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), ex.getMessage());
                 Logger.getLogger(PoliceInvestigatingDashboardController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else{
@@ -158,7 +169,13 @@ public class PoliceInvestigatingDashboardController implements Initializable {
 
     @FXML
     private void deleteEvidence(ActionEvent event) {
-        if(areEvidenceInputsEmpty()) return;
+        if(areEvidenceInputsEmpty()) {
+            PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.WARNING), "Make Sure All Fields are Filled.");
+            return;
+        }
+        boolean confirm = ConfirmBox.displayConfirmBox(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.WARNING), "Are you sure you want to logout?");
+        if (!confirm) return;
+
         Connection connection = MysqlConnector.connectDB();
         if (connection != null) {
             try {
@@ -168,6 +185,7 @@ public class PoliceInvestigatingDashboardController implements Initializable {
                 int resultSet = statement.executeUpdate();
                 setEvidenceChoiceBoxItems();
             } catch (SQLException ex) {
+                PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), ex.getMessage());
                 Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -175,7 +193,13 @@ public class PoliceInvestigatingDashboardController implements Initializable {
 
     @FXML
     private void updateEvidence(ActionEvent event) {
-        if(areEvidenceInputsEmpty()) return;
+        if(areEvidenceInputsEmpty()) {
+            PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.WARNING), "Make Sure All Fields are Filled.");
+            return;
+        }
+        boolean confirm = ConfirmBox.displayConfirmBox(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.WARNING), "Are you sure you want to logout?");
+        if (!confirm) return;
+
         Connection connection = MysqlConnector.connectDB();
         if (connection != null) {
             try {
@@ -187,6 +211,7 @@ public class PoliceInvestigatingDashboardController implements Initializable {
                 int resultSet = statement.executeUpdate();
                 setEvidenceChoiceBoxItems();
             } catch (SQLException ex) {
+                PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), ex.getMessage());
                 Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -233,6 +258,7 @@ public class PoliceInvestigatingDashboardController implements Initializable {
                 }
                 setEvidenceChoiceBoxItems();
             } catch (SQLException ex) {
+                PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), ex.getMessage());
                 Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -272,7 +298,6 @@ public class PoliceInvestigatingDashboardController implements Initializable {
     }
 
     private void setEvidenceInformation(String evidenceTitle){
-        System.out.println("setEvidenceInformation is Called");
         Connection connection = MysqlConnector.connectDB();
         if (connection != null) {
             try {
@@ -286,6 +311,7 @@ public class PoliceInvestigatingDashboardController implements Initializable {
                     evidenceDescription.setText(resultSet.getString("Evidence"));
                 }
             } catch (SQLException ex) {
+                PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), ex.getMessage());
                 Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

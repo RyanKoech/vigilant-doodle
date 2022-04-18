@@ -151,7 +151,7 @@ public class PoliceDashboardController implements Initializable {
     //Logout Button Function
     @FXML
     private void onLogout(ActionEvent event) {
-        boolean confirm = ConfirmBox.displayConfirmBox(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), "Are you sure you want to logout?");
+        boolean confirm = ConfirmBox.displayConfirmBox(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.WARNING), "Are you sure you want to logout?");
         if (!confirm) return;
         try {
             Parent menuParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("application-login.fxml")));
@@ -190,7 +190,7 @@ public class PoliceDashboardController implements Initializable {
             PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.WARNING), "Make Sure All Fields are Filled.");
             return;
         }
-        boolean confirm = ConfirmBox.displayConfirmBox(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), "Are you sure you want to logout?");
+        boolean confirm = ConfirmBox.displayConfirmBox(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.WARNING), "Are you sure you want to change the suspect custody status?");
         if (!confirm) return;
         updateCustody(offenderId);
     }

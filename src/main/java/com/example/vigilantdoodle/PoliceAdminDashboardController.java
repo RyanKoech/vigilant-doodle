@@ -19,6 +19,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.layout.VBox;
@@ -33,6 +35,8 @@ import java.sql.SQLException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static java.lang.Integer.parseInt;
 
 public class PoliceAdminDashboardController implements Initializable {
 
@@ -219,6 +223,9 @@ public class PoliceAdminDashboardController implements Initializable {
     @FXML
     private VBox statisticsTabVBox;
 
+    @FXML
+    private LineChart<String, Integer> monthlyCasesLineChart;
+
     //NON FXML PROPERTIES
     private final Map crimeTypetoCrimeIdMap = new HashMap();
 
@@ -253,6 +260,7 @@ public class PoliceAdminDashboardController implements Initializable {
         createPoliceRoleMapping();
         createAddPoliceTextFieldList();
         createEditPoliceTextFieldList();
+        getMonthlyCases();
     }
 
     //Side Menu Navigation Button Actions
@@ -936,6 +944,64 @@ public class PoliceAdminDashboardController implements Initializable {
                     emailInfoMap.put(Data.emailInfo.EMAIL_BODY, Data.getInvestigatorEmailBody(investigatorName, obNumber));
 
                     SendEmail.notification(emailInfoMap);
+                }
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    private void getMonthlyCases(){
+        XYChart.Series series = new XYChart.Series();
+        series.setName("Monthly Cases");
+
+        Connection connection = MysqlConnector.connectDB();
+
+        if(connection != null){
+            try {
+                PreparedStatement st = (PreparedStatement) connection.prepareStatement("SELECT YEAR(`Date`) Year,MONTH(`Date`) Month,COUNT(`OB_id`) Total_Cases FROM `cases` GROUP BY YEAR(`Date`),MONTH(`Date`) ORDER BY YEAR(`Date`) DESC,MONTH(`Date`) DESC ");
+                ResultSet res = st.executeQuery();
+
+                if (res.next()) {
+                    int count = 5;
+                    boolean innerWhileRan = false;
+                    int year = parseInt(res.getString("Year"));
+                    int month = parseInt(res.getString("Month"));
+                    int  totalCases = parseInt(res.getString("Total_Cases"));
+                    series.getData().add(new XYChart.Data(year + " " + Data.MONTHS[month-1], totalCases));
+                    System.out.println(year + " " + Data.MONTHS[month-1]  + ": " + totalCases);
+
+                    while(res.next() && count > 0){
+                        innerWhileRan = false;
+                        month--;
+                        if(month == 0){
+                            year--;
+                        }
+                        while (parseInt(res.getString("Month")) != month && count > 0){
+                            innerWhileRan = true;
+                            series.getData().add(new XYChart.Data(year + " " + Data.MONTHS[month-1], 0));
+                            System.out.println(year + " " + Data.MONTHS[month-1]  + ": " + 0);
+                            month--;
+                            if(month == 0){
+                                year--;
+                            }
+                            if(!(parseInt(res.getString("Month")) != month && count > 0)) {
+                                innerWhileRan = false;
+                            }
+                            count--;
+
+                        }
+                        if(count > 0) {
+                            year = parseInt(res.getString("Year"));
+                            month = parseInt(res.getString("Month"));
+                            totalCases = parseInt(res.getString("Total_Cases"));
+                            series.getData().add(new XYChart.Data(year + " " + Data.MONTHS[month-1], totalCases));
+                            System.out.println(year + " " + Data.MONTHS[month-1]  + ": " + totalCases);
+                        }
+                        if(!innerWhileRan) count--;
+                    }
+                    monthlyCasesLineChart.getData().add(series);
                 }
 
             } catch (Exception ex) {

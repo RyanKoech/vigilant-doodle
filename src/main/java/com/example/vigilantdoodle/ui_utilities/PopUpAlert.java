@@ -11,7 +11,7 @@ public class PopUpAlert {
     public  static void displayPopUpAlert(String title, String message){
         Stage window = new Stage();
 
-        //prevents out put from other parts of the progra
+        //prevents out put from other parts of the program
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
         window.setMinWidth(250);

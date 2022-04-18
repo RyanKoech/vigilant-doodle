@@ -1,6 +1,7 @@
 package com.example.vigilantdoodle.utilities;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class Data {
     public static String POLICE_ID = "";
@@ -8,6 +9,15 @@ public class Data {
     public static enum emailInfo {
         RECIPIENT, RECIPIENTNAME, OBID, REPORTDATE, REPORTTIME, EMAIL_BODY, EMAIL_SUBJECT, INVESTIGATING_OFFICER
     }
+    public static enum FEEDBACK_MESSAGES{
+        ERROR, WARNING, SUCCESS
+    }
+
+    public static HashMap<FEEDBACK_MESSAGES, String> FEEDBACK_STRINGS = new HashMap<>() {{
+        put(FEEDBACK_MESSAGES.ERROR, "ERROR");
+        put(FEEDBACK_MESSAGES.WARNING, "WARNING");
+        put(FEEDBACK_MESSAGES.SUCCESS, "SUCCESS");
+    }};
 
     public static  String getReporterEmailBody(String recipientName, String reportDate, String reportTime, String obId){
         return "Dear " + recipientName + ",\n\n" +

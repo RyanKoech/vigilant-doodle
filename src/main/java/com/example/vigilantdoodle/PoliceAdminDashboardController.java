@@ -1,6 +1,8 @@
 package com.example.vigilantdoodle;
 
 import com.example.vigilantdoodle.datamodels.AdminReports;
+import com.example.vigilantdoodle.ui_utilities.ConfirmBox;
+import com.example.vigilantdoodle.ui_utilities.PopUpAlert;
 import com.example.vigilantdoodle.utilities.Data;
 import com.example.vigilantdoodle.utilities.MysqlConnector;
 import com.example.vigilantdoodle.utilities.SendEmail;
@@ -284,6 +286,8 @@ public class PoliceAdminDashboardController implements Initializable {
     //Logout Button Function
     @FXML
     private void onLogout(ActionEvent event) {
+        boolean confirm = ConfirmBox.displayConfirmBox(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.WARNING), "Are you sure you want to logout?");
+        if (!confirm) return;
         try {
             Parent menuParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("application-login.fxml")));
             Scene menuScene = new Scene(menuParent);
@@ -300,9 +304,11 @@ public class PoliceAdminDashboardController implements Initializable {
     void onAddPolice(ActionEvent event) {
 
         if (areTextFieldsEmpty(addPoliceTextFieldList) || isAddPoliceChoiceBoxValueEmpty()) {
-            System.out.println("All Fields Must be Filled");
+            PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.WARNING), "Make Sure All Fields are Filled.");
             return;
         }
+        boolean confirm = ConfirmBox.displayConfirmBox(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.WARNING), "Add new police to the system?");
+        if (!confirm) return;
         uploadNewPoliceInformation();
         uploadNewPoliceLoginInformation();
         resetAddPoliceInputFields();
@@ -313,7 +319,7 @@ public class PoliceAdminDashboardController implements Initializable {
     void onReportCrime(ActionEvent event) {
 
         if (areTextFieldsEmpty(reportingTextFieldList) || isReportingChoiceBoxValueEmpty() || isReportingTextAreaEmpty()) {
-            System.out.println("All Fields Must be Filled");
+            PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.WARNING), "Make Sure All Fields are Filled.");
             return;
         }
 
@@ -359,9 +365,9 @@ public class PoliceAdminDashboardController implements Initializable {
                 sendReporterEmail(obId);
                 sendInvestigatorEmail(investigatorId, obId);
                 resetReportingTabInputs();
-                //PopUpaAlert.display("SUCCESS", "Evidence Successfully Updated.");
+                PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.SUCCESS), "Crime Reported Successfully");
             } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
+                PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), ex.getMessage());
                 Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
@@ -373,6 +379,7 @@ public class PoliceAdminDashboardController implements Initializable {
     @FXML
     void onSearchCase(ActionEvent event) {
         if (isObIdTextFieldEmpty()) {
+            PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.WARNING), "Make Sure All Fields are Filled.");
             return;
         }
         getSuspectCustodyRecords(obNumberTextField.getText());
@@ -381,6 +388,7 @@ public class PoliceAdminDashboardController implements Initializable {
     @FXML
     void onUpdateCustody(ActionEvent event) {
         if (isCustodiesChoiceBoxValueEmpty()) {
+            PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.WARNING), "Make Sure All Fields are Filled.");
             return;
         }
         updateCustody(offenderId);
@@ -389,6 +397,7 @@ public class PoliceAdminDashboardController implements Initializable {
     @FXML
     void onSearchPolice(ActionEvent event) {
         if(seachPoliceTextField.getText().isEmpty()){
+            PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.WARNING), "Make Sure All Fields are Filled.");
             return;
         }
         getPoliceRecords(seachPoliceTextField.getText());
@@ -397,6 +406,7 @@ public class PoliceAdminDashboardController implements Initializable {
     @FXML
     void onUpdatePolice(ActionEvent event) {
         if(areTextFieldsEmpty(editPoliceTextFieldList)){
+            PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.WARNING), "Make Sure All Fields are Filled.");
             return;
         }
         updatePoliceInformation();
@@ -644,6 +654,7 @@ public class PoliceAdminDashboardController implements Initializable {
                 //To enable the user to be able to click in the update button
                 updateCustodyButton.setDisable(false);
             } catch (Exception ex) {
+                PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), ex.getMessage());
                 ex.printStackTrace();
             }
         }
@@ -665,8 +676,8 @@ public class PoliceAdminDashboardController implements Initializable {
                 st.setString(2, offenderId);
                 int res = st.executeUpdate();
 
-                System.out.println("Success!");
             } catch (SQLException ex) {
+                PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), ex.getMessage());
                 Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
@@ -704,9 +715,8 @@ public class PoliceAdminDashboardController implements Initializable {
 
                 int res = statement.executeUpdate();
 
-                //PopUpaAlert.display("SUCCESS", "Evidence Successfully Updated.");
             } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
+                PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), ex.getMessage());
                 Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
@@ -741,7 +751,7 @@ public class PoliceAdminDashboardController implements Initializable {
 
                 //PopUpaAlert.display("SUCCESS", "Evidence Successfully Updated.");
             } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
+                PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), ex.getMessage());
                 Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
@@ -778,6 +788,7 @@ public class PoliceAdminDashboardController implements Initializable {
                     deletePoliceButton.setDisable(false);
                 }
             } catch (Exception ex) {
+                PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), ex.getMessage());
                 ex.printStackTrace();
             }
         }
@@ -805,6 +816,7 @@ public class PoliceAdminDashboardController implements Initializable {
 
                 int res = st.executeUpdate();
             } catch (SQLException ex) {
+                PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), ex.getMessage());
                 Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
@@ -824,6 +836,7 @@ public class PoliceAdminDashboardController implements Initializable {
                 int res = st.executeUpdate();
 
             } catch (SQLException ex) {
+                PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), ex.getMessage());
                 Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {

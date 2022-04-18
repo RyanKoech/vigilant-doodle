@@ -317,12 +317,13 @@ public class PoliceAdminDashboardController implements Initializable {
             return;
         }
 
+        String investigatorId = getLeastOccupiedPolice();
         String obId = "";
 
         Connection connection = MysqlConnector.connectDB();
         if (connection != null) {
             try {
-                PreparedStatement statement = (PreparedStatement) connection.prepareStatement("INSERT INTO `cases` (`OB_id`, `Police_Id`, `Reporter_Id`, `Offender_Id`, `Location`, `Date`, `Time`, `Description`, `Crime_Type`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?); SELECT LAST_INSERT_ID() AS id;");
+                PreparedStatement statement = (PreparedStatement) connection.prepareStatement("INSERT INTO `cases` (`OB_id`, `Police_Id`, `Reporter_Id`, `Offender_Id`, `Location`, `Date`, `Time`, `Description`, `Crime_Type`, `Investigator_Id`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?); SELECT LAST_INSERT_ID() AS id;");
                 statement.setString(1, Data.POLICE_ID);
                 statement.setString(2, reporterIdTextField.getText());
                 statement.setString(3, offenderIdTextField.getText());
@@ -331,6 +332,7 @@ public class PoliceAdminDashboardController implements Initializable {
                 statement.setString(6, timeTextField.getText());
                 statement.setString(7, descriptionTextArea.getText());
                 statement.setString(8, crimeTypetoCrimeIdMap.get(crimeTypeChoiceBox.getValue()).toString());
+                statement.setString(9, investigatorId);
 
                 boolean hasMoreResultSets = statement.execute();
 
@@ -355,6 +357,7 @@ public class PoliceAdminDashboardController implements Initializable {
                 }
 
                 sendReporterEmail(obId);
+                sendInvestigatorEmail(investigatorId, obId);
                 resetReportingTabInputs();
                 //PopUpaAlert.display("SUCCESS", "Evidence Successfully Updated.");
             } catch (SQLException ex) {

@@ -867,4 +867,25 @@ public class PoliceAdminDashboardController implements Initializable {
             }
         }
     }
+
+    private String getLeastOccupiedPolice(){
+        String policeId = "";
+
+        Connection connection = MysqlConnector.connectDB();
+
+        if(connection != null){
+            try {
+                PreparedStatement st = (PreparedStatement) connection.prepareStatement("SELECT `police`.`Police_Id`, COUNT(`cases`.`Investigator_Id`) as cases FROM `cases` RIGHT JOIN `police` ON `cases`.`Investigator_Id` = `police`.`Police_Id` GROUP BY `police`.`Police_Id` ORDER BY cases ASC LIMIT 1");
+                ResultSet res = st.executeQuery();
+
+                if (res.next()) {
+                    policeId = res.getString("Police_Id");
+                }
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        return policeId;
+    }
 }

@@ -3,6 +3,7 @@ package com.example.vigilantdoodle;
 import com.example.vigilantdoodle.datamodels.AdminReports;
 import com.example.vigilantdoodle.utilities.Data;
 import com.example.vigilantdoodle.utilities.MysqlConnector;
+import com.example.vigilantdoodle.utilities.SendEmail;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
@@ -809,5 +810,38 @@ public class PoliceAdminDashboardController implements Initializable {
             addPoliceTextField.setText("");
         }
         editPolicePasswordTextField1.setText("");
+    }
+
+    private void sendReporterEmail(String obNumber){
+
+        HashMap<Data.emailInfo, String> emailInfoMap = new HashMap ();
+        String recipient, recipientName, reportTime, reportDate;
+
+        Connection connection = MysqlConnector.connectDB();
+
+        if(connection != null){
+            try {
+                PreparedStatement st = (PreparedStatement) connection.prepareStatement("SELECT `citizens`.`Email`, `citizens`.`Name`, `cases`.`Date`, `cases`.`Time` FROM `cases` INNER JOIN `citizens` ON `cases`.`Reporter_Id` = `citizens`.`National ID` WHERE `OB_id`=? ");
+                st.setString(1, obNumber);
+                ResultSet res = st.executeQuery();
+
+                if (res.next()) {
+                    recipient = res.getString("Email");
+                    recipientName = res.getString("Name");
+                    reportTime = res.getString("Time");
+                    reportDate = res.getString("Date");
+
+                    //Prepare Email Information
+                    emailInfoMap.put(Data.emailInfo.RECIPIENT, recipient);
+                    emailInfoMap.put(Data.emailInfo.EMAIL_SUBJECT, Data.getReporterEmailSubject());
+                    emailInfoMap.put(Data.emailInfo.EMAIL_BODY, Data.getReporterEmailBody(recipientName, reportDate, reportTime, obNumber));
+
+                    SendEmail.notification(emailInfoMap);
+                }
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 }

@@ -1,6 +1,8 @@
 package com.example.vigilantdoodle;
 
 import com.example.vigilantdoodle.datamodels.PoliceReports;
+import com.example.vigilantdoodle.ui_utilities.ConfirmBox;
+import com.example.vigilantdoodle.ui_utilities.PopUpAlert;
 import com.example.vigilantdoodle.utilities.Data;
 import com.example.vigilantdoodle.utilities.Data.emailInfo;
 import com.example.vigilantdoodle.utilities.MysqlConnector;
@@ -149,6 +151,8 @@ public class PoliceDashboardController implements Initializable {
     //Logout Button Function
     @FXML
     private void onLogout(ActionEvent event) {
+        boolean confirm = ConfirmBox.displayConfirmBox(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), "Are you sure you want to logout?");
+        if (!confirm) return;
         try {
             Parent menuParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("application-login.fxml")));
             Scene menuScene = new Scene(menuParent);
@@ -183,14 +187,18 @@ public class PoliceDashboardController implements Initializable {
     @FXML
     private void onUpdateCustody(ActionEvent event) {
         if(isCustodiesChoiceBoxValueEmpty()){
+            PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.WARNING), "Make Sure All Fields are Filled.");
             return;
         }
+        boolean confirm = ConfirmBox.displayConfirmBox(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), "Are you sure you want to logout?");
+        if (!confirm) return;
         updateCustody(offenderId);
     }
 
     @FXML
     private void onSearchCase(ActionEvent event) {
         if(isObIdTextFieldEmpty()){
+            PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.WARNING), "Make Sure All Fields are Filled.");
             return;
         }
         getSuspectCustodyRecords(obNumberTextField.getText());
@@ -199,7 +207,7 @@ public class PoliceDashboardController implements Initializable {
     @FXML
     private void onReportCrime(ActionEvent event) {
         if (areReportingTextFieldsEmpty() || isChoiceBoxValueEmpty() || isReportingTextAreaEmpty()) {
-            System.out.println("All Fields Must be Filled");
+            PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.WARNING), "Make Sure All Fields are Filled.");
             return;
         }
 
@@ -244,11 +252,11 @@ public class PoliceDashboardController implements Initializable {
 
                 sendReporterEmail(obId);
                 sendInvestigatorEmail(investigatorId, obId);
-
+                PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.SUCCESS), "Crime Reported Successfully");
                 resetReportingTabInputs();
-                //PopUpaAlert.display("SUCCESS", "Evidence Successfully Updated.");
+
             } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
+                PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), ex.getMessage());
                 Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
@@ -444,6 +452,7 @@ public class PoliceDashboardController implements Initializable {
                 //To enable the user to be able to click in the update button
                 updateCustodyButton.setDisable(false);
             } catch (Exception ex) {
+                PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), ex.getMessage());
                 ex.printStackTrace();
             }
         }
@@ -459,9 +468,10 @@ public class PoliceDashboardController implements Initializable {
                 st.setString(2, offenderId);
                 int res = st.executeUpdate();
 
-                System.out.println("Success!");
+                PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.SUCCESS), "Custody Updated Successfully.");
             } catch (SQLException ex) {
                 Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+                PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), ex.getMessage());
             }
         }else{
             System.out.println("The connection is not available");

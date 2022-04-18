@@ -393,181 +393,181 @@
                                 </JFXButton>
                             </children>
                         </VBox>
-                  <VBox fx:id="addPoliceTabVBox" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <TextField fx:id="addPolicePoliceIdTextField" layoutX="266.0" layoutY="193.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Police ID">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="25.0" />
-                           </VBox.margin>
-                        </TextField>
-                        <TextField fx:id="addPolicePoliceNameTextField" layoutX="266.0" layoutY="208.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Police Name">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="25.0" />
-                           </VBox.margin>
-                        </TextField>
-                        <TextField fx:id="addPoliceNationalIdTextField" layoutX="266.0" layoutY="188.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="National ID">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="25.0" />
-                           </VBox.margin>
-                        </TextField>
-                        <TextField fx:id="addPolicePhoneNumberTextField" layoutX="266.0" layoutY="223.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Phone Number">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="25.0" />
-                           </VBox.margin>
-                        </TextField>
-                        <TextField fx:id="addPoliceEmailAddressTextField" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Email Address">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="25.0" />
-                           </VBox.margin>
-                        </TextField>
-                        <PasswordField fx:id="addPolicePasswordTextField" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Password">
-                           <VBox.margin>
-                              <Insets bottom="25.0" />
-                           </VBox.margin>
-                        </PasswordField>
-                        <HBox alignment="CENTER_LEFT" layoutX="131.0" layoutY="353.0" maxWidth="-Infinity">
-                           <VBox.margin>
-                              <Insets bottom="25.0" />
-                           </VBox.margin>
-                           <children>
-                              <Label text="Role" textFill="#b2b2b2">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets right="10.0" />
-                                 </HBox.margin>
-                              </Label>
-                              <ChoiceBox fx:id="addPolicePoliceRoleChoiceBox" prefHeight="30.0" prefWidth="162.0" style="-fx-background-color: #ffffff; -fx-border-color: #F7F7F7; -fx-border-style: solid; -fx-border-width: 2px;">
-                                 <effect>
-                                    <InnerShadow choke="1.0" color="#2916ba7c" height="5.0" radius="2.0" width="5.0" />
-                                 </effect>
-                              </ChoiceBox>
-                           </children>
-                        </HBox>
-                        <Pane prefHeight="50.0" prefWidth="200.0" />
-                        <JFXButton fx:id="addPoliceButton" onAction="#onAddPolice" prefHeight="35.0" prefWidth="250.0" style="-fx-background-color: yellow;" text="Add Police" textFill="#003194">
-                           <VBox.margin>
-                              <Insets top="25.0" />
-                           </VBox.margin>
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </JFXButton>
-                     </children>
-                     <styleClass>
-                        <String fx:value="left-innershadow" />
-                        <String fx:value="grey-background" />
-                     </styleClass>
-                  </VBox>
-                  <VBox fx:id="editPoliceTabVBox" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <HBox alignment="CENTER_RIGHT">
-                           <children>
-                              <TextField fx:id="seachPoliceTextField" prefHeight="30.0" prefWidth="200.0" promptText="Police ID">
-                                 <font>
-                                    <Font size="13.0" />
-                                 </font>
-                              </TextField>
-                              <JFXButton fx:id="searchPoliceButton" onAction="#onSearchPolice" prefHeight="30.0" style="-fx-background-color: #003194;" text="Search" textFill="#fff10b">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </JFXButton>
-                           </children>
-                           <VBox.margin>
-                              <Insets bottom="50.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <TextField fx:id="editPolicePoliceIdTextField" editable="false" layoutX="266.0" layoutY="193.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Police ID">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="25.0" />
-                           </VBox.margin>
-                        </TextField>
-                        <TextField fx:id="editPolicePoliceNameTextField" layoutX="266.0" layoutY="208.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Police Name">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="25.0" />
-                           </VBox.margin>
-                        </TextField>
-                        <TextField fx:id="editPoliceNationalIdTextField1" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="National ID">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="25.0" />
-                           </VBox.margin>
-                        </TextField>
-                        <TextField fx:id="editPolicePoliceNumberTextField" layoutX="266.0" layoutY="223.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Phone Number">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="25.0" />
-                           </VBox.margin>
-                        </TextField>
-                        <TextField fx:id="editPoliceEmailAddressTextField" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Email Address">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="25.0" />
-                           </VBox.margin>
-                        </TextField>
-                        <PasswordField fx:id="editPolicePasswordTextField1" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="New Password" />
-                        <Pane prefHeight="50.0" prefWidth="200.0" />
-                        <HBox alignment="CENTER_LEFT" layoutX="131.0" layoutY="353.0" maxWidth="-Infinity">
-                           <VBox.margin>
-                              <Insets bottom="25.0" />
-                           </VBox.margin>
-                           <children>
-                              <JFXButton fx:id="updatePoliceButton" disable="true" onAction="#onUpdatePolice" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: yellow;" text="Update" textFill="#003194">
-                                 <font>
-                                    <Font name="System Bold" size="18.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets right="50.0" />
-                                 </HBox.margin>
-                              </JFXButton>
-                              <JFXButton fx:id="deletePoliceButton" disable="true" layoutX="48.0" layoutY="10.0" onAction="#onDeletePolice" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: yellow;" text="Delete" textFill="#003194">
-                                 <font>
-                                    <Font name="System Bold" size="18.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                              </JFXButton>
-                           </children>
-                        </HBox>
-                     </children>
-                     <styleClass>
-                        <String fx:value="left-innershadow" />
-                        <String fx:value="grey-background" />
-                     </styleClass>
-                     <padding>
-                        <Insets left="70.0" right="70.0" />
-                     </padding>
-                  </VBox>
+                        <VBox fx:id="addPoliceTabVBox" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                         <children>
+                            <TextField fx:id="addPolicePoliceIdTextField" layoutX="266.0" layoutY="193.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Police ID">
+                               <font>
+                                  <Font size="13.0" />
+                               </font>
+                               <VBox.margin>
+                                  <Insets bottom="25.0" />
+                               </VBox.margin>
+                            </TextField>
+                            <TextField fx:id="addPolicePoliceNameTextField" layoutX="266.0" layoutY="208.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Police Name">
+                               <font>
+                                  <Font size="13.0" />
+                               </font>
+                               <VBox.margin>
+                                  <Insets bottom="25.0" />
+                               </VBox.margin>
+                            </TextField>
+                            <TextField fx:id="addPoliceNationalIdTextField" layoutX="266.0" layoutY="188.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="National ID">
+                               <font>
+                                  <Font size="13.0" />
+                               </font>
+                               <VBox.margin>
+                                  <Insets bottom="25.0" />
+                               </VBox.margin>
+                            </TextField>
+                            <TextField fx:id="addPolicePhoneNumberTextField" layoutX="266.0" layoutY="223.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Phone Number">
+                               <font>
+                                  <Font size="13.0" />
+                               </font>
+                               <VBox.margin>
+                                  <Insets bottom="25.0" />
+                               </VBox.margin>
+                            </TextField>
+                            <TextField fx:id="addPoliceEmailAddressTextField" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Email Address">
+                               <font>
+                                  <Font size="13.0" />
+                               </font>
+                               <VBox.margin>
+                                  <Insets bottom="25.0" />
+                               </VBox.margin>
+                            </TextField>
+                            <PasswordField fx:id="addPolicePasswordTextField" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Password">
+                               <VBox.margin>
+                                  <Insets bottom="25.0" />
+                               </VBox.margin>
+                            </PasswordField>
+                            <HBox alignment="CENTER_LEFT" layoutX="131.0" layoutY="353.0" maxWidth="-Infinity">
+                               <VBox.margin>
+                                  <Insets bottom="25.0" />
+                               </VBox.margin>
+                               <children>
+                                  <Label text="Role" textFill="#b2b2b2">
+                                     <font>
+                                        <Font size="14.0" />
+                                     </font>
+                                     <HBox.margin>
+                                        <Insets right="10.0" />
+                                     </HBox.margin>
+                                  </Label>
+                                  <ChoiceBox fx:id="addPolicePoliceRoleChoiceBox" prefHeight="30.0" prefWidth="162.0" style="-fx-background-color: #ffffff; -fx-border-color: #F7F7F7; -fx-border-style: solid; -fx-border-width: 2px;">
+                                     <effect>
+                                        <InnerShadow choke="1.0" color="#2916ba7c" height="5.0" radius="2.0" width="5.0" />
+                                     </effect>
+                                  </ChoiceBox>
+                               </children>
+                            </HBox>
+                            <Pane prefHeight="50.0" prefWidth="200.0" />
+                            <JFXButton fx:id="addPoliceButton" onAction="#onAddPolice" prefHeight="35.0" prefWidth="250.0" style="-fx-background-color: yellow;" text="Add Police" textFill="#003194">
+                               <VBox.margin>
+                                  <Insets top="25.0" />
+                               </VBox.margin>
+                               <font>
+                                  <Font name="System Bold" size="18.0" />
+                               </font>
+                            </JFXButton>
+                         </children>
+                         <styleClass>
+                            <String fx:value="left-innershadow" />
+                            <String fx:value="grey-background" />
+                         </styleClass>
+                        </VBox>
+                        <VBox fx:id="editPoliceTabVBox" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                         <children>
+                            <HBox alignment="CENTER_RIGHT">
+                               <children>
+                                  <TextField fx:id="seachPoliceTextField" prefHeight="30.0" prefWidth="200.0" promptText="Police ID">
+                                     <font>
+                                        <Font size="13.0" />
+                                     </font>
+                                  </TextField>
+                                  <JFXButton fx:id="searchPoliceButton" onAction="#onSearchPolice" prefHeight="30.0" style="-fx-background-color: #003194;" text="Search" textFill="#fff10b">
+                                     <font>
+                                        <Font name="System Bold" size="12.0" />
+                                     </font>
+                                  </JFXButton>
+                               </children>
+                               <VBox.margin>
+                                  <Insets bottom="50.0" />
+                               </VBox.margin>
+                            </HBox>
+                            <TextField fx:id="editPolicePoliceIdTextField" editable="false" layoutX="266.0" layoutY="193.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Police ID">
+                               <font>
+                                  <Font size="13.0" />
+                               </font>
+                               <VBox.margin>
+                                  <Insets bottom="25.0" />
+                               </VBox.margin>
+                            </TextField>
+                            <TextField fx:id="editPolicePoliceNameTextField" layoutX="266.0" layoutY="208.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Police Name">
+                               <font>
+                                  <Font size="13.0" />
+                               </font>
+                               <VBox.margin>
+                                  <Insets bottom="25.0" />
+                               </VBox.margin>
+                            </TextField>
+                            <TextField fx:id="editPoliceNationalIdTextField1" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="National ID">
+                               <font>
+                                  <Font size="13.0" />
+                               </font>
+                               <VBox.margin>
+                                  <Insets bottom="25.0" />
+                               </VBox.margin>
+                            </TextField>
+                            <TextField fx:id="editPolicePoliceNumberTextField" layoutX="266.0" layoutY="223.0" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Phone Number">
+                               <font>
+                                  <Font size="13.0" />
+                               </font>
+                               <VBox.margin>
+                                  <Insets bottom="25.0" />
+                               </VBox.margin>
+                            </TextField>
+                            <TextField fx:id="editPoliceEmailAddressTextField" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Email Address">
+                               <font>
+                                  <Font size="13.0" />
+                               </font>
+                               <VBox.margin>
+                                  <Insets bottom="25.0" />
+                               </VBox.margin>
+                            </TextField>
+                            <PasswordField fx:id="editPolicePasswordTextField1" maxWidth="200.0" prefHeight="30.0" prefWidth="200.0" promptText="New Password" />
+                            <Pane prefHeight="50.0" prefWidth="200.0" />
+                            <HBox alignment="CENTER_LEFT" layoutX="131.0" layoutY="353.0" maxWidth="-Infinity">
+                               <VBox.margin>
+                                  <Insets bottom="25.0" />
+                               </VBox.margin>
+                               <children>
+                                  <JFXButton fx:id="updatePoliceButton" disable="true" onAction="#onUpdatePolice" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: yellow;" text="Update" textFill="#003194">
+                                     <font>
+                                        <Font name="System Bold" size="18.0" />
+                                     </font>
+                                     <HBox.margin>
+                                        <Insets right="50.0" />
+                                     </HBox.margin>
+                                  </JFXButton>
+                                  <JFXButton fx:id="deletePoliceButton" disable="true" layoutX="48.0" layoutY="10.0" onAction="#onDeletePolice" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: yellow;" text="Delete" textFill="#003194">
+                                     <font>
+                                        <Font name="System Bold" size="18.0" />
+                                     </font>
+                                     <HBox.margin>
+                                        <Insets />
+                                     </HBox.margin>
+                                  </JFXButton>
+                               </children>
+                            </HBox>
+                         </children>
+                         <styleClass>
+                            <String fx:value="left-innershadow" />
+                            <String fx:value="grey-background" />
+                         </styleClass>
+                         <padding>
+                            <Insets left="70.0" right="70.0" />
+                         </padding>
+                        </VBox>
                         <VBox fx:id="dashboardTabVBox" alignment="TOP_CENTER" prefHeight="576.0" prefWidth="707.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                         <HBox maxWidth="850.0" prefHeight="126.0" prefWidth="642.0">

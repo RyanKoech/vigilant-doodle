@@ -666,7 +666,7 @@
                                     <content>
                                         <VBox alignment="CENTER">
                                             <children>
-                                                <LineChart maxWidth="900.0">
+                                                <LineChart fx:id="monthlyCasesLineChart" maxWidth="900.0" title="Monthly Cases Last 6 Months">
                                                     <xAxis>
                                                         <CategoryAxis side="BOTTOM" />
                                                     </xAxis>

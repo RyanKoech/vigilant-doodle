@@ -1,7 +1,6 @@
 package com.example.vigilantdoodle.utilities;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class Data {
     public static String POLICE_ID = "";
@@ -12,6 +11,8 @@ public class Data {
     public static enum FEEDBACK_MESSAGES{
         ERROR, WARNING, SUCCESS
     }
+
+    public static String[] MONTHS = {"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
 
     public static HashMap<FEEDBACK_MESSAGES, String> FEEDBACK_STRINGS = new HashMap<>() {{
         put(FEEDBACK_MESSAGES.ERROR, "ERROR");

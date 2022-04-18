@@ -1,5 +1,7 @@
 package com.example.vigilantdoodle.utilities;
 
+import com.example.vigilantdoodle.ui_utilities.PopUpAlert;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 
@@ -15,7 +17,7 @@ public class MysqlConnector {
             return conn;
         }catch(Exception ex){
 
-            System.out.print("There was an error connecting to the database!");
+            PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), ex.getMessage());
             return null;
         }
     }

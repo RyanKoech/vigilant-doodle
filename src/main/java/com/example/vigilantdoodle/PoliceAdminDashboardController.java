@@ -970,20 +970,20 @@ public class PoliceAdminDashboardController implements Initializable {
                     int month = parseInt(res.getString("Month"));
                     int  totalCases = parseInt(res.getString("Total_Cases"));
                     series.getData().add(new XYChart.Data(year + " " + Data.MONTHS[month-1], totalCases));
-                    System.out.println(year + " " + Data.MONTHS[month-1]  + ": " + totalCases);
 
                     while(res.next() && count > 0){
                         innerWhileRan = false;
                         month--;
                         if(month == 0){
+                            month = 12;
                             year--;
                         }
                         while (parseInt(res.getString("Month")) != month && count > 0){
                             innerWhileRan = true;
                             series.getData().add(new XYChart.Data(year + " " + Data.MONTHS[month-1], 0));
-                            System.out.println(year + " " + Data.MONTHS[month-1]  + ": " + 0);
                             month--;
                             if(month == 0){
+                                month = 12;
                                 year--;
                             }
                             if(!(parseInt(res.getString("Month")) != month && count > 0)) {
@@ -997,7 +997,6 @@ public class PoliceAdminDashboardController implements Initializable {
                             month = parseInt(res.getString("Month"));
                             totalCases = parseInt(res.getString("Total_Cases"));
                             series.getData().add(new XYChart.Data(year + " " + Data.MONTHS[month-1], totalCases));
-                            System.out.println(year + " " + Data.MONTHS[month-1]  + ": " + totalCases);
                         }
                         if(!innerWhileRan) count--;
                     }

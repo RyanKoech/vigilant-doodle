@@ -24,6 +24,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.StringConverter;
 
 import java.io.IOException;
@@ -33,6 +34,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.logging.Level;
@@ -597,5 +599,29 @@ public class PoliceDashboardController implements Initializable {
                 }
             }
         });
+
+        restrictDatePicker(dateDatePicker, LocalDate.of(1900, Month.JANUARY, 1), LocalDate.now());
+    }
+
+    public void restrictDatePicker(DatePicker datePicker, LocalDate minDate, LocalDate maxDate) {
+        final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
+            @Override
+            public DateCell call(final DatePicker datePicker) {
+                return new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item.isBefore(minDate)) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #ffc0cb;");
+                        }else if (item.isAfter(maxDate)) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #ffc0cb;");
+                        }
+                    }
+                };
+            }
+        };
+        datePicker.setDayCellFactory(dayCellFactory);
     }
 }

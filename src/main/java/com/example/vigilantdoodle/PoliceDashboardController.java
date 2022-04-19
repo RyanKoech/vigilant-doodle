@@ -215,7 +215,7 @@ public class PoliceDashboardController implements Initializable {
 
     @FXML
     private void onReportCrime(ActionEvent event) {
-        if (areReportingTextFieldsEmpty() || isChoiceBoxValueEmpty() || isReportingTextAreaEmpty()) {
+        if (areReportingTextFieldsEmpty() || isChoiceBoxValueEmpty() || isReportingTextAreaEmpty() || isDatePickerValueEmpty()) {
             PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.WARNING), "Make Sure All Fields are Filled.");
             return;
         }

@@ -25,6 +25,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.StringConverter;
 
 import java.io.IOException;
@@ -34,6 +35,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.logging.Level;
@@ -1039,6 +1041,66 @@ public class PoliceAdminDashboardController implements Initializable {
                 } else {
                     return null;
                 }
+            }
+        });
+
+        restrictDatePicker(dateDatePicker, LocalDate.of(1900, Month.JANUARY, 1), LocalDate.now());
+    }
+
+    public void restrictDatePicker(DatePicker datePicker, LocalDate minDate, LocalDate maxDate) {
+        final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
+            @Override
+            public DateCell call(final DatePicker datePicker) {
+                return new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item.isBefore(minDate)) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #ffc0cb;");
+                        }else if (item.isAfter(maxDate)) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #ffc0cb;");
+                        }
+                    }
+                };
+            }
+        };
+        datePicker.setDayCellFactory(dayCellFactory);
+        datePicker.focusedProperty().addListener((obs, oldVal, newVal) ->{
+
+            LocalDate enteredDate = datePicker.getValue();
+            LocalDate dateTime = LocalDate.now();
+            String enteredDateString = datePicker.getEditor().textProperty().get();
+            System.out.println(enteredDate);
+
+            DATE_PARSE_ERROR_CATCH:
+            if(!newVal && !enteredDateString.isEmpty()){
+                try{
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    dateTime = LocalDate.parse(enteredDateString, formatter);
+                }catch (Exception e){
+                    System.out.println(e.getMessage());
+                    PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), "Invalid Date Entered. It is be reset to to: " + enteredDate);
+                    datePicker.getEditor().textProperty().setValue(enteredDate.toString());
+                    newVal = true;
+                    break DATE_PARSE_ERROR_CATCH;
+                }
+                if (dateTime.isBefore(minDate)) {
+                    datePicker.getEditor().textProperty().setValue(minDate.toString());
+                    datePicker.setValue(maxDate);
+                    PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), "Invalid Date Entered. It is be reset to to: " + minDate);
+                } else if (dateTime.isAfter(maxDate)) {
+                    datePicker.getEditor().textProperty().setValue(maxDate.toString());
+                    datePicker.setValue(minDate);
+                    PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), "Invalid Date Entered. It is be reset to to: " + maxDate);
+                }else {
+                    datePicker.setValue(dateTime);
+                    System.out.println("Date has been updated to: " + datePicker.getValue());
+                }
+            }else if(enteredDateString.isEmpty()){
+                datePicker.setValue(null);
+                System.out.println("Date has been updated to: " + datePicker.getValue());
             }
         });
     }

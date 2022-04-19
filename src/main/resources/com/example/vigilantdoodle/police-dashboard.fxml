@@ -5,6 +5,7 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -180,6 +181,18 @@
                                  <font>
                                     <Font size="13.0" />
                                  </font></TextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="25.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox layoutX="131.0" layoutY="166.0" maxWidth="-Infinity">
+                           <children>
+                              <DatePicker fx:id="dateDatePicker" prefHeight="30.0" prefWidth="200.0">
+                                 <HBox.margin>
+                                    <Insets right="270.0" />
+                                 </HBox.margin>
+                              </DatePicker>
                            </children>
                            <VBox.margin>
                               <Insets bottom="25.0" />

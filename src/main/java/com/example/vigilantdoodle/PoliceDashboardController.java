@@ -124,9 +124,6 @@ public class PoliceDashboardController implements Initializable {
     private TextField locationTextField;
 
     @FXML
-    private TextField dateTextField;
-
-    @FXML
     private TextField timeTextField;
 
     @FXML
@@ -347,7 +344,6 @@ public class PoliceDashboardController implements Initializable {
         reportingTextFieldList.add(reporterIdTextField);
         reportingTextFieldList.add(offenderNameTextField);
         reportingTextFieldList.add(locationTextField);
-        reportingTextFieldList.add(dateTextField);
         reportingTextFieldList.add(timeTextField);
     }
 

@@ -77,6 +77,9 @@ public class PoliceAdminDashboardController implements Initializable {
     private TextField locationTextField;
 
     @FXML
+    private DatePicker dateDatePicker;
+
+    @FXML
     private TextField dateTextField;
 
     @FXML

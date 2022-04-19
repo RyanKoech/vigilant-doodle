@@ -25,6 +25,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 import java.io.IOException;
 import java.net.URL;
@@ -32,6 +33,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -264,6 +267,7 @@ public class PoliceAdminDashboardController implements Initializable {
         createAddPoliceTextFieldList();
         createEditPoliceTextFieldList();
         getMonthlyCases();
+        setDatePickerFormat();
     }
 
     //Side Menu Navigation Button Actions
@@ -1010,5 +1014,32 @@ public class PoliceAdminDashboardController implements Initializable {
                 ex.printStackTrace();
             }
         }
+    }
+
+    private void setDatePickerFormat(){
+        dateDatePicker.setConverter(new StringConverter<LocalDate>() {
+            String pattern = "yyyy-MM-dd";
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+
+            {
+                dateDatePicker.setPromptText(pattern.toLowerCase());
+            }
+
+            @Override public String toString(LocalDate date) {
+                if (date != null) {
+                    return dateFormatter.format(date);
+                } else {
+                    return "";
+                }
+            }
+
+            @Override public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()) {
+                    return LocalDate.parse(string, dateFormatter);
+                } else {
+                    return null;
+                }
+            }
+        });
     }
 }

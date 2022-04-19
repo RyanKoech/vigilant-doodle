@@ -440,7 +440,11 @@ public class PoliceAdminDashboardController implements Initializable {
     }
     @FXML
     void onDeletePolice(ActionEvent event) {
-
+        if(areTextFieldsEmpty(editPoliceTextFieldList)){
+            PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.WARNING), "Make Sure All Fields are Filled.");
+            return;
+        }
+        deletePolice();
     }
 
 

@@ -234,7 +234,7 @@ public class PoliceDashboardController implements Initializable {
                 statement.setString(2, reporterIdTextField.getText());
                 statement.setString(3, offenderNameTextField.getText());
                 statement.setString(4, locationTextField.getText());
-                statement.setString(5, dateTextField.getText());
+                statement.setString(5, dateDatePicker.getValue().toString());
                 statement.setString(6, timeTextField.getText());
                 statement.setString(7, descriptionTextArea.getText());
                 statement.setString(8, crimeTypetoCrimeIdMap.get(crimeTypeChoiceBox.getValue()).toString());
@@ -379,6 +379,10 @@ public class PoliceDashboardController implements Initializable {
     //Check if custodies choice box value is empty
     private  Boolean isCustodiesChoiceBoxValueEmpty(){
         return (custodyTypeChoiceBox.getValue() == null);
+    }
+
+    private Boolean isDatePickerValueEmpty(){
+        return dateDatePicker.getValue() == null;
     }
 
     //Sets ChoiceBox Items from the Database and Maps Crime types to  Type Id
@@ -623,5 +627,41 @@ public class PoliceDashboardController implements Initializable {
             }
         };
         datePicker.setDayCellFactory(dayCellFactory);
+        datePicker.focusedProperty().addListener((obs, oldVal, newVal) ->{
+
+            LocalDate enteredDate = datePicker.getValue();
+            LocalDate dateTime = LocalDate.now();
+            String enteredDateString = datePicker.getEditor().textProperty().get();
+            System.out.println(enteredDate);
+
+            DATE_PARSE_ERROR_CATCH:
+            if(!newVal && !enteredDateString.isEmpty()){
+                try{
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    dateTime = LocalDate.parse(enteredDateString, formatter);
+                }catch (Exception e){
+                    System.out.println(e.getMessage());
+                    PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), "Invalid Date Entered. It is be reset to to: " + enteredDate);
+                    datePicker.getEditor().textProperty().setValue(enteredDate.toString());
+                    newVal = true;
+                    break DATE_PARSE_ERROR_CATCH;
+                }
+                if (dateTime.isBefore(minDate)) {
+                    datePicker.getEditor().textProperty().setValue(minDate.toString());
+                    datePicker.setValue(maxDate);
+                    PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), "Invalid Date Entered. It is be reset to to: " + minDate);
+                } else if (dateTime.isAfter(maxDate)) {
+                    datePicker.getEditor().textProperty().setValue(maxDate.toString());
+                    datePicker.setValue(minDate);
+                    PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), "Invalid Date Entered. It is be reset to to: " + maxDate);
+                }else {
+                    datePicker.setValue(dateTime);
+                    System.out.println("Date has been updated to: " + datePicker.getValue());
+                }
+            }else if(enteredDateString.isEmpty()){
+                datePicker.setValue(null);
+                System.out.println("Date has been updated to: " + datePicker.getValue());
+            }
+        });
     }
 }

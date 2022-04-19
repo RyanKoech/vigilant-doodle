@@ -8,6 +8,7 @@
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.ScrollPane?>
@@ -224,14 +225,11 @@
                                 </HBox>
                                 <HBox layoutX="131.0" layoutY="318.0" maxWidth="-Infinity">
                                     <children>
-                                        <TextField fx:id="dateTextField" prefHeight="30.0" prefWidth="200.0" promptText="Date">
-                                            <HBox.margin>
-                                                <Insets right="70.0" />
-                                            </HBox.margin>
-                                            <font>
-                                                <Font size="13.0" />
-                                            </font>
-                                        </TextField>
+                              <DatePicker fx:id="dateDatePicker" prefHeight="30.0" prefWidth="200.0">
+                                 <HBox.margin>
+                                    <Insets right="70.0" />
+                                 </HBox.margin>
+                              </DatePicker>
                                         <TextField fx:id="timeTextField" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" promptText="Time">
                                             <font>
                                                 <Font size="13.0" />

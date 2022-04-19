@@ -850,6 +850,24 @@ public class PoliceAdminDashboardController implements Initializable {
         }
     }
 
+    private void deletePolice(){
+        Connection connection = MysqlConnector.connectDB();
+        if (connection != null) {
+            try {
+
+                PreparedStatement st = (PreparedStatement) connection.prepareStatement("UPDATE `police` SET `Password` = '', `Available` = 'false' WHERE `police`.`Police_Id` = ?");
+                st.setString(1, editPolicePoliceIdTextField.getText());
+
+                int res = st.executeUpdate();
+            } catch (SQLException ex) {
+                PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), ex.getMessage());
+                Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            System.out.println("The connection is not available");
+        }
+    }
+
     private void updatePolicePassword(){
         Connection connection = MysqlConnector.connectDB();
         if (connection != null) {

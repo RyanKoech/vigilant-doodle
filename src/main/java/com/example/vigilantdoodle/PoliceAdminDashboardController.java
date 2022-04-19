@@ -85,9 +85,6 @@ public class PoliceAdminDashboardController implements Initializable {
     private DatePicker dateDatePicker;
 
     @FXML
-    private TextField dateTextField;
-
-    @FXML
     private TextField timeTextField;
 
     @FXML
@@ -344,7 +341,7 @@ public class PoliceAdminDashboardController implements Initializable {
     @FXML
     void onReportCrime(ActionEvent event) {
 
-        if (areTextFieldsEmpty(reportingTextFieldList) || isReportingChoiceBoxValueEmpty() || isReportingTextAreaEmpty()) {
+        if (areTextFieldsEmpty(reportingTextFieldList) || isReportingChoiceBoxValueEmpty() || isReportingTextAreaEmpty() || isDatePickerValueEmpty()) {
             PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.WARNING), "Make Sure All Fields are Filled.");
             return;
         }
@@ -360,7 +357,7 @@ public class PoliceAdminDashboardController implements Initializable {
                 statement.setString(2, reporterIdTextField.getText());
                 statement.setString(3, offenderIdTextField.getText());
                 statement.setString(4, locationTextField.getText());
-                statement.setString(5, dateTextField.getText());
+                statement.setString(5, dateDatePicker.getValue().toString());
                 statement.setString(6, timeTextField.getText());
                 statement.setString(7, descriptionTextArea.getText());
                 statement.setString(8, crimeTypetoCrimeIdMap.get(crimeTypeChoiceBox.getValue()).toString());
@@ -594,7 +591,6 @@ public class PoliceAdminDashboardController implements Initializable {
         reportingTextFieldList.add(reporterIdTextField);
         reportingTextFieldList.add(offenderIdTextField);
         reportingTextFieldList.add(locationTextField);
-        reportingTextFieldList.add(dateTextField);
         reportingTextFieldList.add(timeTextField);
     }
 
@@ -616,6 +612,10 @@ public class PoliceAdminDashboardController implements Initializable {
     //Check if reporting case description ChoiceBox is empty
     private Boolean isReportingChoiceBoxValueEmpty() {
         return (crimeTypeChoiceBox.getValue() == null);
+    }
+
+    private Boolean isDatePickerValueEmpty(){
+        return dateDatePicker.getValue() == null;
     }
 
     //Reset the Reporting Tab Inputs

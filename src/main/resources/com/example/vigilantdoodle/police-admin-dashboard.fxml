@@ -182,11 +182,6 @@
                 </HBox>
                 <AnchorPane maxHeight="1.7976931348623157E308" prefHeight="1000.0" prefWidth="1500.0">
                     <children>
-                        <Pane prefHeight="576.0" prefWidth="707.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <styleClass>
-                                <String fx:value="left-innershadow" />
-                                <String fx:value="grey-background" />
-                            </styleClass></Pane>
                         <VBox fx:id="reportingTabVBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                                 <HBox layoutX="131.0" layoutY="285.0" maxWidth="-Infinity">
@@ -572,6 +567,33 @@
                             <Insets left="70.0" right="70.0" />
                          </padding>
                         </VBox>
+                        <VBox fx:id="statisticsTabVBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                                <ScrollPane fitToWidth="true" prefHeight="1000.0" prefWidth="1500.0" style="-fx-background-color: transparent;">
+                                    <content>
+                                        <VBox alignment="CENTER">
+                                            <children>
+                                                <LineChart fx:id="monthlyCasesLineChart" maxWidth="900.0" title="Monthly Cases Last 6 Months">
+                                                    <xAxis>
+                                                        <CategoryAxis side="BOTTOM" />
+                                                    </xAxis>
+                                                    <yAxis>
+                                                        <NumberAxis side="LEFT" />
+                                                    </yAxis>
+                                                </LineChart>
+                                            </children>
+                                        </VBox>
+                                    </content>
+                                    <padding>
+                                        <Insets left="30.0" right="30.0" top="30.0" />
+                                    </padding>
+                                </ScrollPane>
+                            </children>
+                     <styleClass>
+                        <String fx:value="grey-background" />
+                        <String fx:value="left-innershadow" />
+                     </styleClass>
+                        </VBox>
                         <VBox fx:id="dashboardTabVBox" alignment="TOP_CENTER" prefHeight="576.0" prefWidth="707.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                         <HBox maxWidth="850.0" prefHeight="126.0" prefWidth="642.0">
@@ -659,33 +681,6 @@
                                 <String fx:value="left-innershadow" />
                                 <String fx:value="grey-background" />
                             </styleClass>
-                        </VBox>
-                        <VBox fx:id="statisticsTabVBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" stylesheets="@styles/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <children>
-                                <ScrollPane fitToWidth="true" prefHeight="1000.0" prefWidth="1500.0" style="-fx-background-color: transparent;">
-                                    <content>
-                                        <VBox alignment="CENTER">
-                                            <children>
-                                                <LineChart fx:id="monthlyCasesLineChart" maxWidth="900.0" title="Monthly Cases Last 6 Months">
-                                                    <xAxis>
-                                                        <CategoryAxis side="BOTTOM" />
-                                                    </xAxis>
-                                                    <yAxis>
-                                                        <NumberAxis side="LEFT" />
-                                                    </yAxis>
-                                                </LineChart>
-                                            </children>
-                                        </VBox>
-                                    </content>
-                                    <padding>
-                                        <Insets left="30.0" right="30.0" top="30.0" />
-                                    </padding>
-                                </ScrollPane>
-                            </children>
-                     <styleClass>
-                        <String fx:value="grey-background" />
-                        <String fx:value="left-innershadow" />
-                     </styleClass>
                         </VBox>
                     </children>
                 </AnchorPane>

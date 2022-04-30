@@ -1,7 +1,9 @@
 package com.example.vigilantdoodle.utilities;
 
 import com.example.vigilantdoodle.ApplicationLogin;
+import com.example.vigilantdoodle.PoliceDashboardController;
 import com.example.vigilantdoodle.privates.PrivateData;
+import com.example.vigilantdoodle.ui_utilities.PopUpAlert;
 import com.example.vigilantdoodle.utilities.Data.emailInfo;
 
 import javax.mail.Message;
@@ -10,6 +12,11 @@ import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Properties;
@@ -46,7 +53,7 @@ public class SendEmail {
 
         Message message = prepareMessage(session, email, emailInfoMap);
         javax.mail.Transport.send(message);
-        System.out.println("Message Sent Successfully");
+        logEmailSending(emailInfoMap.get(emailInfo.RECIPIENT), emailInfoMap.get(emailInfo.EMAIL_TYPE));
     }
 
     //Prepare email to be sent
@@ -67,5 +74,29 @@ public class SendEmail {
             Logger.getLogger(ApplicationLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    private static void logEmailSending(String  recipientEmail, String emailType){
+        String pattern = "yyyy-MM-dd";
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+        String dateToday = dateFormatter.format(LocalDate.now());
+
+        Connection connection = MysqlConnector.connectDB();
+        if (connection != null) {
+            try {
+                PreparedStatement statement = (PreparedStatement) connection.prepareStatement("INSERT INTO `email logs` (`Id`, `Email_Type`, `Recipient_Address`, `Date`) VALUES (NULL, ?, ?, ?) ");
+                statement.setString(1, emailType);
+                statement.setString(2, recipientEmail);
+                statement.setString(3, dateToday);
+
+                int res = statement.executeUpdate();
+
+            } catch (SQLException ex) {
+                PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), ex.getMessage());
+                Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            System.out.println("The connection is not available");
+        }
     }
 }

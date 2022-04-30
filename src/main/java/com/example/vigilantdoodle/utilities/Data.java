@@ -6,10 +6,15 @@ public class Data {
     public static String POLICE_ID = "";
     public static double BASE_BAIL = 5000.0;
     public static enum emailInfo {
-        RECIPIENT, RECIPIENTNAME, OBID, REPORTDATE, REPORTTIME, EMAIL_BODY, EMAIL_SUBJECT, INVESTIGATING_OFFICER
+        RECIPIENT, RECIPIENTNAME, OBID, REPORTDATE, REPORTTIME, EMAIL_BODY, EMAIL_SUBJECT, INVESTIGATING_OFFICER, EMAIL_TYPE
     }
+
     public static enum FEEDBACK_MESSAGES{
         ERROR, WARNING, SUCCESS
+    }
+
+    public static enum EMAIL_TYPES{
+        CASE_CONFIRMATION, NEW_CASE_NOTIFICATION
     }
 
     public static String[] MONTHS = {"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};

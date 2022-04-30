@@ -922,6 +922,7 @@ public class PoliceAdminDashboardController implements Initializable {
                     emailInfoMap.put(Data.emailInfo.RECIPIENT, recipient);
                     emailInfoMap.put(Data.emailInfo.EMAIL_SUBJECT, Data.getReporterEmailSubject());
                     emailInfoMap.put(Data.emailInfo.EMAIL_BODY, Data.getReporterEmailBody(recipientName, reportDate, reportTime, obNumber));
+                    emailInfoMap.put(Data.emailInfo.EMAIL_TYPE, Data.EMAIL_TYPES.CASE_CONFIRMATION.toString());
 
                     SendEmail.notification(emailInfoMap);
                 }
@@ -973,6 +974,7 @@ public class PoliceAdminDashboardController implements Initializable {
                     emailInfoMap.put(Data.emailInfo.RECIPIENT, recipient);
                     emailInfoMap.put(Data.emailInfo.EMAIL_SUBJECT, Data.getInvestigatorEmailSubject());
                     emailInfoMap.put(Data.emailInfo.EMAIL_BODY, Data.getInvestigatorEmailBody(investigatorName, obNumber));
+                    emailInfoMap.put(Data.emailInfo.EMAIL_TYPE, Data.EMAIL_TYPES.NEW_CASE_NOTIFICATION.toString());
 
                     SendEmail.notification(emailInfoMap);
                 }

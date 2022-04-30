@@ -265,7 +265,7 @@ public class PoliceAdminDashboardController implements Initializable {
         createPoliceRoleMapping();
         createAddPoliceTextFieldList();
         createEditPoliceTextFieldList();
-        getMonthlyCases();
+        populateMonthlyCasesLineGraph();
         setDatePickerFormat();
     }
 
@@ -985,7 +985,7 @@ public class PoliceAdminDashboardController implements Initializable {
         }
     }
 
-    private void getMonthlyCases(){
+    private void populateMonthlyCasesLineGraph(){
         XYChart.Series series = new XYChart.Series();
         series.setName("Monthly Cases");
 

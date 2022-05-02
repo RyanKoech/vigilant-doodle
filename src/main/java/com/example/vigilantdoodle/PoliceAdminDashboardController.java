@@ -1073,6 +1073,8 @@ public class PoliceAdminDashboardController implements Initializable {
         XYChart.Series series = new XYChart.Series();
         series.setName("Totals of Crime Types");
 
+        crimeTypesBarGraph.setTitle("Crime Types Last "+ period +" Months");
+
         Connection connection = MysqlConnector.connectDB();
 
         if(connection != null){

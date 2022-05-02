@@ -233,6 +233,9 @@ public class PoliceAdminDashboardController implements Initializable {
     private ChoiceBox<Integer> monthlyCasesChoiceBox;
 
     @FXML
+    private ChoiceBox<Integer> crimeTypesMonthsChoiceBox;
+
+    @FXML
     private LineChart<String, Integer> monthlyCasesLineChart;
 
     @FXML
@@ -274,11 +277,16 @@ public class PoliceAdminDashboardController implements Initializable {
         createEditPoliceTextFieldList();
         populateMonthlyCasesLineGraph(6);
         setDatePickerFormat();
-        populateCrimeTypesBarGraph();
+        populateCrimeTypesBarGraph(6);
         loadMonthLimits(12, monthlyCasesChoiceBox);
+        loadMonthLimits(12, crimeTypesMonthsChoiceBox);
         monthlyCasesChoiceBox.getSelectionModel().selectedItemProperty().addListener((v , oldValue, newValue) -> {
             if(newValue == null) return;
             populateMonthlyCasesLineGraph(newValue);
+        });
+        crimeTypesMonthsChoiceBox.getSelectionModel().selectedItemProperty().addListener((v , oldValue, newValue) -> {
+            if(newValue == null) return;
+            populateCrimeTypesBarGraph(newValue);
         });
     }
 
@@ -1061,7 +1069,7 @@ public class PoliceAdminDashboardController implements Initializable {
         }
     }
 
-    private void populateCrimeTypesBarGraph(){
+    private void populateCrimeTypesBarGraph(int period){
         XYChart.Series series = new XYChart.Series();
         series.setName("Totals of Crime Types");
 
@@ -1069,7 +1077,7 @@ public class PoliceAdminDashboardController implements Initializable {
 
         if(connection != null){
             try {
-                PreparedStatement st = (PreparedStatement) connection.prepareStatement(" SELECT COUNT(`cases`.`OB_id`) totals, `crime types`.`Type` FROM `cases` JOIN `crime types` ON `cases`.`Crime_Type` = `crime types`.`Type_Id` where `cases`.`Date` > curdate() - interval (dayofmonth(curdate()) - 1) day - interval 6 month GROUP BY `cases`.`Crime_Type` ORDER BY YEAR(`Date`) DESC,MONTH(`Date`) DESC ");
+                PreparedStatement st = (PreparedStatement) connection.prepareStatement(" SELECT COUNT(`cases`.`OB_id`) totals, `crime types`.`Type` FROM `cases` JOIN `crime types` ON `cases`.`Crime_Type` = `crime types`.`Type_Id` where `cases`.`Date` > curdate() - interval (dayofmonth(curdate()) - 1) day - interval "+ period +" month GROUP BY `cases`.`Crime_Type` ORDER BY YEAR(`Date`) DESC,MONTH(`Date`) DESC ");
                 ResultSet res = st.executeQuery();
 
                 while (res.next()) {
@@ -1078,6 +1086,9 @@ public class PoliceAdminDashboardController implements Initializable {
                     series.getData().add(new XYChart.Data(crimeType, totals));
                 }
 
+                if(!series.getData().isEmpty()){
+                    crimeTypesBarGraph.getData().clear();
+                }
                 crimeTypesBarGraph.getData().add(series);
 
             } catch (Exception ex) {

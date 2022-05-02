@@ -574,6 +574,29 @@
                                             <children>
                                     <VBox>
                                        <children>
+                                          <HBox alignment="CENTER_LEFT">
+                                             <children>
+                                                <Label text="Select Period (Months): " textFill="#b2b2b2">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <ChoiceBox fx:id="monthlyCasesChoiceBox" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #ffffff; -fx-border-color: #F7F7F7; -fx-border-style: solid; -fx-border-width: 2px;">
+                                                   <effect>
+                                                      <InnerShadow choke="1.0" color="#2916ba7c" height="5.0" radius="2.0" width="5.0" />
+                                                   </effect>
+                                                </ChoiceBox>
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets bottom="15.0" />
+                                             </VBox.margin>
+                                             <padding>
+                                                <Insets left="20.0" />
+                                             </padding>
+                                          </HBox>
                                                       <LineChart fx:id="monthlyCasesLineChart" maxWidth="900.0" title="Monthly Cases Last 6 Months">
                                                           <xAxis>
                                                               <CategoryAxis side="BOTTOM" />

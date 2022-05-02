@@ -276,6 +276,10 @@ public class PoliceAdminDashboardController implements Initializable {
         setDatePickerFormat();
         populateCrimeTypesBarGraph();
         loadMonthLimits(12, monthlyCasesChoiceBox);
+        monthlyCasesChoiceBox.getSelectionModel().selectedItemProperty().addListener((v , oldValue, newValue) -> {
+            if(newValue == null) return;
+            populateMonthlyCasesLineGraph(newValue);
+        });
     }
 
     //Side Menu Navigation Button Actions

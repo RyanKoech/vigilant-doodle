@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXTreeTableView?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -571,14 +572,36 @@
                                     <content>
                                         <VBox alignment="CENTER">
                                             <children>
-                                                <LineChart fx:id="monthlyCasesLineChart" maxWidth="900.0" title="Monthly Cases Last 6 Months">
-                                                    <xAxis>
-                                                        <CategoryAxis side="BOTTOM" />
-                                                    </xAxis>
-                                                    <yAxis>
-                                                        <NumberAxis side="LEFT" />
-                                                    </yAxis>
-                                                </LineChart>
+                                    <VBox>
+                                       <children>
+                                                      <LineChart fx:id="monthlyCasesLineChart" maxWidth="900.0" title="Monthly Cases Last 6 Months">
+                                                          <xAxis>
+                                                              <CategoryAxis side="BOTTOM" />
+                                                          </xAxis>
+                                                          <yAxis>
+                                                              <NumberAxis side="LEFT" />
+                                                          </yAxis>
+                                                      </LineChart>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets bottom="30.0" />
+                                       </VBox.margin>
+                                    </VBox>
+                                    <VBox>
+                                       <children>
+                                          <BarChart fx:id="crimeTypesBarGraph" barGap="2.0" title="Crime Types Last 6 Months">
+                                            <xAxis>
+                                              <CategoryAxis side="BOTTOM" />
+                                            </xAxis>
+                                            <yAxis>
+                                              <NumberAxis side="LEFT" />
+                                            </yAxis>
+                                          </BarChart>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets bottom="30.0" />
+                                       </VBox.margin>
+                                    </VBox>
                                             </children>
                                         </VBox>
                                     </content>

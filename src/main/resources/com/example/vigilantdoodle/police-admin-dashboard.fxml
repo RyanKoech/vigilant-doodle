@@ -572,7 +572,7 @@
                                     <content>
                                         <VBox alignment="CENTER">
                                             <children>
-                                    <VBox>
+                                    <VBox alignment="CENTER">
                                        <children>
                                           <HBox alignment="CENTER_LEFT">
                                              <children>
@@ -610,7 +610,7 @@
                                           <Insets bottom="30.0" />
                                        </VBox.margin>
                                     </VBox>
-                                    <VBox>
+                                    <VBox alignment="CENTER">
                                        <children>
                                           <HBox alignment="CENTER_LEFT">
                                              <children>

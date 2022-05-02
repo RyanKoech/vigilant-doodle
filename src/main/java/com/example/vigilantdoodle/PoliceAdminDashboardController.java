@@ -272,7 +272,7 @@ public class PoliceAdminDashboardController implements Initializable {
         createPoliceRoleMapping();
         createAddPoliceTextFieldList();
         createEditPoliceTextFieldList();
-        populateMonthlyCasesLineGraph();
+        populateMonthlyCasesLineGraph(6);
         setDatePickerFormat();
         populateCrimeTypesBarGraph();
         loadMonthLimits(12, monthlyCasesChoiceBox);
@@ -994,7 +994,7 @@ public class PoliceAdminDashboardController implements Initializable {
         }
     }
 
-    private void populateMonthlyCasesLineGraph(){
+    private void populateMonthlyCasesLineGraph(int period){
         XYChart.Series series = new XYChart.Series();
         series.setName("Monthly Cases");
 
@@ -1002,11 +1002,12 @@ public class PoliceAdminDashboardController implements Initializable {
 
         if(connection != null){
             try {
-                PreparedStatement st = (PreparedStatement) connection.prepareStatement("SELECT YEAR(`Date`) Year,MONTH(`Date`) Month,COUNT(`OB_id`) Total_Cases FROM `cases` GROUP BY YEAR(`Date`),MONTH(`Date`) ORDER BY YEAR(`Date`) DESC,MONTH(`Date`) DESC ");
+                PreparedStatement st = (PreparedStatement) connection.prepareStatement("SELECT YEAR(`Date`) Year,MONTH(`Date`) Month,COUNT(`OB_id`) Total_Cases FROM `cases` GROUP BY YEAR(`Date`),MONTH(`Date`) ORDER BY YEAR(`Date`) DESC,MONTH(`Date`) DESC LIMIT " + period);
+
                 ResultSet res = st.executeQuery();
 
                 if (res.next()) {
-                    int count = 5;
+                    int count = period-1;
                     boolean innerWhileRan = false;
                     int year = parseInt(res.getString("Year"));
                     int month = parseInt(res.getString("Month"));

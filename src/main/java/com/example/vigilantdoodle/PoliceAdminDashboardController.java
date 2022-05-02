@@ -19,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
@@ -231,6 +232,9 @@ public class PoliceAdminDashboardController implements Initializable {
     @FXML
     private LineChart<String, Integer> monthlyCasesLineChart;
 
+    @FXML
+    private BarChart<String, Integer> crimeTypesBarGraph;
+
     //NON FXML PROPERTIES
     private final Map crimeTypetoCrimeIdMap = new HashMap();
 
@@ -267,6 +271,7 @@ public class PoliceAdminDashboardController implements Initializable {
         createEditPoliceTextFieldList();
         populateMonthlyCasesLineGraph();
         setDatePickerFormat();
+        populateCrimeTypesBarGraph();
     }
 
     //Side Menu Navigation Button Actions
@@ -1035,6 +1040,31 @@ public class PoliceAdminDashboardController implements Initializable {
                     }
                     monthlyCasesLineChart.getData().add(series);
                 }
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    private void populateCrimeTypesBarGraph(){
+        XYChart.Series series = new XYChart.Series();
+        series.setName("Totals of Crime Types");
+
+        Connection connection = MysqlConnector.connectDB();
+
+        if(connection != null){
+            try {
+                PreparedStatement st = (PreparedStatement) connection.prepareStatement(" SELECT COUNT(`cases`.`OB_id`) totals, `crime types`.`Type` FROM `cases` JOIN `crime types` ON `cases`.`Crime_Type` = `crime types`.`Type_Id` where `cases`.`Date` > curdate() - interval (dayofmonth(curdate()) - 1) day - interval 6 month GROUP BY `cases`.`Crime_Type` ORDER BY YEAR(`Date`) DESC,MONTH(`Date`) DESC ");
+                ResultSet res = st.executeQuery();
+
+                while (res.next()) {
+                    String crimeType = res.getString("Type");
+                    int totals = parseInt(res.getString("totals"));
+                    series.getData().add(new XYChart.Data(crimeType, totals));
+                }
+
+                crimeTypesBarGraph.getData().add(series);
 
             } catch (Exception ex) {
                 ex.printStackTrace();

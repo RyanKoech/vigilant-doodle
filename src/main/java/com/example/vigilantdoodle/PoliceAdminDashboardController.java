@@ -230,6 +230,9 @@ public class PoliceAdminDashboardController implements Initializable {
     private VBox statisticsTabVBox;
 
     @FXML
+    private ChoiceBox<Integer> monthlyCasesChoiceBox;
+
+    @FXML
     private LineChart<String, Integer> monthlyCasesLineChart;
 
     @FXML
@@ -272,6 +275,7 @@ public class PoliceAdminDashboardController implements Initializable {
         populateMonthlyCasesLineGraph();
         setDatePickerFormat();
         populateCrimeTypesBarGraph();
+        loadMonthLimits(12, monthlyCasesChoiceBox);
     }
 
     //Side Menu Navigation Button Actions
@@ -1157,5 +1161,13 @@ public class PoliceAdminDashboardController implements Initializable {
                 System.out.println("Date has been updated to: " + datePicker.getValue());
             }
         });
+    }
+
+    public void loadMonthLimits(int upperLimit, ChoiceBox chioceBox){
+        int lowerLimit = 6;
+        while (lowerLimit <= upperLimit){
+            chioceBox.getItems().add(lowerLimit);
+            lowerLimit++;
+        }
     }
 }

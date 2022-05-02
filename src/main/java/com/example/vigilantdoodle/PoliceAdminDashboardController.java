@@ -1002,6 +1002,8 @@ public class PoliceAdminDashboardController implements Initializable {
         XYChart.Series series = new XYChart.Series();
         series.setName("Monthly Cases");
 
+        monthlyCasesLineChart.setTitle("Monthly Cases Last " + period + " Months");
+
         Connection connection = MysqlConnector.connectDB();
 
         if(connection != null){
@@ -1046,6 +1048,9 @@ public class PoliceAdminDashboardController implements Initializable {
                             series.getData().add(new XYChart.Data(year + " " + Data.MONTHS[month-1], totalCases));
                         }
                         if(!innerWhileRan) count--;
+                    }
+                    if(!series.getData().isEmpty()){
+                        monthlyCasesLineChart.getData().clear();
                     }
                     monthlyCasesLineChart.getData().add(series);
                 }

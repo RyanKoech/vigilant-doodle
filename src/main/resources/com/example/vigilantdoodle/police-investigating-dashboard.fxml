@@ -221,7 +221,7 @@
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </Label>
-                              <Label fx:id="crimeTypeLabel" text="Crime_Type" textFill="#003194">
+                              <Label fx:id="crimeTypeLabel" textFill="#003194">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
                                  </font>
@@ -244,7 +244,7 @@
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </Label>
-                              <Label fx:id="suspectNameLabel" text="Suspect Name" textFill="#003194">
+                              <Label fx:id="suspectNameLabel" textFill="#003194">
                                  <font>
                                     <Font name="System Bold" size="17.0" />
                                  </font>
@@ -267,7 +267,7 @@
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </Label>
-                              <Label fx:id="dateLabel" text="1/1/1111" textFill="#003194">
+                              <Label fx:id="dateLabel" textFill="#003194">
                                  <font>
                                     <Font name="System Bold" size="17.0" />
                                  </font>
@@ -290,7 +290,7 @@
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </Label>
-                              <Label fx:id="timeLabel" text="00:00" textFill="#003194">
+                              <Label fx:id="timeLabel" textFill="#003194">
                                  <font>
                                     <Font name="System Bold" size="17.0" />
                                  </font>
@@ -313,7 +313,7 @@
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </Label>
-                              <Label fx:id="locationLabel" text="Some Location" textFill="#003194">
+                              <Label fx:id="locationLabel" textFill="#003194">
                                  <font>
                                     <Font name="System Bold" size="17.0" />
                                  </font>

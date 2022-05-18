@@ -44,6 +44,8 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static java.lang.Integer.parseInt;
+
 public class PoliceDashboardController implements Initializable {
 
     @FXML
@@ -232,6 +234,9 @@ public class PoliceDashboardController implements Initializable {
 
         String investigatorId = getLeastOccupiedPolice();
         String obId = "";
+        String offenderId = offenderNameTextField.getText();
+
+        handleOffenders(offenderId);
 
         Connection connection = MysqlConnector.connectDB();
         if (connection != null) {
@@ -239,7 +244,7 @@ public class PoliceDashboardController implements Initializable {
                 PreparedStatement statement = (PreparedStatement) connection.prepareStatement("INSERT INTO `cases` (`OB_id`, `Police_Id`, `Reporter_Id`, `Offender_Id`, `Location`, `Date`, `Time`, `Description`, `Crime_Type`, `Investigator_Id`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?); SELECT LAST_INSERT_ID() AS id;");
                 statement.setString(1, Data.POLICE_ID);
                 statement.setString(2, reporterIdTextField.getText());
-                statement.setString(3, offenderNameTextField.getText());
+                statement.setString(3, offenderId);
                 statement.setString(4, locationTextField.getText());
                 statement.setString(5, dateDatePicker.getValue().toString());
                 statement.setString(6, timeTextField.getText());
@@ -810,6 +815,77 @@ public class PoliceDashboardController implements Initializable {
                 int res = statement.executeUpdate();
 
             } catch (SQLException ex) {
+                PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), ex.getMessage());
+                Logger.getLogger(PoliceInvestigatingDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            System.out.println("The connection is not available");
+        }
+    }
+
+    private void handleOffenders(String offenderId) {
+        Connection connection = MysqlConnector.connectDB();
+        if (connection != null) {
+            try {
+
+                PreparedStatement st = (PreparedStatement) connection.prepareStatement("SELECT `National_Id`, `Offence_Count`, `Custody_Id` FROM `offenders` WHERE National_Id = ?");
+                st.setString(1, offenderId);
+                ResultSet res = st.executeQuery();
+
+                if (res.next()) {
+                    System.out.println("This Ran");
+                    int offencesCount = parseInt(res.getString("Offence_Count"));
+                    updateOffencesCount(offencesCount, offenderId);
+                }else{
+                    System.out.println("This Ran Else");
+                    addNewOffender(offenderId);
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            System.out.println("The connection is not available");
+        }
+    }
+
+    private void updateOffencesCount(int offencesCount, String offenderId){
+        offencesCount++;
+        Connection connection = MysqlConnector.connectDB();
+        if(connection != null){
+            try {
+
+                PreparedStatement statement = (PreparedStatement)connection.prepareStatement ("UPDATE `offenders` SET `Offence_Count`=?,`Custody_Id`=? WHERE `National_Id`=?");
+                statement.setString(1, String.valueOf(offencesCount));
+                statement.setString(2, "2");
+                statement.setString(3, offenderId);
+
+                int res = statement.executeUpdate();
+
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), ex.getMessage());
+                Logger.getLogger(PoliceInvestigatingDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            System.out.println("The connection is not available");
+        }
+    }
+
+    private void addNewOffender(String offenderId){
+        Connection connection = MysqlConnector.connectDB();
+        if(connection != null){
+            try {
+
+                PreparedStatement statement = (PreparedStatement)connection.prepareStatement ("INSERT INTO `offenders`(`National_Id`, `Offence_Count`, `Custody_Id`) VALUES (?,?,?)");
+                statement.setString(1, offenderId);
+                statement.setString(2, "1");
+                statement.setString(3, "2");
+
+                int res = statement.executeUpdate();
+
+            } catch (SQLException ex) {
+                ex.printStackTrace();
                 PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), ex.getMessage());
                 Logger.getLogger(PoliceInvestigatingDashboardController.class.getName()).log(Level.SEVERE, null, ex);
             }

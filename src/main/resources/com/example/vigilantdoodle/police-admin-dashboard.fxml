@@ -314,7 +314,7 @@
                                                 <Insets right="15.0" />
                                             </HBox.margin>
                                         </Label>
-                                        <Label fx:id="suspectNameLabel" text="John Doe">
+                                        <Label fx:id="suspectNameLabel">
                                             <font>
                                                 <Font size="15.0" />
                                             </font>
@@ -334,7 +334,7 @@
                                                 <Insets right="15.0" />
                                             </HBox.margin>
                                         </Label>
-                                        <Label fx:id="currentCustodyLabel" text="Released">
+                                        <Label fx:id="currentCustodyLabel">
                                             <font>
                                                 <Font size="15.0" />
                                             </font>
@@ -374,7 +374,7 @@
                                                 <Insets right="15.0" />
                                             </HBox.margin>
                                         </Label>
-                                        <Label fx:id="bailFeeLabel" text="15,000 Kenya Shillings" textFill="#00d74f">
+                                        <Label fx:id="bailFeeLabel" text="0 Kenya Shillings" textFill="#00d74f">
                                             <font>
                                                 <Font name="System Bold" size="15.0" />
                                             </font>

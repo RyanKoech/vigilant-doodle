@@ -713,7 +713,7 @@ public class PoliceAdminDashboardController implements Initializable {
                     _bailIndex = Double.parseDouble(res.getString("bail_index"));
                     suspectNameLabel.setText(res.getString("Name"));
                     currentCustodyLabel.setText(_currentCustody);
-                    bailFeeLabel.setText(String.valueOf(_bailIndex *Data.BASE_BAIL));
+                    bailFeeLabel.setText((_bailIndex *Data.BASE_BAIL) + " Kenyan Shillings");
                     _offenderId = res.getString("Offender_Id");
                 }
                 //To enable the user to be able to click in the update button

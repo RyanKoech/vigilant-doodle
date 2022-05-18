@@ -102,7 +102,7 @@
          <children>
             <HBox alignment="CENTER_LEFT" minHeight="125.0" prefHeight="138.0" prefWidth="725.0" style="-fx-background-color: #fff10b;" styleClass="left-innershadow" stylesheets="@styles/styles.css">
                <children>
-                  <Label fx:id="welcomeBannerLabel" minWidth="200.0" text="Inpsector John Doe">
+                  <Label fx:id="welcomeBannerLabel" minWidth="400.0" text="Inpsector John Doe">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -257,7 +257,7 @@
                                     <Insets right="15.0" />
                                  </HBox.margin>
                               </Label>
-                              <Label fx:id="suspectNameLabel" text="John Doe">
+                              <Label fx:id="suspectNameLabel">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -277,7 +277,7 @@
                                     <Insets right="15.0" />
                                  </HBox.margin>
                               </Label>
-                              <Label fx:id="currentCustodyLabel" text="Released">
+                              <Label fx:id="currentCustodyLabel">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -317,7 +317,7 @@
                                     <Insets right="15.0" />
                                  </HBox.margin>
                               </Label>
-                              <Label fx:id="bailFeeLabel" text="15,000 Kenya Shillings" textFill="#00d74f">
+                              <Label fx:id="bailFeeLabel" text="0 Kenya Shillings" textFill="#00d74f">
                                  <font>
                                     <Font name="System Bold" size="15.0" />
                                  </font>
@@ -346,13 +346,13 @@
                         </Label>
                         <JFXTreeTableView fx:id="dashboardTableView" maxWidth="850.0" prefHeight="420.0" prefWidth="628.0">
                            <columns>
-                              <TreeTableColumn fx:id="obIdTableColumn" minWidth="57.0" prefWidth="57.0" text="OB Id" />
-                              <TreeTableColumn fx:id="reporterNameTableColumn" minWidth="147.0" prefWidth="147.0" text="Reporter Name" />
-                              <TreeTableColumn fx:id="offenderNameTableColumn" minWidth="147.0" prefWidth="147.0" text="Offender Name" />
-                              <TreeTableColumn fx:id="locationTableColumn" minWidth="123.0" prefWidth="123.0" text="Location" />
-                              <TreeTableColumn fx:id="dateTableColumn" minWidth="61.0" prefWidth="61.0" text="Date" />
-                              <TreeTableColumn fx:id="timeTableColumn" minWidth="50.0" prefWidth="50.0" text="Time" />
-                              <TreeTableColumn fx:id="crimeTypeTableColumn" minWidth="61.0" prefWidth="61.0" text="Crime" />
+                              <TreeTableColumn fx:id="obIdTableColumn" minWidth="51.0" prefWidth="30.0" text="OB Id" />
+                              <TreeTableColumn fx:id="reporterNameTableColumn" minWidth="90.0" prefWidth="96.0" text="Reporter Name" />
+                              <TreeTableColumn fx:id="offenderNameTableColumn" minWidth="98.0" prefWidth="101.0" text="Offender Name" />
+                              <TreeTableColumn fx:id="locationTableColumn" minWidth="123.0" prefWidth="142.0" text="Location" />
+                              <TreeTableColumn fx:id="dateTableColumn" minWidth="48.0" prefWidth="66.0" text="Date" />
+                              <TreeTableColumn fx:id="timeTableColumn" minWidth="36.0" prefWidth="60.0" text="Time" />
+                              <TreeTableColumn fx:id="crimeTypeTableColumn" minWidth="44.0" prefWidth="124.0" text="Crime" />
                            </columns>
                            <columnResizePolicy>
                               <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

@@ -1118,7 +1118,7 @@ public class PoliceAdminDashboardController implements Initializable {
 
         if(connection != null){
             try {
-                PreparedStatement st = (PreparedStatement) connection.prepareStatement(" SELECT COUNT(`cases`.`OB_id`) totals, `crime types`.`Type` FROM `cases` JOIN `crime types` ON `cases`.`Crime_Type` = `crime types`.`Type_Id` where `cases`.`Date` > curdate() - interval (dayofmonth(curdate()) - 1) day - interval "+ period +" month GROUP BY `cases`.`Crime_Type` ORDER BY YEAR(`Date`) DESC,MONTH(`Date`) DESC ");
+                PreparedStatement st = (PreparedStatement) connection.prepareStatement(" SELECT COUNT(`cases`.`OB_id`) totals, `crime types`.`Type` FROM `cases` JOIN `crime types` ON `cases`.`Crime_Type` = `crime types`.`Type_Id` where `cases`.`Date` > curdate() - interval (dayofmonth(curdate()) - 1) day - interval "+ period +" month GROUP BY `cases`.`Crime_Type` ORDER BY  totals ASC");
                 ResultSet res = st.executeQuery();
 
                 while (res.next()) {

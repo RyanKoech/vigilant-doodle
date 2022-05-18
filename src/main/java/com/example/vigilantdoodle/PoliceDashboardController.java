@@ -269,6 +269,11 @@ public class PoliceDashboardController implements Initializable {
                     hasMoreResultSets = statement.getMoreResults();
                 }
 
+                try {
+                    bookCourtCase(obId);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 sendReporterEmail(obId);
                 sendInvestigatorEmail(investigatorId, obId);
                 PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.SUCCESS), "Crime Reported Successfully");
@@ -757,6 +762,58 @@ public class PoliceDashboardController implements Initializable {
                 Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
+            System.out.println("The connection is not available");
+        }
+    }
+
+    private void bookCourtCase(String obId)  throws Exception{
+        String url = "https://run.mocky.io/v3/f7dfe703-aeec-4465-9025-8f7bfaf12ba3";
+
+        URL obj = new URL(url);
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+        // optional default is GET
+        con.setRequestMethod("GET");
+
+        //add request header
+        con.setRequestProperty("User-Agent", "Mozilla/5.0");
+        int responseCode = con.getResponseCode();
+        if(responseCode != 200){
+            throw new Exception("Error: " + responseCode);
+        }
+
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+
+        //Read JSON response
+        JSONObject myResponse = new JSONObject(response.toString());
+        String date = myResponse.getString("bookedDate");
+        String periodStart = myResponse.getString("period-start");
+        String periodEnd = myResponse.getString("period-end");
+
+        Connection connection = MysqlConnector.connectDB();
+        if(connection != null){
+            try {
+
+                PreparedStatement statement = (PreparedStatement)connection.prepareStatement ("INSERT INTO `booking logs` (`Log_Id`, `OB_Id`, `Booked_Date`, `Period_Start`, `Period_End`) VALUES (NULL, ?, ?, ?, ?) ");
+                statement.setString(1, obId);
+                statement.setString(2, date);
+                statement.setString(3, periodStart);
+                statement.setString(4, periodEnd);
+
+                int res = statement.executeUpdate();
+
+            } catch (SQLException ex) {
+                PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), ex.getMessage());
+                Logger.getLogger(PoliceInvestigatingDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
             System.out.println("The connection is not available");
         }
     }

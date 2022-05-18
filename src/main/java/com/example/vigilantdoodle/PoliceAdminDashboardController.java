@@ -28,8 +28,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
+import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -254,7 +258,13 @@ public class PoliceAdminDashboardController implements Initializable {
 
     private final EnumMap<policeRoleEnum, String> policeRoleMapping = new EnumMap<>(policeRoleEnum.class);
 
-    private String offenderId;
+    private String _offenderId;
+
+    private double _bailIndex;
+
+    private String _currentCustody;
+
+    private String _obId;
 
     private enum policeRoleEnum {
         POLICE, ADMIN
@@ -435,7 +445,9 @@ public class PoliceAdminDashboardController implements Initializable {
             PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.WARNING), "Make Sure All Fields are Filled.");
             return;
         }
-        updateCustody(offenderId);
+        boolean confirm = ConfirmBox.displayConfirmBox(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.WARNING), "Are you sure you want to change the suspect custody status?");
+        if (!confirm) return;
+        updateCustody(_offenderId);
     }
 
     @FXML
@@ -686,21 +698,23 @@ public class PoliceAdminDashboardController implements Initializable {
 
     //Fetches and Loads Suspect's Records from the Database to the View
     private void getSuspectCustodyRecords(String obNumber) {
+        _obId = obNumber;
         Connection connection = MysqlConnector.connectDB();
 
-        if (connection != null) {
+        if(connection != null){
             try {
-                PreparedStatement st = (PreparedStatement) connection.prepareStatement("SELECT cases.Offender_Id, citizens.Name, `custody types`.`Custody_Type`, `custody types`.`bail_index` FROM cases INNER JOIN citizens ON cases.Offender_Id = citizens.`National ID` INNER JOIN offenders ON cases.Offender_Id = offenders.National_Id INNER JOIN `custody types` ON offenders.Custody_Id = `custody types`.`Type_Id` WHERE cases.OB_id = ?");
+                PreparedStatement st = (PreparedStatement) connection.prepareStatement("SELECT cases.Offender_Id, citizens.Name, `custody types`.`Custody_Type`, `crime types`.`bail_index` FROM cases INNER JOIN citizens ON cases.Offender_Id = citizens.`National ID` INNER JOIN offenders ON cases.Offender_Id = offenders.National_Id INNER JOIN `custody types` ON offenders.Custody_Id = `custody types`.`Type_Id` INNER JOIN `crime types` ON cases.Crime_Type = `crime types`.`Type_Id` WHERE cases.OB_id = ?");
                 st.setString(1, obNumber);
                 ResultSet res = st.executeQuery();
 
                 if (res.next()) {
 
-                    double bailIndex = Double.parseDouble(res.getString("bail_index"));
+                    _currentCustody = res.getString("Custody_Type");
+                    _bailIndex = Double.parseDouble(res.getString("bail_index"));
                     suspectNameLabel.setText(res.getString("Name"));
-                    currentCustodyLabel.setText(res.getString("Custody_Type"));
-                    bailFeeLabel.setText(String.valueOf(bailIndex * Data.BASE_BAIL));
-                    offenderId = res.getString("Offender_Id");
+                    currentCustodyLabel.setText(_currentCustody);
+                    bailFeeLabel.setText(String.valueOf(_bailIndex *Data.BASE_BAIL));
+                    _offenderId = res.getString("Offender_Id");
                 }
                 //To enable the user to be able to click in the update button
                 updateCustodyButton.setDisable(false);
@@ -717,21 +731,46 @@ public class PoliceAdminDashboardController implements Initializable {
     }
 
     //Updates Suspect Custody Status into the Database
-    private void updateCustody(String offenderId) {
+    private void updateCustody(String offenderId){
+
+        String newCustody = custodyTypeChoiceBox.getValue();
+        System.out.println(newCustody + " " + _currentCustody);
+        if(Objects.equals(newCustody, _currentCustody)){
+            PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.WARNING), "New custody status Should be different from current custody status");
+            return;
+        }
+
+        if(Objects.equals(newCustody, "Released")){
+            boolean isPaymentMade = false;
+
+            try {
+                isPaymentMade = getBailPayment();
+            } catch (Exception e) {
+                PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), e.getMessage());
+            }
+
+            if(!isPaymentMade){
+                PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.WARNING), "Update unsuccessful as the payment has not been performed.");
+                return;
+            }
+            logBails();
+        }
+
         Connection connection = MysqlConnector.connectDB();
-        if (connection != null) {
+        if(connection != null){
             try {
 
-                PreparedStatement st = (PreparedStatement) connection.prepareStatement("UPDATE `offenders` SET `Custody_Id` = ? WHERE `offenders`.`National_Id` = ?");
+                PreparedStatement st = (PreparedStatement)connection.prepareStatement ("UPDATE `offenders` SET `Custody_Id` = ? WHERE `offenders`.`National_Id` = ?");
                 st.setString(1, custodyTypetoCustodyIdMap.get(custodyTypeChoiceBox.getValue()).toString());
                 st.setString(2, offenderId);
                 int res = st.executeUpdate();
 
+                PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.SUCCESS), "Custody Updated Successfully.");
             } catch (SQLException ex) {
-                PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), ex.getMessage());
                 Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+                PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), ex.getMessage());
             }
-        } else {
+        }else{
             System.out.println("The connection is not available");
         }
     }
@@ -1191,6 +1230,69 @@ public class PoliceAdminDashboardController implements Initializable {
         while (lowerLimit <= upperLimit){
             chioceBox.getItems().add(lowerLimit);
             lowerLimit++;
+        }
+    }
+
+
+    private boolean getBailPayment() throws Exception{
+        String url = "https://run.mocky.io/v3/215ff84e-623c-404c-ae1c-246c18585e9f";
+        if(Math.random() > 0.5){
+            url = "https://run.mocky.io/v3/1aa9b088-8787-4f0e-aa33-417b89febeff";
+        }
+        URL obj = new URL(url);
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+        // optional default is GET
+        con.setRequestMethod("GET");
+
+        //add request header
+        con.setRequestProperty("User-Agent", "Mozilla/5.0");
+        int responseCode = con.getResponseCode();
+        if(responseCode != 200){
+            throw new Exception("Error: " + responseCode);
+        }
+
+        //System.out.println("\nSending 'GET' request to URL : " + url);
+        //System.out.println("Response Code : " + responseCode);
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+
+        //print in String
+        System.out.println(response.toString());
+
+        //Read JSON response
+        JSONObject myResponse = new JSONObject(response.toString());
+        return myResponse.getInt("transactionStatus") == 200;
+    }
+
+    private void logBails(){
+
+        String pattern = "yyyy-MM-dd";
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+        String today = dateFormatter.format(LocalDate.now());
+
+        Connection connection = MysqlConnector.connectDB();
+        if (connection != null) {
+            try {
+                PreparedStatement statement = (PreparedStatement) connection.prepareStatement("INSERT INTO `bails` (`Transaction_Id`, `Amount`, `OB_Id`, `Date`) VALUES (NULL, ?, ?, ?) ");
+                statement.setString(1, String.valueOf((_bailIndex * Data.BASE_BAIL)));
+                statement.setString(2, _obId);
+                statement.setString(3, today);
+
+                int res = statement.executeUpdate();
+
+            } catch (SQLException ex) {
+                PopUpAlert.displayPopUpAlert(Data.FEEDBACK_STRINGS.get(Data.FEEDBACK_MESSAGES.ERROR), ex.getMessage());
+                Logger.getLogger(PoliceDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            System.out.println("The connection is not available");
         }
     }
 }

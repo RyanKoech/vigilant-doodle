@@ -293,7 +293,7 @@
                         </HBox>
                         <HBox layoutX="131.0" layoutY="283.0" maxWidth="-Infinity">
                            <children>
-                              <TextField fx:id="offenderNameTextField" prefHeight="30.0" prefWidth="200.0" promptText="Offender Name">
+                              <TextField fx:id="offenderNameTextField" prefHeight="30.0" prefWidth="200.0" promptText="Offender ID">
                                  <HBox.margin>
                                     <Insets right="70.0" />
                                  </HBox.margin>

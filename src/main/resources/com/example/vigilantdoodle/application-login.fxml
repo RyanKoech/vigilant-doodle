@@ -63,10 +63,13 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Label text="Username" textFill="#003194">
+                  <Label text="Police ID" textFill="#003194">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets right="8.0" />
+                     </HBox.margin>
                   </Label>
                   <TextField fx:id="obNumberTextfield" />
                </children>
